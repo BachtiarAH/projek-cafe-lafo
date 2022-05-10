@@ -1826,6 +1826,10 @@ public class MainJframe extends javax.swing.JFrame {
         DisplayerDbLafo.tabel(sql, headerTabelSuplier, jTableSuplier);
     }
     
+    private void tampilDataMenu(){
+        
+    }
+    
     // navigasi
     private void panelNavigasiBarComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelNavigasiBarComponentMoved
         // TODO add your handling code here:
