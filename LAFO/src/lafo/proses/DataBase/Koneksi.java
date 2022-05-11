@@ -11,7 +11,7 @@ public class Koneksi {
     
     //variabel for database connection
     static String port = "3306";
-    static String DataBase = "s2_cafe_lafo_v2";
+    static String DataBase = "db_lafo";
     static String url = "jdbc:mysql://localhost:"+port+"/"+DataBase;
     static String user = "root";
     static String password = "";
