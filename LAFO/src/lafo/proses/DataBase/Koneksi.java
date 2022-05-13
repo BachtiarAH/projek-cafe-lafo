@@ -3,19 +3,26 @@ package lafo.proses.DataBase;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lafo.proses.FileDBConfigHandler;
 
 
 public class Koneksi {
     
+    //instansiasi objek
+    FileDBConfigHandler sourceConfig = new FileDBConfigHandler("confiDB.txt");
+    
     public static java.sql.Connection conn;
     
     //variabel for database connection
-    static String port = "3306";
-    static String DataBase = "db_lafo";
-    static String url = "jdbc:mysql://localhost:"+port+"/"+DataBase;
-    static String user = "root";
-    static String password = "";
-     
+    String port = "3306";
+    String ip = sourceConfig.getIpServer();
+    String DataBase = sourceConfig.getDBName();
+    String url = "jdbc:mysql://"+ip+":"+port+"/"+DataBase;
+    String user = sourceConfig.getUsername();
+    String password = sourceConfig.getPassword();
+
+   
+
     static{
         try{
 //            DriverManager = new DriverManager()
@@ -60,11 +67,17 @@ public class Koneksi {
         
         
         
-        String sql = "SELECT * FROM `penngguna`";
+//        String sql = "SELECT * FROM `penngguna`";
         
         //open connection
         
-       
+       Koneksi k = new Koneksi();
+        
+        System.out.println(k.ip);
+        System.out.println(k.DataBase);
+        System.out.println(k.url);
+        System.out.println(k.user);
+        System.out.println(k.password);
             
         
     }
