@@ -2110,16 +2110,7 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         Utility.setSideBar(panel_ContenContainer, Users);
 //        tabelUser();
-        String sql= "SELECT "
-                + "`Id_Pegawai`, "
-                + "`Nama_Pegawai`, "
-                + "`Gender`, "
-                + "`Alamat`, "
-                + "`No_Hp`, "
-                + "`Status_pengguna`, "
-                + "`Tanggal_Terdaftar`, "
-                + "`kode_hak_akses` "
-                + "FROM `penngguna` WHERE 1";
+        String sql= "SELECT * FROM `pegawai`";
         String[] header = {"ID","Nama","Gender","Alamt","No Hp","Status","gabung","hak akses"};
         DisplayerDbLafo.tabel(sql, header, jTableUser);
                 
