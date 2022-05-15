@@ -5,6 +5,7 @@ package lafo.proses.DataBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +29,7 @@ private String[] field;
             pst.execute();
         }catch(SQLException SQLe){
             System.out.println("gagal eksekusi sql: "+SQLe);
+            JOptionPane.showMessageDialog(null, SQLe);
         }finally{
             if (CloseAfterExecute) {
                 koneksi.connectionClose();

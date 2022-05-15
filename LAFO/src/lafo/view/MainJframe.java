@@ -24,6 +24,7 @@ import lafo.entity.dataSuplier;
 import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
 import lafo.proses.DataBase.DataBaseOperator;
+import lafo.view.PopUp.Barang.PopUpTambahBarang;
 import lafo.view.PopUp.Kasir.Kasir_enter;
 
 /**
@@ -794,6 +795,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtornTambah.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtornTambah.setText("Tambah");
         ButtornTambah.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtornTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtornTambahActionPerformed(evt);
+            }
+        });
 
         ButtonRetur.setBackground(new java.awt.Color(241, 102, 52));
         ButtonRetur.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -2056,7 +2062,15 @@ public class MainJframe extends javax.swing.JFrame {
     
     //fungsi pada Data Barang
     private void DisplayTabelBarang(){
-        String sql = "SELECT * FROM `barang`";
+        String sql = "SELECT "
+                + "barang.kode_Barang, "
+                + "barang.Nama_barang, "
+                + "SUM(detail_suplai.stok), "
+                + "barang.satuan "
+                + "FROM barang "
+                + "LEFT JOIN detail_suplai "
+                + "ON barang.kode_Barang = detail_suplai.kode_Barang "
+                + "GROUP BY kode_Barang";
         String[] header = {"kode Barang","nama Barang","stok","satuan"};
         OperatorDbLafo.tabel(sql, header, jTableBarang);
     }
@@ -2113,6 +2127,14 @@ public class MainJframe extends javax.swing.JFrame {
                 intIndexKode++;
             }
             
+            if (intIndexKode < 10) {
+                IndexKode = "0"+intIndexKode;
+            }else{
+                IndexKode = intIndexKode+"";
+            }
+        
+            kode = "SUP"+Utility.GetTanggal()+IndexKode;
+            System.out.println("kode diubah");
             jTextFieldKodeSuplier.setText(kode);
         } catch (SQLException ex) {
             Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
@@ -2401,6 +2423,14 @@ public class MainJframe extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
+    PopUpTambahBarang popUpTambahBarang = new PopUpTambahBarang();
+    private void ButtornTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambahActionPerformed
+        // TODO add your handling code here:
+        popUpTambahBarang.setVisible(true);
+        
+        
+    }//GEN-LAST:event_ButtornTambahActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -2439,6 +2469,7 @@ public class MainJframe extends javax.swing.JFrame {
                 main.setVisible(true);
                 main.DisplaytabelUser();
                 main.DisplayTabelSuplier();
+                main.DisplayTabelBarang();
                 
             }
         });

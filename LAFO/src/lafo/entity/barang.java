@@ -10,5 +10,14 @@ package lafo.entity;
  * @author user
  */
 public class barang extends data{
+    private String satuan;
+
+    public String getSatuan() {
+        return satuan;
+    }
+
+    public void setSatuan(String satuan) {
+        this.satuan = satuan;
+    }
     
 }
