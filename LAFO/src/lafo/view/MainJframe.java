@@ -18,7 +18,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import lafo.entity.suplier;
+import lafo.entity.dataSuplier;
+//import lafo.entity.suplier;
 //import jdk.javadoc.internal.doclets.formats.html.markup.TableHeader;
 import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
@@ -119,7 +120,7 @@ public class MainJframe extends javax.swing.JFrame {
         jTextFieldNomerTelpSuplier = new javax.swing.JTextField();
         labelTxtFldKdSupp3 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
+        jButtonUpdateSuplier = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         DataKategori = new javax.swing.JPanel();
         fieldPencarianKategori = new javax.swing.JTextField();
@@ -918,6 +919,11 @@ public class MainJframe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableSuplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableSuplierMouseClicked(evt);
+            }
+        });
         ContainerTabelSuplai.setViewportView(jTableSuplier);
 
         containerFormSuplaier.setPreferredSize(new java.awt.Dimension(520, 624));
@@ -970,14 +976,14 @@ public class MainJframe extends javax.swing.JFrame {
             }
         });
 
-        jButton13.setBackground(new java.awt.Color(241, 102, 52));
-        jButton13.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(255, 255, 255));
-        jButton13.setText("Update");
-        jButton13.setPreferredSize(new java.awt.Dimension(360, 41));
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUpdateSuplier.setBackground(new java.awt.Color(241, 102, 52));
+        jButtonUpdateSuplier.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButtonUpdateSuplier.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonUpdateSuplier.setText("Update");
+        jButtonUpdateSuplier.setPreferredSize(new java.awt.Dimension(360, 41));
+        jButtonUpdateSuplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                jButtonUpdateSuplierActionPerformed(evt);
             }
         });
 
@@ -1013,7 +1019,7 @@ public class MainJframe extends javax.swing.JFrame {
                             .addComponent(jTextFieldKodeSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonUpdateSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(49, 49, 49))
         );
@@ -1039,7 +1045,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonUpdateSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(67, Short.MAX_VALUE))
@@ -2057,10 +2063,13 @@ public class MainJframe extends javax.swing.JFrame {
     
     
     //fungsi pada data Suplier
+    dataSuplier clickedSup = new dataSuplier("");
     
     
     //menampilkan data suplier ke tabel
     private void DisplayTabelSuplier(){
+        
+       
         String sql = "SELECT `kode_suplaier`,`nama_suplier`, `No_Telp`, `Alamat` FROM `suplier` WHERE 1;";
         String[] header = {"Kode Suplier", "Nama", "No telpon", "Alamat"};
         OperatorDbLafo.tabel(sql, header, jTableSuplier);
@@ -2116,6 +2125,34 @@ public class MainJframe extends javax.swing.JFrame {
         jTextFieldKodeSuplier.setText("");
         jTextFieldNamaSuplier.setText("");
         jTextFieldNomerTelpSuplier.setText("");
+    }
+    
+    public void klikTabelSuplier(){
+        int indexRowSelected = jTableSuplier.getSelectedRow();
+        
+        clickedSup.setKode(jTableSuplier.getValueAt(indexRowSelected, 0).toString());
+        clickedSup.setNama(jTableSuplier.getValueAt(indexRowSelected, 1).toString());
+        clickedSup.setNoTelp(jTableSuplier.getValueAt(indexRowSelected, 2).toString());
+        clickedSup.setAlamat(jTableSuplier.getValueAt(indexRowSelected, 3).toString());
+        
+        jTextFieldKodeSuplier.setText(clickedSup.getKode());
+        jTextFieldNamaSuplier.setText(clickedSup.getNama());
+        jTextFieldNomerTelpSuplier.setText(clickedSup.getNoTelp());
+        jTextFieldAlamatSuplier.setText(clickedSup.getAlamat());
+        
+    }
+    
+    public void updateSuplier(){
+        String sql = "UPDATE `suplier` "
+                + "SET "
+                + "`kode_suplaier`='"+clickedSup.getKode()+"',"
+                + "`No_Telp`='"+clickedSup.getNoTelp()+"',"
+                + "`Alamat`='"+clickedSup.getAlamat()+"',"
+                + "`nama_suplier`='"+clickedSup.getNama()+"' "
+                + "WHERE "
+                + "kode_suplaier = '"+clickedSup.getKode()+"';";
+        
+        OperatorDbLafo.DatabaseExecutor(sql, true);
     }
     
     //mengisi form dengan tabel yang diklik
@@ -2333,9 +2370,12 @@ public class MainJframe extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void jButtonUpdateSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateSuplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
+        if (jTextFieldKodeSuplier.getText() != null) {
+            updateSuplier();
+        }
+    }//GEN-LAST:event_jButtonUpdateSuplierActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -2354,6 +2394,12 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         ClearFormSuplier();
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jTableSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSuplierMouseClicked
+        // TODO add your handling code here:
+        klikTabelSuplier();
+        
+    }//GEN-LAST:event_jTableSuplierMouseClicked
 
     
     /**
@@ -2460,7 +2506,6 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -2469,6 +2514,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonSubmit;
+    private javax.swing.JButton jButtonUpdateSuplier;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

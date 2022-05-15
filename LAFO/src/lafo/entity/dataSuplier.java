@@ -9,10 +9,14 @@ package lafo.entity;
  *
  * @author user
  */
-public class suplier extends data{
+public class dataSuplier extends data{
     
     private String noTelp;
     private String Alamat;
+    
+    public dataSuplier (String kode){
+        super.kode = kode;
+    }
 
     public String getNoTelp() {
         return noTelp;
