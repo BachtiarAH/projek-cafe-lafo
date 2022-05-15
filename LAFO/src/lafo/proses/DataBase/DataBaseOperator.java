@@ -24,7 +24,8 @@ private String[] field;
     public void DatabaseExecutor(String sql, boolean CloseAfterExecute){
         try {
             koneksi.connecting();
-            PreparedStatement pst = koneksi.conn.prepareStatement(sqlTabel);
+            PreparedStatement pst = koneksi.conn.prepareStatement(sql);
+            pst.execute();
         }catch(SQLException SQLe){
             System.out.println("gagal eksekusi sql: "+SQLe);
         }finally{
@@ -32,6 +33,24 @@ private String[] field;
                 koneksi.connectionClose();
             }
         }
+    }
+    
+    public ResultSet getResultSql(String sql, boolean CloseAfterExecute){
+        ResultSet rs = null;
+        
+        try {
+            koneksi.connecting();
+            PreparedStatement pst = koneksi.conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+        }catch(SQLException SQLe){
+            System.out.println("gagal eksekusi sql: "+SQLe);
+        }finally{
+            if (CloseAfterExecute) {
+                koneksi.connectionClose();
+            }
+        }
+        
+        return rs;
     }
     
     //fungsi untuk menampilkan data dari database ke jtabel 

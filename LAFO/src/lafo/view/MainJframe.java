@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import lafo.entity.suplier;
 //import jdk.javadoc.internal.doclets.formats.html.markup.TableHeader;
 import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
@@ -107,15 +108,15 @@ public class MainJframe extends javax.swing.JFrame {
         ComboBoxShowEntries1 = new javax.swing.JComboBox<>();
         LabelEntryes1 = new javax.swing.JLabel();
         ContainerTabelSuplai = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableSuplier = new javax.swing.JTable();
         containerFormSuplaier = new javax.swing.JPanel();
         labelTxtFldKdSupp = new javax.swing.JLabel();
         jTextFieldKodeSuplier = new javax.swing.JTextField();
         jTextFieldNamaSuplier = new javax.swing.JTextField();
         labelTxtFldKdSupp1 = new javax.swing.JLabel();
-        jTextFieldAlamat = new javax.swing.JTextField();
+        jTextFieldAlamatSuplier = new javax.swing.JTextField();
         labelTxtFldKdSupp2 = new javax.swing.JLabel();
-        jTextFieldNomerTelp = new javax.swing.JTextField();
+        jTextFieldNomerTelpSuplier = new javax.swing.JTextField();
         labelTxtFldKdSupp3 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
@@ -211,7 +212,8 @@ public class MainJframe extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(new java.awt.Dimension(1, 982));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setSize(new java.awt.Dimension(1534, 982));
 
         panel_Header.setBackground(new java.awt.Color(241, 102, 52));
         panel_Header.setPreferredSize(new java.awt.Dimension(1280, 76));
@@ -258,7 +260,7 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(LabelJabatanUser))
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelNamaToko))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         panelNavigasiBar.setBackground(new java.awt.Color(42, 48, 48));
@@ -853,7 +855,7 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 24, Short.MAX_VALUE)))
+                        .addGap(0, 56, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         DataBarangLayout.setVerticalGroup(
@@ -905,7 +907,7 @@ public class MainJframe extends javax.swing.JFrame {
 
         ContainerTabelSuplai.setPreferredSize(new java.awt.Dimension(841, 624));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableSuplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -916,13 +918,15 @@ public class MainJframe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        ContainerTabelSuplai.setViewportView(jTable1);
+        ContainerTabelSuplai.setViewportView(jTableSuplier);
 
         containerFormSuplaier.setPreferredSize(new java.awt.Dimension(520, 624));
 
         labelTxtFldKdSupp.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         labelTxtFldKdSupp.setText("Kode Suplier");
 
+        jTextFieldKodeSuplier.setEditable(false);
+        jTextFieldKodeSuplier.setBackground(new java.awt.Color(153, 153, 153));
         jTextFieldKodeSuplier.setPreferredSize(new java.awt.Dimension(360, 46));
         jTextFieldKodeSuplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -936,16 +940,21 @@ public class MainJframe extends javax.swing.JFrame {
                 jTextFieldNamaSuplierActionPerformed(evt);
             }
         });
+        jTextFieldNamaSuplier.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNamaSuplierKeyTyped(evt);
+            }
+        });
 
         labelTxtFldKdSupp1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         labelTxtFldKdSupp1.setText("Nama Suplier");
 
-        jTextFieldAlamat.setPreferredSize(new java.awt.Dimension(360, 48));
+        jTextFieldAlamatSuplier.setPreferredSize(new java.awt.Dimension(360, 48));
 
         labelTxtFldKdSupp2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         labelTxtFldKdSupp2.setText("Alamat Suplier");
 
-        jTextFieldNomerTelp.setPreferredSize(new java.awt.Dimension(360, 48));
+        jTextFieldNomerTelpSuplier.setPreferredSize(new java.awt.Dimension(360, 48));
 
         labelTxtFldKdSupp3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         labelTxtFldKdSupp3.setText("Nomor Suplier");
@@ -955,6 +964,11 @@ public class MainJframe extends javax.swing.JFrame {
         jButton12.setForeground(new java.awt.Color(255, 255, 255));
         jButton12.setText("Clear");
         jButton12.setPreferredSize(new java.awt.Dimension(360, 41));
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jButton13.setBackground(new java.awt.Color(241, 102, 52));
         jButton13.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -988,16 +1002,15 @@ public class MainJframe extends javax.swing.JFrame {
                 .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(containerFormSuplaierLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelTxtFldKdSupp)
                             .addComponent(labelTxtFldKdSupp1)
                             .addComponent(labelTxtFldKdSupp2)
                             .addComponent(labelTxtFldKdSupp3)
-                            .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextFieldNomerTelp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(jTextFieldAlamat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(jTextFieldKodeSuplier, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(jTextFieldNamaSuplier, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextFieldNomerTelpSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jTextFieldAlamatSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jTextFieldNamaSuplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldKodeSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1010,7 +1023,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(labelTxtFldKdSupp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldKodeSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldKodeSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelTxtFldKdSupp1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1018,18 +1031,18 @@ public class MainJframe extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelTxtFldKdSupp2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldAlamatSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelTxtFldKdSupp3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNomerTelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldNomerTelpSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DataSuplierLayout = new javax.swing.GroupLayout(DataSuplier);
@@ -1049,7 +1062,7 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(LabelEntryes1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(DataSuplierLayout.createSequentialGroup()
-                        .addComponent(ContainerTabelSuplai, javax.swing.GroupLayout.DEFAULT_SIZE, 914, Short.MAX_VALUE)
+                        .addComponent(ContainerTabelSuplai, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(containerFormSuplaier, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1173,7 +1186,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1194,7 +1207,7 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(jScrollPanelKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanelInsertKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         DataKategoriLayout.setVerticalGroup(
             DataKategoriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1296,7 +1309,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel33)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1336,7 +1349,7 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(jScrollPanelKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanelInsertKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1469,7 +1482,7 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ManajemenDataLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(ManajemenDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Navigasi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Navigasi, javax.swing.GroupLayout.DEFAULT_SIZE, 1426, Short.MAX_VALUE)
                     .addComponent(ContainerConten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         ManajemenDataLayout.setVerticalGroup(
@@ -1517,7 +1530,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -1763,12 +1776,12 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel15)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelJam)
                     .addComponent(jLabel10)
@@ -1999,7 +2012,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(JPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 1420, Short.MAX_VALUE)
-                    .addComponent(panel_Header, javax.swing.GroupLayout.DEFAULT_SIZE, 1420, Short.MAX_VALUE)))
+                    .addComponent(panel_Header, javax.swing.GroupLayout.DEFAULT_SIZE, 1426, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2009,7 +2022,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(JPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
-                    .addComponent(panelNavigasiBar, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)))
+                    .addComponent(panelNavigasiBar, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)))
         );
 
         setBounds(0, 0, 1550, 1021);
@@ -2025,66 +2038,88 @@ public class MainJframe extends javax.swing.JFrame {
     }
     
     Koneksi ConnectionDbLafo = new Koneksi();
-    DataBaseOperator DisplayerDbLafo = new DataBaseOperator(ConnectionDbLafo);
+    DataBaseOperator OperatorDbLafo = new DataBaseOperator(ConnectionDbLafo);
     
-    private  void tabelUser(){
-        DefaultTableModel tbmodel = new DefaultTableModel();
-        
-        
-        String sqlTabelUser = "SELECT "
-                + "`Id_Pegawai`, "
-                + "`Nama_Pegawai`, "
-                + "`Gender`, "
-                + "`Alamat`, "
-                + "`No_Hp`, "
-                + "`Status_pengguna`, "
-                + "`Tanggal_Terdaftar`, "
-                + "`kode_hak_akses` "
-                + "FROM `penngguna` WHERE 1";
-        
-        //seting table heeader
-        String[] field = {"ID","Nama","Gender","Alamt","No Hp","Status","gabung","hak akses"};
-        for (int i = 0; i < field.length; i++) {
-            tbmodel.addColumn(field[i]);
-        }
-        
-        
-        //mengisi data 
-        
-        jTableUser.setModel(tbmodel);
-        int kolomLength = tbmodel.getColumnCount() ;
-        Object[] tempData = new Object[kolomLength];
-
-        System.out.println("kolom = "+ kolomLength);
-
-        try{
-            ConnectionDbLafo.connecting();
-            PreparedStatement pst = ConnectionDbLafo.conn.prepareStatement(sqlTabelUser);
-            ResultSet rs = pst.executeQuery();
-            
-            while(rs.next()){
-                
-            
-//                System.out.println(rs.toString());
-                for (int i = 0; i < kolomLength; i++) {
-                    tempData[i] = rs.getString(i+1);
-                }
-                tbmodel.addRow(tempData);
-                
-           }
-            
-        }
-        catch(SQLException sE){
-            System.out.println(sE);
-        }
-        finally{
-            ConnectionDbLafo.connectionClose();
-        }
-        
-        jTableUser.setModel(tbmodel);
-        
+    //fungsi pada DataUser
+    private  void DisplaytabelUser(){
+        String sql= "SELECT * FROM `pegawai`";
+        String[] header = {"ID","Nama","Gender","Alamt","No Hp","Status","gabung","hak akses"};
+        OperatorDbLafo.tabel(sql, header, jTableUser);
         
     }
+    
+    //fungsi pada Data Barang
+    private void DisplayTabelBarang(){
+        String sql = "SELECT * FROM `barang`";
+        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        OperatorDbLafo.tabel(sql, header, jTableBarang);
+    }
+    
+    
+    //fungsi pada data Suplier
+    
+    
+    //menampilkan data suplier ke tabel
+    private void DisplayTabelSuplier(){
+        String sql = "SELECT `kode_suplaier`,`nama_suplier`, `No_Telp`, `Alamat` FROM `suplier` WHERE 1;";
+        String[] header = {"Kode Suplier", "Nama", "No telpon", "Alamat"};
+        OperatorDbLafo.tabel(sql, header, jTableSuplier);
+    }
+    
+    //menambahakan data suplier ke database
+    public void AddDataSuplier(String kodeSup, String NoTelp, String AlamatSup, String NamaSup){
+        String sql = "INSERT INTO `suplier` "
+                + "(`kode_suplaier`, `No_Telp`, `Alamat`, `nama_suplier`) "
+                + "VALUES "
+                + "('"+kodeSup+"',"
+                + " '"+NoTelp+"',"
+                + " '"+AlamatSup+"',"
+                + " '"+NamaSup+"')";
+        
+        OperatorDbLafo.DatabaseExecutor(sql, true);
+    }
+    
+    //mengset kode suplier
+    public void setKodeSuplier(){
+        //deklarasi variabel
+        int intIndexKode = 1;
+        String IndexKode;
+        
+        //jika index kode kurang dari 10 akan ditambahi 0 diawal
+        if (intIndexKode < 10) {
+            IndexKode = "0"+intIndexKode;
+        }else{
+            IndexKode = intIndexKode+"";
+        }
+        
+        //membuat kodesuplier
+        String kode = "SUP"+Utility.GetTanggal()+IndexKode;
+        
+        //mengecek apakah ada kode yang sama jika ada akan diganti
+        String sql = "SELECT suplier.kode_suplaier FROM `suplier` WHERE kode_suplaier = '"+kode+"';";
+        ResultSet rs = OperatorDbLafo.getResultSql(sql, true);
+        
+        try {
+            while (rs.next()) {                
+                intIndexKode++;
+            }
+            
+            jTextFieldKodeSuplier.setText(kode);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //membersihkan form pada frame suplier
+    public void ClearFormSuplier(){
+        jTextFieldAlamatSuplier.setText("");
+        jTextFieldKodeSuplier.setText("");
+        jTextFieldNamaSuplier.setText("");
+        jTextFieldNomerTelpSuplier.setText("");
+    }
+    
+    //mengisi form dengan tabel yang diklik
+    
     
     // navigasi
     private void panelNavigasiBarComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelNavigasiBarComponentMoved
@@ -2109,11 +2144,8 @@ public class MainJframe extends javax.swing.JFrame {
     private void jLabelUsesrsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUsesrsMouseClicked
         // TODO add your handling code here:
         Utility.setSideBar(panel_ContenContainer, Users);
-//        tabelUser();
-        String sql= "SELECT * FROM `pegawai`";
-        String[] header = {"ID","Nama","Gender","Alamt","No Hp","Status","gabung","hak akses"};
-        DisplayerDbLafo.tabel(sql, header, jTableUser);
                 
+        DisplaytabelUser();
         
     }//GEN-LAST:event_jLabelUsesrsMouseClicked
 
@@ -2125,6 +2157,7 @@ public class MainJframe extends javax.swing.JFrame {
     private void cardTotalSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cardTotalSuplierMouseClicked
         // TODO add your handling code here:
         Utility.setSideBar(ContainerConten, DataSuplier);
+        DisplayTabelSuplier();
     }//GEN-LAST:event_cardTotalSuplierMouseClicked
 
     private void cardTotalKategoriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cardTotalKategoriMouseClicked
@@ -2293,6 +2326,11 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+        if ((jTextFieldAlamatSuplier != null )&& (jTextFieldKodeSuplier != null) && (jTextFieldNamaSuplier != null)) {
+            
+            AddDataSuplier(jTextFieldKodeSuplier.getText(), jTextFieldNomerTelpSuplier.getText(), jTextFieldAlamatSuplier.getText(), jTextFieldNamaSuplier.getText());
+            DisplayTabelSuplier();
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -2306,6 +2344,16 @@ public class MainJframe extends javax.swing.JFrame {
     private void ComboBoxShowEntries2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxShowEntries2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxShowEntries2ActionPerformed
+
+    private void jTextFieldNamaSuplierKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNamaSuplierKeyTyped
+        // TODO add your handling code here:
+        setKodeSuplier();
+    }//GEN-LAST:event_jTextFieldNamaSuplierKeyTyped
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        ClearFormSuplier();
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     
     /**
@@ -2339,11 +2387,12 @@ public class MainJframe extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainJframe().setVisible(true);
+//                new MainJframe().setVisible(true);
                 
                 MainJframe main = new MainJframe();
-                
-                main.tabelUser();
+                main.setVisible(true);
+                main.DisplaytabelUser();
+                main.DisplayTabelSuplier();
                 
             }
         });
@@ -2474,12 +2523,12 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPanelKategori;
     private javax.swing.JScrollPane jScrollPanelKategori1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTableBarang;
     private javax.swing.JTable jTableBarang1;
     private javax.swing.JTable jTableKategori;
     private javax.swing.JTable jTableKategori1;
+    private javax.swing.JTable jTableSuplier;
     private javax.swing.JTable jTableTransaksi;
     private javax.swing.JTable jTableUser;
     private javax.swing.JTextField jTextField1;
@@ -2490,10 +2539,10 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextFieldAlamat;
+    private javax.swing.JTextField jTextFieldAlamatSuplier;
     private javax.swing.JTextField jTextFieldKodeSuplier;
     private javax.swing.JTextField jTextFieldNamaSuplier;
-    private javax.swing.JTextField jTextFieldNomerTelp;
+    private javax.swing.JTextField jTextFieldNomerTelpSuplier;
     private javax.swing.JTextField jTextFieldcari;
     private javax.swing.JLabel labelJam;
     private javax.swing.JLabel labelShow;
