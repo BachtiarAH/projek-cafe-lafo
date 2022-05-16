@@ -5,6 +5,9 @@
  */
 package lafo.view.PopUp.Kasir;
 
+import lafo.entity.menu;
+import lafo.view.MainJframe;
+
 /**
  *
  * @author RSI-16
@@ -18,6 +21,42 @@ public class inputBarang extends javax.swing.JFrame {
         initComponents();
     }
 
+    menu mntp;
+    MainJframe frameUtama;
+
+    public menu getMntp() {
+        return mntp;
+    }
+
+    public void setMntp(menu mntp) {
+        this.mntp = mntp;
+    }
+
+    public MainJframe getFrameUtama() {
+        return frameUtama;
+    }
+
+    public void setFrameUtama(MainJframe frameUtama) {
+        this.frameUtama = frameUtama;
+    }
+    
+    public void startRun(){
+        this.jLabelNama.setText(mntp.getNama());
+        this.jLabelHarga.setText("Rp. "+mntp.getHarga()+"");
+        this.setVisible(true);
+    }
+    
+    private void UpdateSubTotal(){
+        if (jTextFieldQty.getText() == null) {
+            mntp.setJumlah(0);
+        }else{
+            mntp.setJumlah(Integer.valueOf(jTextFieldQty.getText()));
+        }
+        jLabelSubTotal.setText("Rp. "+(mntp.getHarga()*mntp.getJumlah())+"");
+        System.out.println(mntp.getSubtotal());
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,17 +67,17 @@ public class inputBarang extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jTextFieldDiskon = new javax.swing.JTextField();
+        jTextFieldQty = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelNama = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelHarga = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabelSubTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -46,11 +85,23 @@ public class inputBarang extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField1.setPreferredSize(new java.awt.Dimension(476, 46));
+        jTextFieldDiskon.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextFieldDiskon.setPreferredSize(new java.awt.Dimension(476, 46));
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField2.setPreferredSize(new java.awt.Dimension(476, 46));
+        jTextFieldQty.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextFieldQty.setPreferredSize(new java.awt.Dimension(476, 46));
+        jTextFieldQty.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jTextFieldQtyInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+        jTextFieldQty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldQtyKeyReleased(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(241, 102, 52));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -62,14 +113,14 @@ public class inputBarang extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Nama Barang");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("24-inci 144Hz monitor komputer LCD");
+        jLabelNama.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelNama.setText("24-inci 144Hz monitor komputer LCD");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Masukkan Quantity");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setText("Rp. 300.000");
+        jLabelHarga.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelHarga.setText("Rp. 300.000");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Harga");
@@ -80,8 +131,8 @@ public class inputBarang extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Sub Total");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel8.setText("Rp. 300.000");
+        jLabelSubTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelSubTotal.setText("Rp. 300.000");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,21 +142,21 @@ public class inputBarang extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jLabelHarga)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel2))
+                            .addComponent(jTextFieldDiskon, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jTextFieldQty, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabelNama))
                         .addGap(59, 59, 59))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel8)
+                            .addComponent(jLabelSubTotal)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6))
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -116,23 +167,23 @@ public class inputBarang extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addComponent(jLabelNama)
                 .addGap(37, 37, 37)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(jLabelHarga)
                 .addGap(38, 38, 38)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldDiskon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
+                .addComponent(jLabelSubTotal)
                 .addGap(9, 9, 9)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -156,6 +207,15 @@ public class inputBarang extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldQtyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQtyKeyReleased
+        // TODO add your handling code here:
+        UpdateSubTotal();
+    }//GEN-LAST:event_jTextFieldQtyKeyReleased
+
+    private void jTextFieldQtyInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTextFieldQtyInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldQtyInputMethodTextChanged
 
     /**
      * @param args the command line arguments
@@ -195,15 +255,15 @@ public class inputBarang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelHarga;
+    private javax.swing.JLabel jLabelNama;
+    private javax.swing.JLabel jLabelSubTotal;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextFieldDiskon;
+    private javax.swing.JTextField jTextFieldQty;
     // End of variables declaration//GEN-END:variables
 }

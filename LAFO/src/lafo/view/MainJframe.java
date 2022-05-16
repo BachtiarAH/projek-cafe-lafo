@@ -2316,7 +2316,8 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
        
         Kasir_enter popUpKasirEnter = new Kasir_enter();
-        popUpKasirEnter.Action("anjing");
+        popUpKasirEnter.setJframeUtama(this);
+        popUpKasirEnter.Action("Cari");
         
     }//GEN-LAST:event_jTextFieldcariKeyTyped
 

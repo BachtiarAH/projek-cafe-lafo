@@ -11,6 +11,33 @@ package lafo.entity;
  */
 public class menu extends data{
     int jumlah;
+    float harga;
+    String kategori;
+    float Subtotal = harga * jumlah;
+
+    public float getSubtotal() {
+        return Subtotal;
+    }
+
+    
+    
+    public float getHarga() {
+        return harga;
+    }
+
+    public void setHarga(float harga) {
+        this.harga = harga;
+    }
+
+    public String getKategori() {
+        return kategori;
+    }
+
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
+    }
+    
+    
 
     public void setJumlah(int jumlah) {
         this.jumlah = jumlah;
@@ -19,6 +46,8 @@ public class menu extends data{
     public int getJumlah() {
         return jumlah;
     }
+
+    
     
     
 }
