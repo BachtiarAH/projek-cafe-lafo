@@ -2482,14 +2482,11 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void namaDiskon_textKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_namaDiskon_textKeyTyped
         // TODO add your handling code here:
-        
+        setKodeDiskon();
     }//GEN-LAST:event_namaDiskon_textKeyTyped
 
     private void namaDiskon_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaDiskon_textActionPerformed
         // TODO add your handling code here:
-        if (namaDiskon_text.getText() != null) {
-            setKodeDiskon();
-        }
     }//GEN-LAST:event_namaDiskon_textActionPerformed
 
     
