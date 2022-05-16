@@ -35,6 +35,8 @@ public class PopUpTambahBarang extends javax.swing.JFrame {
     barang tempBarang = new barang();
     
     MainJframe JframeUtama;
+    
+    
 
     public PopUpTambahBarang(MainJframe JframeUtama) {
         this.JframeUtama = JframeUtama;
@@ -334,7 +336,8 @@ public class PopUpTambahBarang extends javax.swing.JFrame {
 
     
     public void startRun(){
-//        this.main();
+        this.setVisible(true);
+        this.setComboBox();
     }
     /**
      * @param args the command line arguments
@@ -368,8 +371,9 @@ public class PopUpTambahBarang extends javax.swing.JFrame {
             public void run() {
                 PopUpTambahBarang tambahBarang = new PopUpTambahBarang();
                 
-                tambahBarang.setVisible(true);
-                tambahBarang.setComboBox();
+                tambahBarang.startRun();
+//                tambahBarang.setVisible(true);
+//                tambahBarang.setComboBox();
             }
         });
     }

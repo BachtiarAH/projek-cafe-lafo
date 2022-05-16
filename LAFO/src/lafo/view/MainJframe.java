@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -25,6 +26,8 @@ import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.view.PopUp.Barang.PopUpTambahBarang;
+import lafo.view.PopUp.Barang.PopUpTmbhBarang;
+import lafo.view.PopUp.Barang.TambahBarang;
 import lafo.view.PopUp.Kasir.Kasir_enter;
 
 /**
@@ -97,13 +100,12 @@ public class MainJframe extends javax.swing.JFrame {
         labelShow = new javax.swing.JLabel();
         ComboBoxShowEntries = new javax.swing.JComboBox<>();
         LabelEntryes = new javax.swing.JLabel();
-        LabelKategori = new javax.swing.JLabel();
-        ComboBoxKategori = new javax.swing.JComboBox<>();
         ButtornTambah = new javax.swing.JButton();
         ButtonRetur = new javax.swing.JButton();
         ButtonRetur1 = new javax.swing.JButton();
         containerTabelBarang = new javax.swing.JScrollPane();
         jTableBarang = new javax.swing.JTable();
+        ButtonRetur2 = new javax.swing.JButton();
         DataSuplier = new javax.swing.JPanel();
         labelShow1 = new javax.swing.JLabel();
         fieldPencarian1 = new javax.swing.JTextField();
@@ -138,15 +140,17 @@ public class MainJframe extends javax.swing.JFrame {
         DataDiscount = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanelInsertKategori1 = new javax.swing.JPanel();
-        kodeDiskon_text = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        namaDiskon_text = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
-        update_button = new javax.swing.JButton();
-        clear_button = new javax.swing.JButton();
-        tambah_button = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jLabel33 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPanelKategori1 = new javax.swing.JScrollPane();
-        diskon_tabel = new javax.swing.JTable();
+        jTableKategori1 = new javax.swing.JTable();
         fieldPencarianKategori1 = new javax.swing.JTextField();
         DataMenu = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -260,7 +264,7 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(LabelJabatanUser))
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelNamaToko))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelNavigasiBar.setBackground(new java.awt.Color(42, 48, 48));
@@ -775,20 +779,6 @@ public class MainJframe extends javax.swing.JFrame {
         LabelEntryes.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         LabelEntryes.setText("Entries");
 
-        LabelKategori.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        LabelKategori.setText("Kategori");
-
-        ComboBoxKategori.setEditable(true);
-        ComboBoxKategori.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        ComboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "makanan", "minuman" }));
-        ComboBoxKategori.setBorder(null);
-        ComboBoxKategori.setPreferredSize(new java.awt.Dimension(150, 50));
-        ComboBoxKategori.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBoxKategoriActionPerformed(evt);
-            }
-        });
-
         ButtornTambah.setBackground(new java.awt.Color(241, 102, 52));
         ButtornTambah.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtornTambah.setText("Tambah");
@@ -834,6 +824,16 @@ public class MainJframe extends javax.swing.JFrame {
         ));
         containerTabelBarang.setViewportView(jTableBarang);
 
+        ButtonRetur2.setBackground(new java.awt.Color(241, 102, 52));
+        ButtonRetur2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        ButtonRetur2.setText("Menyuplai");
+        ButtonRetur2.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtonRetur2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonRetur2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DataBarangLayout = new javax.swing.GroupLayout(DataBarang);
         DataBarang.setLayout(DataBarangLayout);
         DataBarangLayout.setHorizontalGroup(
@@ -841,26 +841,23 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(DataBarangLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(DataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(containerTabelBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(containerTabelBarang, javax.swing.GroupLayout.DEFAULT_SIZE, 1390, Short.MAX_VALUE)
                     .addGroup(DataBarangLayout.createSequentialGroup()
-                        .addComponent(fieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fieldPencarian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(labelShow)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ComboBoxShowEntries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LabelEntryes)
                         .addGap(18, 18, 18)
-                        .addComponent(LabelKategori)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboBoxKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addComponent(ButtonRetur2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 56, Short.MAX_VALUE)))
+                        .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         DataBarangLayout.setVerticalGroup(
@@ -872,14 +869,13 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(labelShow)
                     .addComponent(ComboBoxShowEntries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelEntryes)
-                    .addComponent(LabelKategori)
-                    .addComponent(ComboBoxKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonRetur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(containerTabelBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         ContainerConten.add(DataBarang, "card2");
@@ -1052,7 +1048,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jButtonUpdateSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DataSuplierLayout = new javax.swing.GroupLayout(DataSuplier);
@@ -1196,7 +1192,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1237,54 +1233,50 @@ public class MainJframe extends javax.swing.JFrame {
 
         jPanelInsertKategori1.setPreferredSize(new java.awt.Dimension(467, 559));
 
-        kodeDiskon_text.setPreferredSize(new java.awt.Dimension(332, 44));
+        jTextField3.setPreferredSize(new java.awt.Dimension(332, 44));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel3.setText("Kode Discount");
 
-        namaDiskon_text.setPreferredSize(new java.awt.Dimension(332, 44));
-        namaDiskon_text.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                namaDiskon_textActionPerformed(evt);
-            }
-        });
-        namaDiskon_text.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                namaDiskon_textKeyTyped(evt);
-            }
-        });
+        jTextField8.setPreferredSize(new java.awt.Dimension(332, 44));
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel32.setText("Nama Discount");
 
-        update_button.setBackground(new java.awt.Color(241, 102, 52));
-        update_button.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        update_button.setForeground(new java.awt.Color(255, 255, 255));
-        update_button.setText("Update");
-        update_button.setPreferredSize(new java.awt.Dimension(360, 41));
-        update_button.addActionListener(new java.awt.event.ActionListener() {
+        jButton8.setBackground(new java.awt.Color(241, 102, 52));
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Update");
+        jButton8.setPreferredSize(new java.awt.Dimension(360, 41));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                update_buttonActionPerformed(evt);
+                jButton8ActionPerformed(evt);
             }
         });
 
-        clear_button.setBackground(new java.awt.Color(146, 147, 147));
-        clear_button.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        clear_button.setForeground(new java.awt.Color(255, 255, 255));
-        clear_button.setText("Clear");
-        clear_button.setPreferredSize(new java.awt.Dimension(360, 41));
+        jButton9.setBackground(new java.awt.Color(146, 147, 147));
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setText("Clear");
+        jButton9.setPreferredSize(new java.awt.Dimension(360, 41));
 
-        tambah_button.setBackground(new java.awt.Color(42, 48, 48));
-        tambah_button.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        tambah_button.setForeground(new java.awt.Color(255, 255, 255));
-        tambah_button.setText("Tambah");
-        tambah_button.setBorder(null);
-        tambah_button.setPreferredSize(new java.awt.Dimension(360, 41));
-        tambah_button.addActionListener(new java.awt.event.ActionListener() {
+        jButton10.setBackground(new java.awt.Color(42, 48, 48));
+        jButton10.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("Tambah");
+        jButton10.setBorder(null);
+        jButton10.setPreferredSize(new java.awt.Dimension(360, 41));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambah_buttonActionPerformed(evt);
+                jButton10ActionPerformed(evt);
             }
         });
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel33.setText("Kategori Discount");
+
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman", " " }));
 
         javax.swing.GroupLayout jPanelInsertKategori1Layout = new javax.swing.GroupLayout(jPanelInsertKategori1);
         jPanelInsertKategori1.setLayout(jPanelInsertKategori1Layout);
@@ -1293,17 +1285,19 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInsertKategori1Layout.createSequentialGroup()
                 .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tambah_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(update_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clear_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49))
             .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel33)
                     .addComponent(jLabel32)
                     .addComponent(jLabel3)
-                    .addComponent(namaDiskon_text, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                    .addComponent(kodeDiskon_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelInsertKategori1Layout.setVerticalGroup(
@@ -1312,23 +1306,27 @@ public class MainJframe extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(kodeDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel32)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(namaDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                .addComponent(tambah_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(update_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(clear_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
         jScrollPanelKategori1.setPreferredSize(new java.awt.Dimension(781, 559));
 
-        diskon_tabel.setModel(new javax.swing.table.DefaultTableModel(
+        jTableKategori1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1339,7 +1337,7 @@ public class MainJframe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPanelKategori1.setViewportView(diskon_tabel);
+        jScrollPanelKategori1.setViewportView(jTableKategori1);
 
         fieldPencarianKategori1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         fieldPencarianKategori1.setText("Cari Discount");
@@ -1490,7 +1488,7 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ManajemenDataLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(ManajemenDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Navigasi, javax.swing.GroupLayout.DEFAULT_SIZE, 1430, Short.MAX_VALUE)
+                    .addComponent(Navigasi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ContainerConten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         ManajemenDataLayout.setVerticalGroup(
@@ -1538,7 +1536,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -1784,12 +1782,12 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel15)
-                .addGap(0, 34, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelJam)
                     .addComponent(jLabel10)
@@ -2019,8 +2017,8 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(panelNavigasiBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 1420, Short.MAX_VALUE)
-                    .addComponent(panel_Header, javax.swing.GroupLayout.DEFAULT_SIZE, 1430, Short.MAX_VALUE)))
+                    .addComponent(panel_ContenContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, Short.MAX_VALUE)
+                    .addComponent(panel_Header, javax.swing.GroupLayout.DEFAULT_SIZE, 1420, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2030,7 +2028,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(JPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
-                    .addComponent(panelNavigasiBar, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)))
+                    .addComponent(panelNavigasiBar, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE)))
         );
 
         setBounds(0, 0, 1550, 1021);
@@ -2055,6 +2053,7 @@ public class MainJframe extends javax.swing.JFrame {
     
     Koneksi ConnectionDbLafo = new Koneksi();
     DataBaseOperator OperatorDbLafo = new DataBaseOperator(ConnectionDbLafo);
+    Boolean isEdit = true;
     
     //fungsi pada DataUser
     private  void DisplaytabelUser(){
@@ -2171,60 +2170,17 @@ public class MainJframe extends javax.swing.JFrame {
     public void updateSuplier(){
         String sql = "UPDATE `suplier` "
                 + "SET "
-                + "`kode_suplaier`='"+clickedSup.getKode()+"',"
-                + "`No_Telp`='"+clickedSup.getNoTelp()+"',"
-                + "`Alamat`='"+clickedSup.getAlamat()+"',"
-                + "`nama_suplier`='"+clickedSup.getNama()+"' "
+                + "`kode_suplaier`='"+jTextFieldKodeSuplier.getText()+"',"
+                + "`No_Telp`='"+jTextFieldNomerTelpSuplier.getText()+"',"
+                + "`Alamat`='"+jTextFieldAlamatSuplier.getText()+"',"
+                + "`nama_suplier`='"+jTextFieldNamaSuplier.getText()+"' "
                 + "WHERE "
-                + "kode_suplaier = '"+clickedSup.getKode()+"';";
+                + "kode_suplaier = '"+jTextFieldKodeSuplier.getText()+"';";
         
         OperatorDbLafo.DatabaseExecutor(sql, true);
     }
     
     //mengisi form dengan tabel yang diklik
-    
-    //fungsi data diskon
-     public void setKodeDiskon() {
-         int nomKodeIndex = 1;
-         String kodeIndex;
-         
-         if (nomKodeIndex < 10) {
-             kodeIndex = "0" + nomKodeIndex;
-         } else {
-//             kodeIndex = parseInt(nomKodeIndex);
-             kodeIndex = nomKodeIndex + "";
-         }
-         
-         String kodeDiskon = "DIS" + Utility.GetTanggal()+ kodeIndex;
-         
-         String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_suplaier = '"+kodeDiskon+"';";
-         ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-         
-         try {
-            while (result.next()) {                
-                nomKodeIndex++;
-            }
-            
-            if (nomKodeIndex < 10) {
-                kodeIndex = "0" + nomKodeIndex;
-            }else{
-                kodeIndex = nomKodeIndex + "";
-            }
-        
-            kodeDiskon = "DIS" + Utility.GetTanggal() + kodeIndex;
-            System.out.println("kode diubah");
-            kodeDiskon_text.setText(kodeDiskon);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
-        }
-     }
-     
-     public void displayTabelDiskon() {
-         String sql = "SELECT * FROM `diskon`";
-         String[] kolom = {"kode_diskon", "jumlah_diskon", "tenggat_diskon", "nama"};
-         
-         OperatorDbLafo.tabel(sql, kolom, diskon_tabel);
-     }
     
     
     // navigasi
@@ -2314,10 +2270,6 @@ public class MainJframe extends javax.swing.JFrame {
     private void ComboBoxShowEntriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxShowEntriesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxShowEntriesActionPerformed
-
-    private void ComboBoxKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxKategoriActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxKategoriActionPerformed
 
     private void ButtonRetur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRetur1ActionPerformed
         // TODO add your handling code here:
@@ -2410,13 +2362,13 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void update_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_buttonActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_update_buttonActionPerformed
+    }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void tambah_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambah_buttonActionPerformed
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tambah_buttonActionPerformed
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     private void fieldPencarianKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPencarianKategoriActionPerformed
         // TODO add your handling code here:
@@ -2441,9 +2393,14 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jButtonUpdateSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateSuplierActionPerformed
         // TODO add your handling code here:
+        this.isEdit = false;
+        
         if (jTextFieldKodeSuplier.getText() != null) {
             updateSuplier();
+        }else{
+            JOptionPane.showMessageDialog(null, "kode barang tidak boleh kosong");
         }
+            DisplayTabelBarang();
     }//GEN-LAST:event_jButtonUpdateSuplierActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -2456,7 +2413,12 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jTextFieldNamaSuplierKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNamaSuplierKeyTyped
         // TODO add your handling code here:
+        this.isEdit = true;
+        
+        if (isEdit) {
+            
         setKodeSuplier();
+        }
     }//GEN-LAST:event_jTextFieldNamaSuplierKeyTyped
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -2470,27 +2432,21 @@ public class MainJframe extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
-    PopUpTambahBarang popUpTambahBarang = new PopUpTambahBarang(this);
+//    PopUpTambahBarang popUpTambahBarang = new PopUpTmbhBarang(this);
+    TambahBarang tambahBarang = new TambahBarang();
+    
     private void ButtornTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambahActionPerformed
         // TODO add your handling code here:
-        popUpTambahBarang.setVisible(true);
+        tambahBarang.setVisible(true);
 
 //        popUpTambahBarang.startRun();
         
         
     }//GEN-LAST:event_ButtornTambahActionPerformed
 
-    private void namaDiskon_textKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_namaDiskon_textKeyTyped
+    private void ButtonRetur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRetur2ActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_namaDiskon_textKeyTyped
-
-    private void namaDiskon_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaDiskon_textActionPerformed
-        // TODO add your handling code here:
-        if (namaDiskon_text.getText() != null) {
-            setKodeDiskon();
-        }
-    }//GEN-LAST:event_namaDiskon_textActionPerformed
+    }//GEN-LAST:event_ButtonRetur2ActionPerformed
 
     
     /**
@@ -2531,8 +2487,7 @@ public class MainJframe extends javax.swing.JFrame {
                 main.DisplaytabelUser();
                 main.DisplayTabelSuplier();
                 main.DisplayTabelBarang();
-//                main.setKodeDiskon();
-                main.displayTabelDiskon();
+                
             }
         });
         
@@ -2542,9 +2497,9 @@ public class MainJframe extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonRetur;
     private javax.swing.JButton ButtonRetur1;
+    private javax.swing.JButton ButtonRetur2;
     private javax.swing.JButton ButtornTambah;
     private javax.swing.JButton ButtornTambah1;
-    private javax.swing.JComboBox<String> ComboBoxKategori;
     private javax.swing.JComboBox<String> ComboBoxShowEntries;
     private javax.swing.JComboBox<String> ComboBoxShowEntries1;
     private javax.swing.JComboBox<String> ComboBoxShowEntries2;
@@ -2575,7 +2530,6 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel LabelEntryes1;
     private javax.swing.JLabel LabelEntryes2;
     private javax.swing.JLabel LabelJabatanUser;
-    private javax.swing.JLabel LabelKategori;
     private javax.swing.JLabel LabelNamaToko;
     private javax.swing.JLabel LabelNamaUser;
     private javax.swing.JPanel Laporan;
@@ -2587,17 +2541,16 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JPanel cardTotalKategori;
     private javax.swing.JPanel cardTotalMenu;
     private javax.swing.JPanel cardTotalSuplier;
-    private javax.swing.JButton clear_button;
     private javax.swing.JPanel containerFormSuplaier;
     private javax.swing.JScrollPane containerTabelBarang;
     private javax.swing.JScrollPane containerTabelBarang1;
-    private javax.swing.JTable diskon_tabel;
     private javax.swing.JTextField fieldPencarian;
     private javax.swing.JTextField fieldPencarian1;
     private javax.swing.JTextField fieldPencarian2;
     private javax.swing.JTextField fieldPencarianKategori;
     private javax.swing.JTextField fieldPencarianKategori1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
@@ -2605,8 +2558,11 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonSubmit;
     private javax.swing.JButton jButtonUpdateSuplier;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2633,6 +2589,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2663,21 +2620,23 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JTable jTableBarang;
     private javax.swing.JTable jTableBarang1;
     private javax.swing.JTable jTableKategori;
+    private javax.swing.JTable jTableKategori1;
     private javax.swing.JTable jTableSuplier;
     private javax.swing.JTable jTableTransaksi;
     private javax.swing.JTable jTableUser;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextFieldAlamatSuplier;
     private javax.swing.JTextField jTextFieldKodeSuplier;
     private javax.swing.JTextField jTextFieldNamaSuplier;
     private javax.swing.JTextField jTextFieldNomerTelpSuplier;
     private javax.swing.JTextField jTextFieldcari;
-    private javax.swing.JTextField kodeDiskon_text;
     private javax.swing.JLabel labelJam;
     private javax.swing.JLabel labelShow;
     private javax.swing.JLabel labelShow1;
@@ -2691,16 +2650,9 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel labeliconTotalKategori;
     private javax.swing.JLabel labeliconTotalMenu;
     private javax.swing.JLabel labeliconTotalSuplier;
-    private javax.swing.JTextField namaDiskon_text;
     private javax.swing.JPanel panelNavigasiBar;
     private javax.swing.JPanel panel_ContenContainer;
     private javax.swing.JPanel panel_Header;
-    private javax.swing.JButton tambah_button;
     private javax.swing.JPanel transaksi;
-    private javax.swing.JButton update_button;
     // End of variables declaration//GEN-END:variables
-
-    private String parseInt(int nomKodeIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
