@@ -144,7 +144,11 @@ public class MainJframe extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         update_button = new javax.swing.JButton();
         clear_button = new javax.swing.JButton();
-        tambah_button = new javax.swing.JButton();
+        tambahDiskon_button = new javax.swing.JButton();
+        jLabel33 = new javax.swing.JLabel();
+        jumlahDiskon_text = new javax.swing.JTextField();
+        tenggatDiskon_text = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
         jScrollPanelKategori1 = new javax.swing.JScrollPane();
         diskon_tabel = new javax.swing.JTable();
         fieldPencarianKategori1 = new javax.swing.JTextField();
@@ -1008,7 +1012,7 @@ public class MainJframe extends javax.swing.JFrame {
         containerFormSuplaierLayout.setHorizontalGroup(
             containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerFormSuplaierLayout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(111, Short.MAX_VALUE)
                 .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(containerFormSuplaierLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -1273,18 +1277,53 @@ public class MainJframe extends javax.swing.JFrame {
         clear_button.setForeground(new java.awt.Color(255, 255, 255));
         clear_button.setText("Clear");
         clear_button.setPreferredSize(new java.awt.Dimension(360, 41));
-
-        tambah_button.setBackground(new java.awt.Color(42, 48, 48));
-        tambah_button.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        tambah_button.setForeground(new java.awt.Color(255, 255, 255));
-        tambah_button.setText("Tambah");
-        tambah_button.setBorder(null);
-        tambah_button.setPreferredSize(new java.awt.Dimension(360, 41));
-        tambah_button.addActionListener(new java.awt.event.ActionListener() {
+        clear_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambah_buttonActionPerformed(evt);
+                clear_buttonActionPerformed(evt);
             }
         });
+
+        tambahDiskon_button.setBackground(new java.awt.Color(42, 48, 48));
+        tambahDiskon_button.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        tambahDiskon_button.setForeground(new java.awt.Color(255, 255, 255));
+        tambahDiskon_button.setText("Tambah");
+        tambahDiskon_button.setBorder(null);
+        tambahDiskon_button.setPreferredSize(new java.awt.Dimension(360, 41));
+        tambahDiskon_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahDiskon_buttonActionPerformed(evt);
+            }
+        });
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel33.setText("Jumlah Discount");
+
+        jumlahDiskon_text.setPreferredSize(new java.awt.Dimension(332, 44));
+        jumlahDiskon_text.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jumlahDiskon_textActionPerformed(evt);
+            }
+        });
+        jumlahDiskon_text.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jumlahDiskon_textKeyTyped(evt);
+            }
+        });
+
+        tenggatDiskon_text.setPreferredSize(new java.awt.Dimension(332, 44));
+        tenggatDiskon_text.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tenggatDiskon_textActionPerformed(evt);
+            }
+        });
+        tenggatDiskon_text.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tenggatDiskon_textKeyTyped(evt);
+            }
+        });
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel34.setText("Tenggat Discount");
 
         javax.swing.GroupLayout jPanelInsertKategori1Layout = new javax.swing.GroupLayout(jPanelInsertKategori1);
         jPanelInsertKategori1.setLayout(jPanelInsertKategori1Layout);
@@ -1292,24 +1331,26 @@ public class MainJframe extends javax.swing.JFrame {
             jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInsertKategori1Layout.createSequentialGroup()
                 .addContainerGap(58, Short.MAX_VALUE)
-                .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tambah_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(update_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clear_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel32)
+                        .addComponent(jLabel3)
+                        .addComponent(namaDiskon_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(kodeDiskon_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel33)
+                        .addComponent(jumlahDiskon_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tenggatDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel34))
+                    .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(tambahDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(update_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(clear_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(49, 49, 49))
-            .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel32)
-                    .addComponent(jLabel3)
-                    .addComponent(namaDiskon_text, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                    .addComponent(kodeDiskon_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelInsertKategori1Layout.setVerticalGroup(
             jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(kodeDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1317,8 +1358,16 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel32)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(namaDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                .addComponent(tambah_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jumlahDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tenggatDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(tambahDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(update_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -2191,13 +2240,13 @@ public class MainJframe extends javax.swing.JFrame {
          if (nomKodeIndex < 10) {
              kodeIndex = "0" + nomKodeIndex;
          } else {
-//             kodeIndex = parseInt(nomKodeIndex);
-             kodeIndex = nomKodeIndex + "";
+             kodeIndex = parseInt(nomKodeIndex);
+//             kodeIndex = nomKodeIndex + "";
          }
          
          String kodeDiskon = "DIS" + Utility.GetTanggal()+ kodeIndex;
          
-         String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_suplaier = '"+kodeDiskon+"';";
+         String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon = '"+kodeDiskon+"';";
          ResultSet result = OperatorDbLafo.getResultSql(sql, true);
          
          try {
@@ -2208,7 +2257,8 @@ public class MainJframe extends javax.swing.JFrame {
             if (nomKodeIndex < 10) {
                 kodeIndex = "0" + nomKodeIndex;
             }else{
-                kodeIndex = nomKodeIndex + "";
+//                kodeIndex = nomKodeIndex + "";
+                kodeIndex = parseInt(nomKodeIndex);
             }
         
             kodeDiskon = "DIS" + Utility.GetTanggal() + kodeIndex;
@@ -2224,6 +2274,25 @@ public class MainJframe extends javax.swing.JFrame {
          String[] kolom = {"kode_diskon", "jumlah_diskon", "tenggat_diskon", "nama"};
          
          OperatorDbLafo.tabel(sql, kolom, diskon_tabel);
+     }
+     
+     public void addDataDiskon(String kodeDiskon, String jumlahDiskon, String tenggatDiskon, String namaDiskon){
+        String sql = "INSERT INTO `diskon` "
+                + "(`kode_diskon`, `jumlah_diskon`, `tenggat_diskon`, `nama`) "
+                + "VALUES "
+                + "('"+kodeDiskon+"',"
+                + " '"+jumlahDiskon+"',"
+                + " '"+tenggatDiskon+"',"
+                + " '"+namaDiskon+"')";
+        
+        OperatorDbLafo.DatabaseExecutor(sql, true);
+    }
+     
+     public void clearFormDiskon() {
+         kodeDiskon_text.setText("");
+         namaDiskon_text.setText("");
+         jumlahDiskon_text.setText("");
+         tenggatDiskon_text.setText("");
      }
     
     
@@ -2414,9 +2483,14 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_update_buttonActionPerformed
 
-    private void tambah_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambah_buttonActionPerformed
+    private void tambahDiskon_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahDiskon_buttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tambah_buttonActionPerformed
+        if ((kodeDiskon_text != null) && (namaDiskon_text != null) && (jumlahDiskon_text != null) && (tenggatDiskon_text != null)) {
+            addDataDiskon(kodeDiskon_text.getText(), jumlahDiskon_text.getText(), tenggatDiskon_text.getText(), namaDiskon_text.getText());
+            displayTabelDiskon();
+            clearFormDiskon();
+        }
+    }//GEN-LAST:event_tambahDiskon_buttonActionPerformed
 
     private void fieldPencarianKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPencarianKategoriActionPerformed
         // TODO add your handling code here:
@@ -2488,6 +2562,27 @@ public class MainJframe extends javax.swing.JFrame {
     private void namaDiskon_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaDiskon_textActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_namaDiskon_textActionPerformed
+
+    private void jumlahDiskon_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahDiskon_textActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jumlahDiskon_textActionPerformed
+
+    private void jumlahDiskon_textKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jumlahDiskon_textKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jumlahDiskon_textKeyTyped
+
+    private void tenggatDiskon_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenggatDiskon_textActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tenggatDiskon_textActionPerformed
+
+    private void tenggatDiskon_textKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tenggatDiskon_textKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tenggatDiskon_textKeyTyped
+
+    private void clear_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_buttonActionPerformed
+        // TODO add your handling code here:
+        clearFormDiskon();
+    }//GEN-LAST:event_clear_buttonActionPerformed
 
     
     /**
@@ -2630,6 +2725,8 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2674,6 +2771,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNamaSuplier;
     private javax.swing.JTextField jTextFieldNomerTelpSuplier;
     private javax.swing.JTextField jTextFieldcari;
+    private javax.swing.JTextField jumlahDiskon_text;
     private javax.swing.JTextField kodeDiskon_text;
     private javax.swing.JLabel labelJam;
     private javax.swing.JLabel labelShow;
@@ -2692,7 +2790,8 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JPanel panelNavigasiBar;
     private javax.swing.JPanel panel_ContenContainer;
     private javax.swing.JPanel panel_Header;
-    private javax.swing.JButton tambah_button;
+    private javax.swing.JButton tambahDiskon_button;
+    private javax.swing.JTextField tenggatDiskon_text;
     private javax.swing.JPanel transaksi;
     private javax.swing.JButton update_button;
     // End of variables declaration//GEN-END:variables
