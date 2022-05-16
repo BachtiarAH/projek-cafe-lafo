@@ -34,6 +34,13 @@ public class PopUpTambahBarang extends javax.swing.JFrame {
     DataBaseOperator operatorDBLafo = new DataBaseOperator(jaringan);
     barang tempBarang = new barang();
     
+    MainJframe JframeUtama;
+
+    public PopUpTambahBarang(MainJframe JframeUtama) {
+        this.JframeUtama = JframeUtama;
+    }
+    
+    
     public void setComboBox(){
         String sql = "SELECT barang.satuan FROM `barang` GROUP BY satuan;";
         ResultSet rs = operatorDBLafo.getResultSql(sql, true);
@@ -293,6 +300,8 @@ public class PopUpTambahBarang extends javax.swing.JFrame {
     private void jButton_selesai1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_selesai1ActionPerformed
         // TODO add your handling code here:
         tambahBarang();
+        this.setVisible(false);
+        JframeUtama.DisplayTabelBarang();
     }//GEN-LAST:event_jButton_selesai1ActionPerformed
 
     private void jButton_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ClearActionPerformed
@@ -323,6 +332,10 @@ public class PopUpTambahBarang extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonTambahSatuanActionPerformed
 
+    
+    public void startRun(){
+//        this.main();
+    }
     /**
      * @param args the command line arguments
      */

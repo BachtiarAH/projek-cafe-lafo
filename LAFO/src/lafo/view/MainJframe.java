@@ -2049,6 +2049,14 @@ public class MainJframe extends javax.swing.JFrame {
 //        jTableBarang.set
     }
     
+    PopUpTambahBarang subClassTB ;
+
+    public MainJframe(PopUpTambahBarang subClassTB) {
+        this.subClassTB = subClassTB;
+    }
+    
+    
+    
     Koneksi ConnectionDbLafo = new Koneksi();
     DataBaseOperator OperatorDbLafo = new DataBaseOperator(ConnectionDbLafo);
     
@@ -2061,7 +2069,7 @@ public class MainJframe extends javax.swing.JFrame {
     }
     
     //fungsi pada Data Barang
-    private void DisplayTabelBarang(){
+    public void DisplayTabelBarang(){
         String sql = "SELECT "
                 + "barang.kode_Barang, "
                 + "barang.Nama_barang, "
@@ -2423,10 +2431,12 @@ public class MainJframe extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
-    PopUpTambahBarang popUpTambahBarang = new PopUpTambahBarang();
+    PopUpTambahBarang popUpTambahBarang = new PopUpTambahBarang(this);
     private void ButtornTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambahActionPerformed
         // TODO add your handling code here:
         popUpTambahBarang.setVisible(true);
+
+//        popUpTambahBarang.startRun();
         
         
     }//GEN-LAST:event_ButtornTambahActionPerformed
