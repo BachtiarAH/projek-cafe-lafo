@@ -8,8 +8,14 @@ package lafo.proses;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.text.DateFormatter;
+import sun.util.calendar.LocalGregorianCalendar;
 /**
  *
  * @author RSI-15
@@ -28,32 +34,22 @@ public class Utility extends javax.swing.JFrame{
         mainPanel.revalidate();
     }
     
-    public static void tulisConfigurasi(String IpServer, String Username, String Pass, String Name){
+    public static String GetTanggal(){
         
-        try{
-        //instansiasi object file writer
-        File FileConfig = new File("configurasiDB.txt");
-        FileWriter WriterConfigDb = new FileWriter(FileConfig);
-        BufferedWriter BufferWriterConfigDB = new BufferedWriter(WriterConfigDb);
+        String date = "";
+        LocalDateTime myDateObj = LocalDateTime.now();
         
-        //menuliskan congihurasi pada bufferedWriter
-        BufferWriterConfigDB.write(IpServer);
-        BufferWriterConfigDB.newLine();
-        BufferWriterConfigDB.write(Username);
-        BufferWriterConfigDB.newLine();
-        BufferWriterConfigDB.write(Pass);
-        BufferWriterConfigDB.newLine();
-        BufferWriterConfigDB.write(Name);
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("ddMMyy");  
+        String formattedDate = myDateObj.format(myFormatObj);
         
-        //Flush configurasi ke Wrieter
-        BufferWriterConfigDB.flush();
+        date = formattedDate;
         
-        //Flush configurasi ke file
-        WriterConfigDb.flush();
-            
-        }catch(Exception e){
-            System.out.println(e);
-        }
+        return date;
+        
     }
     
+    public static void main(String[] args) {
+        System.out.println(GetTanggal());
+    }
+   
 }
