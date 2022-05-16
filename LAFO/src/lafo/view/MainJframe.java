@@ -738,14 +738,14 @@ public class MainJframe extends javax.swing.JFrame {
         NavigasiLayout.setVerticalGroup(
             NavigasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NavigasiLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(NavigasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cardTotalMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cardTotalDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cardTotalKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cardTotalSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cardTotalBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         ContainerConten.setBackground(new java.awt.Color(204, 255, 204));
@@ -1212,7 +1212,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addGroup(DataKategoriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPanelKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelInsertKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         ContainerConten.add(DataKategori, "card4");
@@ -1376,16 +1376,33 @@ public class MainJframe extends javax.swing.JFrame {
 
         jTableBarang1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "No", "Kode Menu", "Nama Menu", "Kategori", "Harga"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableBarang1.setColumnSelectionAllowed(true);
         containerTabelBarang1.setViewportView(jTableBarang1);
+        jTableBarang1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         LabelEntryes2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         LabelEntryes2.setText("Entries");
@@ -1408,8 +1425,9 @@ public class MainJframe extends javax.swing.JFrame {
         fieldPencarian2.setText("Cari Menu");
         fieldPencarian2.setPreferredSize(new java.awt.Dimension(485, 51));
 
-        ButtornTambah1.setBackground(new java.awt.Color(241, 102, 52));
+        ButtornTambah1.setBackground(new java.awt.Color(42, 48, 48));
         ButtornTambah1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        ButtornTambah1.setForeground(new java.awt.Color(255, 255, 255));
         ButtornTambah1.setText("Tambah");
         ButtornTambah1.setPreferredSize(new java.awt.Dimension(105, 49));
 
@@ -1418,42 +1436,43 @@ public class MainJframe extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(754, Short.MAX_VALUE)
+                .addContainerGap(511, Short.MAX_VALUE)
+                .addComponent(labelShow2)
+                .addGap(93, 93, 93)
+                .addComponent(LabelEntryes2)
+                .addGap(32, 32, 32)
                 .addComponent(ButtornTambah1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(541, 541, 541))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(containerTabelBarang1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(containerTabelBarang1, javax.swing.GroupLayout.DEFAULT_SIZE, 1390, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createSequentialGroup()
                             .addComponent(fieldPencarian2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(labelShow2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGap(73, 73, 73)
                             .addComponent(ComboBoxShowEntries2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(LabelEntryes2)
-                            .addGap(429, 429, Short.MAX_VALUE)))
+                            .addGap(0, 756, Short.MAX_VALUE)))
                     .addContainerGap()))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(ButtornTambah1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(656, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtornTambah1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelShow2)
+                    .addComponent(LabelEntryes2))
+                .addContainerGap(640, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(24, 24, 24)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(fieldPencarian2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelShow2)
-                        .addComponent(ComboBoxShowEntries2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(LabelEntryes2))
+                        .addComponent(ComboBoxShowEntries2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(26, 26, 26)
-                    .addComponent(containerTabelBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(24, Short.MAX_VALUE)))
+                    .addComponent(containerTabelBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout DataMenuLayout = new javax.swing.GroupLayout(DataMenu);
@@ -1464,7 +1483,9 @@ public class MainJframe extends javax.swing.JFrame {
         );
         DataMenuLayout.setVerticalGroup(
             DataMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(DataMenuLayout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
 
         ContainerConten.add(DataMenu, "card6");
@@ -1484,7 +1505,7 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(ManajemenDataLayout.createSequentialGroup()
                 .addComponent(Navigasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(ContainerConten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ContainerConten, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -1614,7 +1635,7 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(LaporanLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1676,7 +1697,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
                 .addGap(98, 98, 98))
         );
 
@@ -2015,8 +2036,8 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(panel_Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
-                    .addComponent(panelNavigasiBar, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE)))
+                    .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
+                    .addComponent(panelNavigasiBar, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)))
         );
 
         setBounds(0, 0, 1550, 1021);
