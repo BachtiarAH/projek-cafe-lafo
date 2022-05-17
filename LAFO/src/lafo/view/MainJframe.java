@@ -2326,7 +2326,7 @@ public class MainJframe extends javax.swing.JFrame {
        
         Kasir_enter popUpKasirEnter = new Kasir_enter();
         popUpKasirEnter.setJframeUtama(this);
-        popUpKasirEnter.Action("Cari");
+        popUpKasirEnter.Action();
         
     }//GEN-LAST:event_jTextFieldcariKeyTyped
 

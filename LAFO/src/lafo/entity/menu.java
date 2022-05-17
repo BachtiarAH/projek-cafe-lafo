@@ -14,6 +14,17 @@ public class menu extends data{
     float harga;
     String kategori;
     float Subtotal = harga * jumlah;
+    float Diskon;
+
+    public float getDiskon() {
+        return Diskon;
+    }
+
+    public void setDiskon(float Diskon) {
+        this.Diskon = Diskon;
+    }
+    
+    
 
     public float getSubtotal() {
         return Subtotal;
