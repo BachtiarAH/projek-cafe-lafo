@@ -5,6 +5,7 @@
  */
 package lafo.view.PopUp.Kasir;
 
+import javax.swing.JLabel;
 import lafo.entity.menu;
 import lafo.view.MainJframe;
 
@@ -23,6 +24,31 @@ public class inputBarang extends javax.swing.JFrame {
 
     menu mntp;
     MainJframe frameUtama;
+    CariDiskon CrDis = new CariDiskon();
+
+    public JLabel getjLabelDiskon() {
+        return jLabelDiskon;
+    }
+
+    public void setjLabelDiskon(JLabel jLabelDiskon) {
+        this.jLabelDiskon = jLabelDiskon;
+    }
+    
+    public void setjLabelDiskon(String text){
+        this.jLabelDiskon.setText(text);
+    }
+
+    public JLabel getjLabelNamaDiskon() {
+        return jLabelNamaDiskon;
+    }
+
+    public void setjLabelNamaDiskon(JLabel jLabelNamaDiskon) {
+        this.jLabelNamaDiskon = jLabelNamaDiskon;
+    }
+    
+    public void setjLabelNamaDiskon(String text){
+        this.jLabelNamaDiskon.setText(text);
+    }
 
     public menu getMntp() {
         return mntp;
@@ -82,7 +108,7 @@ public class inputBarang extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabelSubTotal = new javax.swing.JLabel();
         jLabelDiskon = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelNamaDiskon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -138,9 +164,14 @@ public class inputBarang extends javax.swing.JFrame {
 
         jLabelDiskon.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabelDiskon.setText("KODE DISKON");
+        jLabelDiskon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDiskonMouseClicked(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Nama Diskon");
+        jLabelNamaDiskon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelNamaDiskon.setText("Nama Diskon");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -162,7 +193,7 @@ public class inputBarang extends javax.swing.JFrame {
                         .addGap(59, 59, 59))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(jLabelNamaDiskon)
                             .addComponent(jLabelDiskon)
                             .addComponent(jLabel5)
                             .addComponent(jLabelSubTotal)
@@ -190,7 +221,7 @@ public class inputBarang extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelDiskon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(jLabelNamaDiskon)
                 .addGap(48, 48, 48)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,6 +258,12 @@ public class inputBarang extends javax.swing.JFrame {
     private void jTextFieldQtyInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTextFieldQtyInputMethodTextChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldQtyInputMethodTextChanged
+
+    private void jLabelDiskonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDiskonMouseClicked
+        // TODO add your handling code here:
+//        CrDis.setInBr(this);
+        CrDis.action();
+    }//GEN-LAST:event_jLabelDiskonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -266,7 +303,6 @@ public class inputBarang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -274,6 +310,7 @@ public class inputBarang extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDiskon;
     private javax.swing.JLabel jLabelHarga;
     private javax.swing.JLabel jLabelNama;
+    private javax.swing.JLabel jLabelNamaDiskon;
     private javax.swing.JLabel jLabelSubTotal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldQty;

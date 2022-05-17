@@ -123,7 +123,6 @@ public class Kasir_enter extends javax.swing.JFrame {
     MainJframe JframeUtama;
     barang barangTerpilih = new barang();
     menu mntp = new menu();
-    diskon disc = new diskon();
     String mode;
 
     public void setJframeUtama(MainJframe JframeUtama) {
@@ -147,7 +146,7 @@ public class Kasir_enter extends javax.swing.JFrame {
     
     inputBarang InputBarang = new inputBarang();
     public void klikTabelBarang(){
-        if (mode.equalsIgnoreCase("menu")) {
+       
         mntp.setKode(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
         mntp.setNama(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
         mntp.setHarga(Float.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString()) );
@@ -158,12 +157,7 @@ public class Kasir_enter extends javax.swing.JFrame {
         
         InputBarang.startRun();
             
-        }if (mode.equalsIgnoreCase("diskon")){
-           disc.setKode(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-           disc.setNama(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-           disc.setJumlahDiskon(Float.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString()));
-           disc.setTenggatWaktu(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-        }
+        
     }
     
     public void TampilDiskon(){
@@ -175,15 +169,9 @@ public class Kasir_enter extends javax.swing.JFrame {
     
     public void Action(){
         this.setVisible(true);
-        
-        if (mode.equalsIgnoreCase("menu")) {
-//        searchfiield.setText(text);
-            this.tampilData();
+        this.tampilData();
             
-        }if (mode.equalsIgnoreCase("diskon")) {
-            this.TampilDiskon();
-        }
-    }
+    } 
     /**
      * @param args the command line arguments
      */
