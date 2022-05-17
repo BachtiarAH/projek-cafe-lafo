@@ -23,6 +23,7 @@ public class Kasir_enter extends javax.swing.JFrame {
      */
     public Kasir_enter() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

@@ -6,6 +6,7 @@
 package lafo.view.PopUp.Kasir;
 
 import javax.swing.JLabel;
+import lafo.entity.diskon;
 import lafo.entity.menu;
 import lafo.view.MainJframe;
 
@@ -14,17 +15,20 @@ import lafo.view.MainJframe;
  * @author RSI-16
  */
 public class inputBarang extends javax.swing.JFrame {
+    menu mntp;
+    MainJframe frameUtama;
+    CariDiskon CrDis = new CariDiskon();
 
+    public static diskon diss = new diskon();
     /**
      * Creates new form inputBarang
      */
     public inputBarang() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
-    menu mntp;
-    MainJframe frameUtama;
-    CariDiskon CrDis = new CariDiskon();
 
     public JLabel getjLabelDiskon() {
         return jLabelDiskon;
@@ -82,7 +86,22 @@ public class inputBarang extends javax.swing.JFrame {
         System.out.println(mntp.getSubtotal());
     }
     
+    public void SetDiskon(String kode){
+//        this.jLabelDiskon.setText(diss.);
+    }
+    
+    public static void SetDatDis(){
+        jLabelDiskon.setText(diss.getKode());
+        jLabelNamaDiskon.setText(diss.getNama());
+        jLabelTDis.setText(diss.getJumlahDiskon()+"");
+    }
+    
     private void mendiskon(){
+        
+        
+        if (!CrDis.isVisible()) {
+            
+        }
         mntp.setDiskon(Float.valueOf(jLabelDiskon.getText()));
     }
     
@@ -109,6 +128,7 @@ public class inputBarang extends javax.swing.JFrame {
         jLabelSubTotal = new javax.swing.JLabel();
         jLabelDiskon = new javax.swing.JLabel();
         jLabelNamaDiskon = new javax.swing.JLabel();
+        jLabelTDis = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -173,6 +193,8 @@ public class inputBarang extends javax.swing.JFrame {
         jLabelNamaDiskon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelNamaDiskon.setText("Nama Diskon");
 
+        jLabelTDis.setText("Rp. 0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -181,8 +203,8 @@ public class inputBarang extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelHarga)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabelTDis)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -197,9 +219,13 @@ public class inputBarang extends javax.swing.JFrame {
                             .addComponent(jLabelDiskon)
                             .addComponent(jLabel5)
                             .addComponent(jLabelSubTotal)
-                            .addComponent(jLabel7)
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelHarga)
                             .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +248,9 @@ public class inputBarang extends javax.swing.JFrame {
                 .addComponent(jLabelDiskon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelNamaDiskon)
-                .addGap(48, 48, 48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelTDis)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelSubTotal)
@@ -263,6 +291,7 @@ public class inputBarang extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        CrDis.setInBr(this);
         CrDis.action();
+//            CrDis.setVisible(true);
     }//GEN-LAST:event_jLabelDiskonMouseClicked
 
     /**
@@ -307,11 +336,12 @@ public class inputBarang extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabelDiskon;
+    public static javax.swing.JLabel jLabelDiskon;
     private javax.swing.JLabel jLabelHarga;
     private javax.swing.JLabel jLabelNama;
-    private javax.swing.JLabel jLabelNamaDiskon;
+    public static javax.swing.JLabel jLabelNamaDiskon;
     private javax.swing.JLabel jLabelSubTotal;
+    public static javax.swing.JLabel jLabelTDis;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldQty;
     // End of variables declaration//GEN-END:variables

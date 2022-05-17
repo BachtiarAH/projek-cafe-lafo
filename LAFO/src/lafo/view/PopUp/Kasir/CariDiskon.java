@@ -5,6 +5,7 @@
  */
 package lafo.view.PopUp.Kasir;
 
+import javax.swing.JLabel;
 import lafo.entity.barang;
 import lafo.entity.diskon;
 import lafo.proses.DataBase.DataBaseOperator;
@@ -21,6 +22,8 @@ public class CariDiskon extends javax.swing.JFrame {
      */
     public CariDiskon() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
     
     Koneksi konDbLafo = new Koneksi();
@@ -33,9 +36,9 @@ public class CariDiskon extends javax.swing.JFrame {
         return inBr;
     }
 
-    public void setInBr(inputBarang inBr) {
-        this.inBr = inBr;
-    }
+//    public void setInBr(inputBarang inBr) {
+//        this.inBr = inBr;
+//    }
 
     
     
@@ -47,7 +50,7 @@ public class CariDiskon extends javax.swing.JFrame {
         dbop.tabel(sql, field, jTableDiskon);
     }
     
-    inputBarang InputBarang = new inputBarang();
+//    inputBarang InputBarang = new inputBarang();
     public void klikTabelBarang(){
 
            disc.setKode(jTableDiskon.getValueAt(jTableDiskon.getSelectedRow(), 0).toString());
@@ -55,11 +58,20 @@ public class CariDiskon extends javax.swing.JFrame {
            disc.setJumlahDiskon(Float.valueOf(jTableDiskon.getValueAt(jTableDiskon.getSelectedRow(), 2).toString()));
            disc.setTenggatWaktu(jTableDiskon.getValueAt(jTableDiskon.getSelectedRow(), 0).toString());
            
-           
-           inBr.setjLabelDiskon(disc.getKode());
-           inBr.setjLabelNamaDiskon(disc.getNama());
+           System.out.println(disc.getKode());
+           inputBarang.diss=disc;
+           inputBarang.SetDatDis();
+//           inputBarang.jLabelDiskon.setText("anjing");
+//           Diskon = disc;
+//           inBr.SetDiskon(disc.getKode());
+//           inBr.setjLabelDiskon(disc.getKode());
+//           inBr.setjLabelNamaDiskon(disc.getNama());
            this.setVisible(false);
         
+    }
+    
+    public diskon getDiskon(){
+        return disc;
     }
     
     public void action(){
@@ -80,7 +92,7 @@ public class CariDiskon extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDiskon = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTextFieldCariDiskon.setText("jTextField1");
 
@@ -95,6 +107,11 @@ public class CariDiskon extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableDiskon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableDiskonMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableDiskon);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -125,6 +142,11 @@ public class CariDiskon extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableDiskonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDiskonMouseClicked
+        // TODO add your handling code here:
+        klikTabelBarang();
+    }//GEN-LAST:event_jTableDiskonMouseClicked
 
     /**
      * @param args the command line arguments

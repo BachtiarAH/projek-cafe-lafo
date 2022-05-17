@@ -13,22 +13,14 @@ import jdk.nashorn.internal.codegen.CompilerConstants;
  * @author RSI-08
  */
 public class diskon extends data{
-    Date tenggatWaktu;
+    String tenggatWaktu;
     float jumlahDiskon;
 
-    public Date getTenggatWaktu() {
-        return tenggatWaktu;
-    }
-    
-    public Date setTenggatWaktu(String tanggal){
-        tenggatWaktu.setDate(Integer.valueOf(tanggal.substring(9, 10)));
-        tenggatWaktu.setMonth(Integer.valueOf(tanggal.substring(6, 8)));
-        tenggatWaktu.setYear(Integer.valueOf(tanggal.substring(0, 5)));
-        
+    public String getTenggatWaktu() {
         return tenggatWaktu;
     }
 
-    public void setTenggatWaktu(Date tenggatWaktu) {
+    public void setTenggatWaktu(String tenggatWaktu) {
         this.tenggatWaktu = tenggatWaktu;
     }
 
