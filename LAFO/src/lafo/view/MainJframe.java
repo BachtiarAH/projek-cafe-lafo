@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import lafo.entity.dataDiskon;
 import lafo.entity.dataSuplier;
 //import lafo.entity.suplier;
 //import jdk.javadoc.internal.doclets.formats.html.markup.TableHeader;
@@ -1013,7 +1014,7 @@ public class MainJframe extends javax.swing.JFrame {
         containerFormSuplaierLayout.setHorizontalGroup(
             containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerFormSuplaierLayout.createSequentialGroup()
-                .addContainerGap(111, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(containerFormSuplaierLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -1389,6 +1390,11 @@ public class MainJframe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        diskon_tabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                diskon_tabelMouseClicked(evt);
+            }
+        });
         jScrollPanelKategori1.setViewportView(diskon_tabel);
 
         fieldPencarianKategori1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -2234,6 +2240,9 @@ public class MainJframe extends javax.swing.JFrame {
     //mengisi form dengan tabel yang diklik
     
     //fungsi data diskon
+    
+    dataDiskon clickDiskon = new dataDiskon("");
+    
      public void setKodeDiskon() {
          try {
             String sql = "SELECT diskon.kode_diskon FROM `diskon` ORDER BY kode_diskon DESC";
@@ -2288,6 +2297,20 @@ public class MainJframe extends javax.swing.JFrame {
          tenggatDiskon_text.setText("");
      }
     
+    public void klikTabelDiskon(){
+        int indexRowSelected = diskon_tabel.getSelectedRow();
+        
+        clickDiskon.setKode(diskon_tabel.getValueAt(indexRowSelected, 0).toString());
+        clickDiskon.setNama(diskon_tabel.getValueAt(indexRowSelected, 1).toString());
+        clickDiskon.setJumlahDiskon(diskon_tabel.getValueAt(indexRowSelected, 2).toString());
+        clickDiskon.setTenggatDiskon(diskon_tabel.getValueAt(indexRowSelected, 3).toString());
+        
+        kodeDiskon_text.setText(clickDiskon.getKode());
+        namaDiskon_text.setText(clickDiskon.getNama());
+        jumlahDiskon_text.setText(clickDiskon.getJumlahDiskon());
+        tenggatDiskon_text.setText(clickDiskon.getTenggatDiskon());
+        
+    }
     
     // navigasi
     private void panelNavigasiBarComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelNavigasiBarComponentMoved
@@ -2576,6 +2599,11 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         clearFormDiskon();
     }//GEN-LAST:event_clear_buttonActionPerformed
+
+    private void diskon_tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diskon_tabelMouseClicked
+        // TODO add your handling code here:
+        klikTabelDiskon();
+    }//GEN-LAST:event_diskon_tabelMouseClicked
 
     
     /**
