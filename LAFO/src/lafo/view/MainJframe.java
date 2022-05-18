@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -2234,39 +2235,65 @@ public class MainJframe extends javax.swing.JFrame {
     
     //fungsi data diskon
      public void setKodeDiskon() {
-         int nomKodeIndex = 1;
-         String kodeIndex;
-         
-         if (nomKodeIndex < 10) {
-             kodeIndex = "0" + nomKodeIndex;
-         } else {
-             kodeIndex = parseInt(nomKodeIndex);
-//             kodeIndex = nomKodeIndex + "";
+         try {
+            String sql = "SELECT diskon.kode_diskon FROM `diskon` ORDER BY kode_diskon DESC";
+            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
+            
+            if(result.next()) {
+                String kodeDiskon = result.getString("kode_diskon").substring(9);
+                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                String nol = "";
+                
+                if(angka.length() == 1) {
+                    nol = "000";
+                } else if(angka.length() == 2) {
+                    nol = "00";
+                } else if(angka.length() == 3) {
+                    nol = "00";
+                } else {
+                    nol = "";
+                }
+                
+                String newKodeDiskon = "DIS" + nol + angka;
+                kodeDiskon_text.setText(newKodeDiskon);
+            }
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
          }
          
-         String kodeDiskon = "DIS" + Utility.GetTanggal()+ kodeIndex;
-         
-         String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon = '"+kodeDiskon+"';";
-         ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-         
-         try {
-            while (result.next()) {                
-                nomKodeIndex++;
-            }
-            
-            if (nomKodeIndex < 10) {
-                kodeIndex = "0" + nomKodeIndex;
-            }else{
-//                kodeIndex = nomKodeIndex + "";
-                kodeIndex = parseInt(nomKodeIndex);
-            }
-        
-            kodeDiskon = "DIS" + Utility.GetTanggal() + kodeIndex;
-            System.out.println("kode diubah");
-            kodeDiskon_text.setText(kodeDiskon);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//         int nomKodeIndex = 1;
+//         String kodeIndex;
+//         
+//         if (nomKodeIndex < 10) {
+//             kodeIndex = "0" + nomKodeIndex;
+//         } else {
+//             kodeIndex = parseInt(nomKodeIndex);
+////             kodeIndex = nomKodeIndex + "";
+//         }
+//         
+//         String kodeDiskon = "DIS" + Utility.GetTanggal()+ kodeIndex;
+//         
+//         String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon = '"+kodeDiskon+"';";
+//         ResultSet result = OperatorDbLafo.getResultSql(sql, true);
+//         
+//         try {
+//            while (result.next()) {                
+//                nomKodeIndex++;
+//            }
+//            
+//            if (nomKodeIndex < 10) {
+//                kodeIndex = "0" + nomKodeIndex;
+//            }else{
+////                kodeIndex = nomKodeIndex + "";
+//                kodeIndex = parseInt(nomKodeIndex);
+//            }
+//        
+//            kodeDiskon = "DIS" + Utility.GetTanggal() + kodeIndex;
+//            System.out.println("kode diubah");
+//            kodeDiskon_text.setText(kodeDiskon);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
+//        }
      }
      
      public void displayTabelDiskon() {
