@@ -2254,46 +2254,12 @@ public class MainJframe extends javax.swing.JFrame {
                     nol = "";
                 }
                 
-                String newKodeDiskon = "DIS" + nol + angka;
+                String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
                 kodeDiskon_text.setText(newKodeDiskon);
             }
          } catch (Exception e) {
              JOptionPane.showMessageDialog(null, e);
          }
-         
-//         int nomKodeIndex = 1;
-//         String kodeIndex;
-//         
-//         if (nomKodeIndex < 10) {
-//             kodeIndex = "0" + nomKodeIndex;
-//         } else {
-//             kodeIndex = parseInt(nomKodeIndex);
-////             kodeIndex = nomKodeIndex + "";
-//         }
-//         
-//         String kodeDiskon = "DIS" + Utility.GetTanggal()+ kodeIndex;
-//         
-//         String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon = '"+kodeDiskon+"';";
-//         ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-//         
-//         try {
-//            while (result.next()) {                
-//                nomKodeIndex++;
-//            }
-//            
-//            if (nomKodeIndex < 10) {
-//                kodeIndex = "0" + nomKodeIndex;
-//            }else{
-////                kodeIndex = nomKodeIndex + "";
-//                kodeIndex = parseInt(nomKodeIndex);
-//            }
-//        
-//            kodeDiskon = "DIS" + Utility.GetTanggal() + kodeIndex;
-//            System.out.println("kode diubah");
-//            kodeDiskon_text.setText(kodeDiskon);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
-//        }
      }
      
      public void displayTabelDiskon() {
