@@ -6,6 +6,7 @@
 package lafo.view.PopUp.Kasir;
 
 import lafo.entity.barang;
+import lafo.entity.diskon;
 import lafo.entity.menu;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.proses.DataBase.Koneksi;
@@ -22,6 +23,7 @@ public class Kasir_enter extends javax.swing.JFrame {
      */
     public Kasir_enter() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -122,6 +124,7 @@ public class Kasir_enter extends javax.swing.JFrame {
     MainJframe JframeUtama;
     barang barangTerpilih = new barang();
     menu mntp = new menu();
+    String mode;
 
     public void setJframeUtama(MainJframe JframeUtama) {
         this.JframeUtama = JframeUtama;
@@ -144,6 +147,7 @@ public class Kasir_enter extends javax.swing.JFrame {
     
     inputBarang InputBarang = new inputBarang();
     public void klikTabelBarang(){
+       
         mntp.setKode(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
         mntp.setNama(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
         mntp.setHarga(Float.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString()) );
@@ -153,13 +157,22 @@ public class Kasir_enter extends javax.swing.JFrame {
         InputBarang.setMntp(mntp);
         
         InputBarang.startRun();
+            
+        
     }
     
-    public void Action(String text){
-        this.setVisible(true);
-        searchfiield.setText(text);
-        this.tampilData();
+    public void TampilDiskon(){
+        String sql = "SELECT `kode_diskon`, `nama`, `jumlah_diskon`, `tenggat_diskon` FROM `diskon` WHERE 1";
+        String[] field = {"kode diskon","nama diskon","jumlah diskon","tenggat diskon" };
+        
+        DBLafoOp.tabel(sql, field, jTable1);
     }
+    
+    public void Action(){
+        this.setVisible(true);
+        this.tampilData();
+            
+    } 
     /**
      * @param args the command line arguments
      */

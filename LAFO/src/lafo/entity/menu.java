@@ -10,10 +10,11 @@ package lafo.entity;
  * @author user
  */
 public class menu extends data{
-    int jumlah;
-    float harga;
-    String kategori;
+    int jumlah = 0;
+    float harga = 0;
+    String kategori = "";
     float Subtotal = harga * jumlah;
+
 
     public float getSubtotal() {
         return Subtotal;
