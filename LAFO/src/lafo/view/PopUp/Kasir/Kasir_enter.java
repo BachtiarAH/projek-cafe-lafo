@@ -158,6 +158,7 @@ public class Kasir_enter extends javax.swing.JFrame {
         
         InputBarang.startRun();
             
+        this.setVisible(false);
         
     }
     

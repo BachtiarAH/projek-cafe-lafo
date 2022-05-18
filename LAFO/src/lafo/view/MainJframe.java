@@ -20,7 +20,10 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import lafo.entity.dataSuplier;
+import lafo.entity.diskon;
+import lafo.entity.menu;
 import lafo.fungsi.fungsitTransaksi;
+import static lafo.fungsi.fungsitTransaksi.tbmodel;
 //import lafo.entity.suplier;
 //import jdk.javadoc.internal.doclets.formats.html.markup.TableHeader;
 import lafo.proses.Utility;
@@ -43,7 +46,12 @@ public class MainJframe extends javax.swing.JFrame {
      */
     public MainJframe() {
         initComponents();
-        
+        this.DisplayTabelBarang();
+        this.DisplayTabelSuplier();
+        this.displayTabelDiskon();
+        this.DisplaytabelUser();
+        this.SetTableModel();
+        this.setVisible(true);
 //        tabelBarang();
     }
 
@@ -2084,10 +2092,33 @@ public class MainJframe extends javax.swing.JFrame {
         setBounds(0, 0, 1550, 1021);
     }// </editor-fold>//GEN-END:initComponents
     fungsitTransaksi fTrans = new fungsitTransaksi(this.jTableTransaksi);
+    public static menu mntemp;
+    public static diskon dissTemp;
+    public static DefaultTableModel tbModTrans = new DefaultTableModel();
 
+    
+    //fungsi transaksi
+     public void SetTableModel(){
+        String[] tbHeader = {"Nama Menu","Jumlah","Harga","Diskon","total"};
+//        Object[] obj = new Object[]{} ;
+        //menambahkan header pada tabel model
+        for (int i = 0; i < tbHeader.length; i++) {
+            tbModTrans.addColumn(tbHeader[i]);
+//            obj[i] = tbHeader[i];
+        }
+        
+//        tbModTrans.addRow(obj);
+        MainJframe.jTableTransaksi.setModel(tbModTrans);
+    }
+     
+     public void addmenu(){
+         
+     }
+    
+    
+    
+    
     //data barang
-    
-    
     private void tabelBarang(){
        
         
@@ -2230,6 +2261,8 @@ public class MainJframe extends javax.swing.JFrame {
                 + "kode_suplaier = '"+jTextFieldKodeSuplier.getText()+"';";
         
         OperatorDbLafo.DatabaseExecutor(sql, true);
+        
+        
     }
     
     //mengisi form dengan tabel yang diklik
@@ -2601,12 +2634,7 @@ public class MainJframe extends javax.swing.JFrame {
     }//GEN-LAST:event_clear_buttonActionPerformed
 
     public void startRunMainFrame(){
-        this.DisplayTabelBarang();
-        this.DisplayTabelSuplier();
-        this.displayTabelDiskon();
-        this.DisplaytabelUser();
-        this.fTrans.SetTableModel();
-        this.setVisible(true);
+        
     }
     /**
      * @param args the command line arguments
@@ -2773,11 +2801,11 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPanelKategori;
     private javax.swing.JScrollPane jScrollPanelKategori1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTableBarang;
+    public static javax.swing.JTable jTableBarang;
     private javax.swing.JTable jTableBarang1;
     private javax.swing.JTable jTableKategori;
     private javax.swing.JTable jTableSuplier;
-    private javax.swing.JTable jTableTransaksi;
+    public static javax.swing.JTable jTableTransaksi;
     private javax.swing.JTable jTableUser;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

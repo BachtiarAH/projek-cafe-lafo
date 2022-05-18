@@ -6,8 +6,11 @@
 package lafo.view.PopUp.Kasir;
 
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import lafo.entity.diskon;
 import lafo.entity.menu;
+import lafo.fungsi.fungsitTransaksi;
 import lafo.view.MainJframe;
 
 /**
@@ -18,6 +21,7 @@ public class inputBarang extends javax.swing.JFrame {
     menu mntp;
     MainJframe frameUtama;
     CariDiskon CrDis = new CariDiskon();
+    fungsitTransaksi fTrans = new fungsitTransaksi(MainJframe.jTableBarang);
     
 
     public static diskon diss = new diskon();
@@ -80,12 +84,15 @@ public class inputBarang extends javax.swing.JFrame {
     }
     
     public void UpdateSubTotal(){
-        if (jTextFieldQty.getText() == null) {
+        float subTotal = mntp.getHarga() * mntp.getJumlah() - diss.getJumlahDiskon();
+        if (jTextFieldQty.getText().equalsIgnoreCase("")) {
             mntp.setJumlah(0);
+            subTotal = mntp.getHarga() * mntp.getJumlah() - diss.getJumlahDiskon();
         }else{
             mntp.setJumlah(Integer.valueOf(jTextFieldQty.getText()));
+            subTotal = mntp.getHarga() * mntp.getJumlah() - diss.getJumlahDiskon();
         }
-        jLabelSubTotal.setText("Rp. "+(mntp.getHarga()*mntp.getJumlah())+"");
+        jLabelSubTotal.setText("Rp. "+subTotal);
         System.out.println(mntp.getSubtotal());
     }
     
@@ -107,10 +114,33 @@ public class inputBarang extends javax.swing.JFrame {
         jLabelTDis.setText(diss.getJumlahDiskon()+"");
     }
     
-    private void mendiskon(){
+    private void SubmitMenu(){
         
+//        MainJframe.mntemp = mntp;
+//        MainJframe.dissTemp = diss;
+//        
+//        
+  
+        JTable tabelTr = MainJframe.jTableTransaksi;
+        String namaMenu = mntp.getNama();
+        int QytMenu = mntp.getJumlah();
+        float harga = mntp.getHarga();
+        float potongan = diss.getJumlahDiskon();
+        float SubTotal = QytMenu * harga - potongan;
         
-        
+        String[] isi = {namaMenu+"",QytMenu+"",harga+"",potongan+"",SubTotal+""};
+        Object[] c = new Object[]{namaMenu,QytMenu,harga,potongan,SubTotal};
+        DefaultTableModel tbMod = new DefaultTableModel();
+//        tbMod.addRow(c);
+        MainJframe.tbModTrans.addRow(c);
+        tabelTr.setModel(MainJframe.tbModTrans);
+        this.setVisible(false);
+        System.out.println(namaMenu);
+        System.out.println(QytMenu);
+        System.out.println(harga);
+        System.out.println(potongan);
+        System.out.println(SubTotal);
+
     }
     
     
@@ -165,6 +195,11 @@ public class inputBarang extends javax.swing.JFrame {
         jButton1.setText("SIMPAN");
         jButton1.setMaximumSize(new java.awt.Dimension(500, 300));
         jButton1.setPreferredSize(new java.awt.Dimension(476, 46));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Nama Barang");
@@ -324,6 +359,11 @@ public class inputBarang extends javax.swing.JFrame {
         // TODO add your handling code here:
         jLabelSubTotal.setText("Rp. ganti");
     }//GEN-LAST:event_jLabelDiskonInputMethodTextChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        SubmitMenu();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     /**

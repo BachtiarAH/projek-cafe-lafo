@@ -36,7 +36,9 @@ public class diskon extends data{
         diskon dis = new diskon();
         
         dis.setTenggatWaktu("2022-05-17");
-        dis.getTenggatWaktu();
+        System.out.println(dis.getJumlahDiskon());
     }
+    
+    
     
 }
