@@ -13,8 +13,8 @@ import jdk.nashorn.internal.codegen.CompilerConstants;
  * @author RSI-08
  */
 public class diskon extends data{
-    String tenggatWaktu;
-    float jumlahDiskon;
+    String tenggatWaktu = "";
+    float jumlahDiskon = 0;
 
     public String getTenggatWaktu() {
         return tenggatWaktu;

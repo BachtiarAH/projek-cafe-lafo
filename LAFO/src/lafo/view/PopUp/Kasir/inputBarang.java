@@ -20,6 +20,7 @@ public class inputBarang extends javax.swing.JFrame {
     CariDiskon CrDis = new CariDiskon();
 
     public static diskon diss = new diskon();
+//    float disk = diss.getJumlahDiskon();
     /**
      * Creates new form inputBarang
      */
@@ -73,6 +74,7 @@ public class inputBarang extends javax.swing.JFrame {
     public void startRun(){
         this.jLabelNama.setText(mntp.getNama());
         this.jLabelHarga.setText("Rp. "+mntp.getHarga()+"");
+        diss.setJumlahDiskon(0);
         this.setVisible(true);
     }
     
@@ -99,10 +101,7 @@ public class inputBarang extends javax.swing.JFrame {
     private void mendiskon(){
         
         
-        if (!CrDis.isVisible()) {
-            
-        }
-        mntp.setDiskon(Float.valueOf(jLabelDiskon.getText()));
+        
     }
     
     
@@ -189,6 +188,18 @@ public class inputBarang extends javax.swing.JFrame {
                 jLabelDiskonMouseClicked(evt);
             }
         });
+        jLabelDiskon.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jLabelDiskonInputMethodTextChanged(evt);
+            }
+        });
+        jLabelDiskon.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jLabelDiskonPropertyChange(evt);
+            }
+        });
 
         jLabelNamaDiskon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelNamaDiskon.setText("Nama Diskon");
@@ -203,9 +214,6 @@ public class inputBarang extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelTDis)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
@@ -215,17 +223,18 @@ public class inputBarang extends javax.swing.JFrame {
                         .addGap(59, 59, 59))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelHarga)
+                            .addComponent(jLabel6))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelTDis)
                             .addComponent(jLabelNamaDiskon)
                             .addComponent(jLabelDiskon)
                             .addComponent(jLabel5)
                             .addComponent(jLabelSubTotal)
                             .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelHarga)
-                            .addComponent(jLabel6))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,6 +303,19 @@ public class inputBarang extends javax.swing.JFrame {
 //            CrDis.setVisible(true);
     }//GEN-LAST:event_jLabelDiskonMouseClicked
 
+    private void jLabelDiskonPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabelDiskonPropertyChange
+        // TODO add your handling code here:
+        System.out.println("ganti");
+//        float subTotal = mntp.getHarga()*mntp.getJumlah()-diss.getJumlahDiskon();
+//        this.UpdateSubTotal();
+    }//GEN-LAST:event_jLabelDiskonPropertyChange
+
+    private void jLabelDiskonInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jLabelDiskonInputMethodTextChanged
+        // TODO add your handling code here:
+        jLabelSubTotal.setText("Rp. ganti");
+    }//GEN-LAST:event_jLabelDiskonInputMethodTextChanged
+
+
     /**
      * @param args the command line arguments
      */
@@ -340,7 +362,7 @@ public class inputBarang extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelHarga;
     private javax.swing.JLabel jLabelNama;
     public static javax.swing.JLabel jLabelNamaDiskon;
-    private javax.swing.JLabel jLabelSubTotal;
+    public static javax.swing.JLabel jLabelSubTotal;
     public static javax.swing.JLabel jLabelTDis;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldQty;
