@@ -2805,4 +2805,8 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JTextField tenggatDiskon_text;
     private javax.swing.JPanel transaksi;
     // End of variables declaration//GEN-END:variables
+
+    private String parseInt(int nomKodeIndex) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
