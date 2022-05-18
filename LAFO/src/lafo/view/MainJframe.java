@@ -20,6 +20,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import lafo.entity.dataSuplier;
+import lafo.fungsi.fungsitTransaksi;
 //import lafo.entity.suplier;
 //import jdk.javadoc.internal.doclets.formats.html.markup.TableHeader;
 import lafo.proses.Utility;
@@ -2082,11 +2083,13 @@ public class MainJframe extends javax.swing.JFrame {
 
         setBounds(0, 0, 1550, 1021);
     }// </editor-fold>//GEN-END:initComponents
+    fungsitTransaksi fTrans = new fungsitTransaksi(this.jTableTransaksi);
 
     //data barang
+    
+    
     private void tabelBarang(){
-        
-        //membuat tabel model
+       
         
         
 //        jTableBarang.set
@@ -2295,6 +2298,7 @@ public class MainJframe extends javax.swing.JFrame {
          tenggatDiskon_text.setText("");
      }
     
+     
 
     
     // navigasi
@@ -2596,7 +2600,14 @@ public class MainJframe extends javax.swing.JFrame {
         clearFormDiskon();
     }//GEN-LAST:event_clear_buttonActionPerformed
 
-    
+    public void startRunMainFrame(){
+        this.DisplayTabelBarang();
+        this.DisplayTabelSuplier();
+        this.displayTabelDiskon();
+        this.DisplaytabelUser();
+        this.fTrans.SetTableModel();
+        this.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -2631,10 +2642,7 @@ public class MainJframe extends javax.swing.JFrame {
 //                new MainJframe().setVisible(true);
                 
                 MainJframe main = new MainJframe();
-                main.setVisible(true);
-                main.DisplaytabelUser();
-                main.DisplayTabelSuplier();
-                main.DisplayTabelBarang();
+                main.startRunMainFrame();
                 
             }
         });

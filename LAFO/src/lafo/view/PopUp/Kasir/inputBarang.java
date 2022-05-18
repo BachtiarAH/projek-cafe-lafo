@@ -18,6 +18,7 @@ public class inputBarang extends javax.swing.JFrame {
     menu mntp;
     MainJframe frameUtama;
     CariDiskon CrDis = new CariDiskon();
+    
 
     public static diskon diss = new diskon();
 //    float disk = diss.getJumlahDiskon();
@@ -78,7 +79,7 @@ public class inputBarang extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
-    private void UpdateSubTotal(){
+    public void UpdateSubTotal(){
         if (jTextFieldQty.getText() == null) {
             mntp.setJumlah(0);
         }else{
@@ -88,11 +89,19 @@ public class inputBarang extends javax.swing.JFrame {
         System.out.println(mntp.getSubtotal());
     }
     
+    public static void UpdateSubTotal(menu mn, diskon diss){
+        float subTotal = mn.getHarga()*mn.getJumlah()-diss.getJumlahDiskon();
+        jLabelSubTotal.setText(subTotal+"");
+    }
+    
+    
     public void SetDiskon(String kode){
 //        this.jLabelDiskon.setText(diss.);
     }
     
-    public static void SetDatDis(){
+    public static void SetDatDis(diskon disc){
+        
+        diss = disc;
         jLabelDiskon.setText(diss.getKode());
         jLabelNamaDiskon.setText(diss.getNama());
         jLabelTDis.setText(diss.getJumlahDiskon()+"");
@@ -299,13 +308,14 @@ public class inputBarang extends javax.swing.JFrame {
     private void jLabelDiskonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDiskonMouseClicked
         // TODO add your handling code here:
 //        CrDis.setInBr(this);
+        CrDis.mn = mntp;
         CrDis.action();
 //            CrDis.setVisible(true);
     }//GEN-LAST:event_jLabelDiskonMouseClicked
 
     private void jLabelDiskonPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabelDiskonPropertyChange
         // TODO add your handling code here:
-        System.out.println("ganti");
+//        System.out.println("ganti");
 //        float subTotal = mntp.getHarga()*mntp.getJumlah()-diss.getJumlahDiskon();
 //        this.UpdateSubTotal();
     }//GEN-LAST:event_jLabelDiskonPropertyChange

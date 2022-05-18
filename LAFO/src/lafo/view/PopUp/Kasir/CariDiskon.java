@@ -8,6 +8,7 @@ package lafo.view.PopUp.Kasir;
 import javax.swing.JLabel;
 import lafo.entity.barang;
 import lafo.entity.diskon;
+import lafo.entity.menu;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.proses.DataBase.Koneksi;
 
@@ -31,6 +32,7 @@ public class CariDiskon extends javax.swing.JFrame {
     barang barangTerpilih = new barang();
     diskon disc = new diskon();
     inputBarang inBr;
+    menu mn = new menu();
 
     public inputBarang getInBr() {
         return inBr;
@@ -60,7 +62,8 @@ public class CariDiskon extends javax.swing.JFrame {
            
            System.out.println(disc.getKode());
            inputBarang.diss=disc;
-           inputBarang.SetDatDis();
+           inputBarang.SetDatDis(disc);
+           inputBarang.UpdateSubTotal(mn, disc);
 //           inputBarang.jLabelDiskon.setText("anjing");
 //           Diskon = disc;
 //           inBr.SetDiskon(disc.getKode());

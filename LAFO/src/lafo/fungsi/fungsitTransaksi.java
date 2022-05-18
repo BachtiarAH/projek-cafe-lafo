@@ -23,7 +23,7 @@ public class fungsitTransaksi {
     DataBaseOperator DbOp = new DataBaseOperator(konDbLafo);
     menu mn = new menu();
     diskon disc = new diskon();
-    JTable tabelTr;
+    javax.swing.JTable tabelTr;
     DefaultTableModel tbmodel = new DefaultTableModel();
     
     
