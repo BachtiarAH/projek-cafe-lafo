@@ -11,6 +11,7 @@ import lafo.entity.diskon;
 import lafo.entity.menu;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.proses.DataBase.Koneksi;
+import lafo.view.MainJframe;
 
 /**
  *
@@ -21,10 +22,15 @@ public class CariDiskon extends javax.swing.JFrame {
     /**
      * Creates new form CariDiskon
      */
-    public CariDiskon() {
+    String mode;
+    
+    public CariDiskon(String mode) {
         initComponents();
+        this.mode = mode;
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+//        this.setVisible(true);
+        this.tampilDiskon();
     }
     
     Koneksi konDbLafo = new Koneksi();
@@ -60,15 +66,18 @@ public class CariDiskon extends javax.swing.JFrame {
            disc.setJumlahDiskon(Float.valueOf(jTableDiskon.getValueAt(jTableDiskon.getSelectedRow(), 2).toString()));
            disc.setTenggatWaktu(jTableDiskon.getValueAt(jTableDiskon.getSelectedRow(), 0).toString());
            
+        if (this.mode.equalsIgnoreCase("tunggal")) {
            System.out.println(disc.getKode());
            inputBarang.diss=disc;
            inputBarang.SetDatDis(disc);
            inputBarang.UpdateSubTotal(mn, disc);
-//           inputBarang.jLabelDiskon.setText("anjing");
-//           Diskon = disc;
-//           inBr.SetDiskon(disc.getKode());
-//           inBr.setjLabelDiskon(disc.getKode());
-//           inBr.setjLabelNamaDiskon(disc.getNama());
+            
+        }if (this.mode.equalsIgnoreCase("majemuk")) {
+            MainJframe.dissTemp = disc;
+            System.out.println(disc.getKode());
+           MainJframe.jTextFieldDiskon.setText(disc.getKode());
+           
+        }
            this.setVisible(false);
         
     }
@@ -96,8 +105,6 @@ public class CariDiskon extends javax.swing.JFrame {
         jTableDiskon = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jTextFieldCariDiskon.setText("jTextField1");
 
         jTableDiskon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -181,7 +188,7 @@ public class CariDiskon extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CariDiskon ini = new CariDiskon();
+                CariDiskon ini = new CariDiskon("tunggal");
                 ini.action();
             }
         });

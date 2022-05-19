@@ -5,17 +5,115 @@
  */
 package lafo.view.PopUp.Barang;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import lafo.entity.barang;
+import lafo.proses.DataBase.DataBaseOperator;
+import lafo.proses.DataBase.Koneksi;
+import lafo.view.MainJframe;
+
 /**
  *
  * @author Hp
  */
 public class TambahBarang extends javax.swing.JFrame {
 
+    Koneksi konDbLaf = new Koneksi();
+    DataBaseOperator DbOp = new DataBaseOperator(konDbLaf);
+    barang tempBarang = new barang();
     /**
      * Creates new form TambahBarang
      */
     public TambahBarang() {
         initComponents();
+        setComboBox();
+        
+    }
+    
+    public void setComboBox(){
+        String sql = "SELECT barang.satuan FROM `barang` GROUP BY satuan;";
+        ResultSet rs = DbOp.getResultSql(sql, true);
+        
+        try {
+            while (rs.next()) {
+                jComboBoxSatuan.addItem(rs.getString(1));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PopUpTambahBarang.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        }
+    }
+    
+    //membuat kode barang
+    public String generateKodeBarang(){
+        //deklarasi variabel
+        int intIndexKode = 1;
+        String IndexKode;
+        String kode ;
+        
+        //buat inisial
+        String nama=jTextFieldNamaBarang.getText();
+        String inisial = nama.substring(0, 2).toUpperCase();
+        
+        //jika index kode kurang dari 10 akan ditambahi 0 diawal
+        if (intIndexKode < 10) {
+            IndexKode = "0"+intIndexKode;
+        }else{
+            IndexKode = intIndexKode+"";
+        }
+        
+        //membuat kodesuplier
+        boolean isduplcate;
+        kode = "BR"+inisial+IndexKode;
+        String sql = "SELECT kode_barang FROM `barang` WHERE kode_barang = '"+kode+"';";
+        ResultSet rs = this.DbOp.getResultSql(sql, true);
+        
+        try {
+        isduplcate = rs.next();
+        while(isduplcate){
+    
+                intIndexKode++;
+    
+            
+            if (intIndexKode < 10) {
+                IndexKode = "0"+intIndexKode;
+            }else{
+                IndexKode = intIndexKode+"";
+            }
+            
+            kode = "BR"+inisial+IndexKode;
+            sql = "SELECT kode_barang FROM `barang` WHERE kode_barang = '"+kode+"';";
+            rs = this.DbOp.getResultSql(sql, true);
+            isduplcate = rs.next();
+//            System.out.println(rs.getString(1));
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+
+//        jTextField_kodebarang.setText(inisial);
+        return kode;
+    }
+    
+    public void tambahBarang(){
+        tempBarang.setKode(jTextFieldKodeBarang.getText());
+        tempBarang.setNama(jTextFieldNamaBarang.getText());
+        tempBarang.setSatuan(jComboBoxSatuan.getEditor().getItem().toString());
+        
+        String sql = "INSERT INTO `barang` "
+                + "(`kode_Barang`, `Nama_barang`, `satuan`) "
+                + "VALUES "
+                + "('"+tempBarang.getKode()+"', '"+tempBarang.getNama()+"', '"+tempBarang.getSatuan()+"')";
+        
+        DbOp.DatabaseExecutor(sql, true);
+        String massageSucc = "Berhasil Menambahkan "+tempBarang.getNama();
+        JOptionPane.showMessageDialog(this, massageSucc);
     }
 
     /**
@@ -30,15 +128,15 @@ public class TambahBarang extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jTextFieldNamaBarang = new javax.swing.JTextField();
+        jTextFieldKodeBarang = new javax.swing.JTextField();
         label3 = new java.awt.Label();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jComboBoxSatuan = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(592, 623));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -50,21 +148,19 @@ public class TambahBarang extends javax.swing.JFrame {
         label2.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         label2.setText("Nama Barang");
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(56, 48));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNamaBarang.setPreferredSize(new java.awt.Dimension(56, 48));
+        jTextFieldNamaBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldNamaBarangActionPerformed(evt);
+            }
+        });
+        jTextFieldNamaBarang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldNamaBarangKeyReleased(evt);
             }
         });
 
-        jTextField2.setPreferredSize(new java.awt.Dimension(478, 48));
-
-        jTextField3.setPreferredSize(new java.awt.Dimension(56, 48));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
+        jTextFieldKodeBarang.setPreferredSize(new java.awt.Dimension(478, 48));
 
         label3.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         label3.setText("Satuan\n");
@@ -102,6 +198,10 @@ public class TambahBarang extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxSatuan.setEditable(true);
+        jComboBoxSatuan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxSatuan.setPreferredSize(new java.awt.Dimension(56, 48));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,14 +210,14 @@ public class TambahBarang extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldKodeBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldNamaBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxSatuan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -126,16 +226,16 @@ public class TambahBarang extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addComponent(jComboBoxSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,13 +260,9 @@ public class TambahBarang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldNamaBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNamaBarangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTextFieldNamaBarangActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -179,6 +275,14 @@ public class TambahBarang extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextFieldNamaBarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNamaBarangKeyReleased
+        // TODO add your handling code here:
+        if (jTextFieldNamaBarang.getText().length() == 2) {
+            
+        jTextFieldKodeBarang.setText(generateKodeBarang());
+        }
+    }//GEN-LAST:event_jTextFieldNamaBarangKeyReleased
 
     /**
      * @param args the command line arguments
@@ -219,10 +323,10 @@ public class TambahBarang extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBoxSatuan;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextFieldKodeBarang;
+    private javax.swing.JTextField jTextFieldNamaBarang;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;

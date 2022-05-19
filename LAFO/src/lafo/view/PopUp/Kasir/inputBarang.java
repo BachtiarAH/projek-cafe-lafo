@@ -12,6 +12,8 @@ import lafo.entity.diskon;
 import lafo.entity.menu;
 import lafo.fungsi.fungsitTransaksi;
 import lafo.view.MainJframe;
+import static lafo.view.MainJframe.jLabelTotal;
+import static lafo.view.MainJframe.jTableBarang;
 
 /**
  *
@@ -20,7 +22,7 @@ import lafo.view.MainJframe;
 public class inputBarang extends javax.swing.JFrame {
     menu mntp;
     MainJframe frameUtama;
-    CariDiskon CrDis = new CariDiskon();
+    CariDiskon CrDis = new CariDiskon("tunggal");
     fungsitTransaksi fTrans = new fungsitTransaksi(MainJframe.jTableBarang);
     
 
@@ -135,13 +137,12 @@ public class inputBarang extends javax.swing.JFrame {
         MainJframe.tbModTrans.addRow(c);
         tabelTr.setModel(MainJframe.tbModTrans);
         this.setVisible(false);
-        System.out.println(namaMenu);
-        System.out.println(QytMenu);
-        System.out.println(harga);
-        System.out.println(potongan);
-        System.out.println(SubTotal);
+        
+        MainJframe.UpdateTotal();
 
     }
+    
+    
     
     
     /**
