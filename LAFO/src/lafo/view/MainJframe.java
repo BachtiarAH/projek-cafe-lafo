@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import lafo.entity.dataDiskon;
 import lafo.entity.dataSuplier;
 import lafo.entity.diskon;
 import lafo.entity.menu;
@@ -55,6 +56,7 @@ public class MainJframe extends javax.swing.JFrame {
         this.DisplayTabelSuplier();
         this.displayTabelDiskon();
         this.DisplaytabelUser();
+        this.displayTabelDiskon();
         this.SetTableModel();
         this.generateCodeTrans();
         this.setVisible(true);
@@ -1403,6 +1405,11 @@ public class MainJframe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        diskon_tabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                diskon_tabelMouseClicked(evt);
+            }
+        });
         jScrollPanelKategori1.setViewportView(diskon_tabel);
 
         fieldPencarianKategori1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -2358,40 +2365,35 @@ public class MainJframe extends javax.swing.JFrame {
     
 
     //fungsi data diskon
+    
+    dataDiskon clickDiskon = new dataDiskon("");
+    
      public void setKodeDiskon() {
-         int nomKodeIndex = 1;
-         String kodeIndex;
-         
-         if (nomKodeIndex < 10) {
-             kodeIndex = "0" + nomKodeIndex;
-         } else {
-             kodeIndex = parseInt(nomKodeIndex);
-//             kodeIndex = nomKodeIndex + "";
-         }
-         
-         String kodeDiskon = "DIS" + Utility.GetTanggal()+ kodeIndex;
-         
-         String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon = '"+kodeDiskon+"';";
-         ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-         
          try {
-            while (result.next()) {                
-                nomKodeIndex++;
-            }
+            String sql = "SELECT diskon.kode_diskon FROM `diskon` ORDER BY kode_diskon DESC";
+            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
-            if (nomKodeIndex < 10) {
-                kodeIndex = "0" + nomKodeIndex;
-            }else{
-//                kodeIndex = nomKodeIndex + "";
-                kodeIndex = parseInt(nomKodeIndex);
+            if(result.next()) {
+                String kodeDiskon = result.getString("kode_diskon").substring(9);
+                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                String nol = "";
+                
+                if(angka.length() == 1) {
+                    nol = "000";
+                } else if(angka.length() == 2) {
+                    nol = "00";
+                } else if(angka.length() == 3) {
+                    nol = "00";
+                } else {
+                    nol = "";
+                }
+                
+                String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
+                kodeDiskon_text.setText(newKodeDiskon);
             }
-        
-            kodeDiskon = "DIS" + Utility.GetTanggal() + kodeIndex;
-            System.out.println("kode diubah");
-            kodeDiskon_text.setText(kodeDiskon);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
      }
      
      public void displayTabelDiskon() {
@@ -2420,7 +2422,33 @@ public class MainJframe extends javax.swing.JFrame {
          tenggatDiskon_text.setText("");
      }
     
-     
+
+    public void klikTabelDiskon(){
+        int indexRowSelected = diskon_tabel.getSelectedRow();
+        
+        clickDiskon.setKode(diskon_tabel.getValueAt(indexRowSelected, 0).toString());
+        clickDiskon.setJumlahDiskon(diskon_tabel.getValueAt(indexRowSelected, 1).toString());
+        clickDiskon.setTenggatDiskon(diskon_tabel.getValueAt(indexRowSelected, 2).toString());
+        clickDiskon.setNama(diskon_tabel.getValueAt(indexRowSelected, 3).toString());
+        
+        kodeDiskon_text.setText(clickDiskon.getKode());
+        namaDiskon_text.setText(clickDiskon.getNama());
+        jumlahDiskon_text.setText(clickDiskon.getJumlahDiskon());
+        tenggatDiskon_text.setText(clickDiskon.getTenggatDiskon());
+        
+    }
+    
+    public void updateDiskon(String kodeDiskon, String jumlahDiskon, String tenggatDiskon, String namaDiskon){
+        String sql = "UPDATE `diskon` "
+                + "SET "
+                + "`jumlah_diskon`='"+ jumlahDiskon +"',"
+                + "`tenggat_diskon`='"+ tenggatDiskon +"',"
+                + "`nama`='"+ namaDiskon +"' "
+                + "WHERE "
+                + "kode_diskon = '"+ kodeDiskon +"';";
+        System.out.println(sql);
+        OperatorDbLafo.DatabaseExecutor(sql, true);
+    }
 
     
     // navigasi
@@ -2607,8 +2635,12 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
+        if ((kodeDiskon_text != null) && (namaDiskon_text != null) && (jumlahDiskon_text != null) && (tenggatDiskon_text != null)) {
+            updateDiskon(kodeDiskon_text.getText(), jumlahDiskon_text.getText(), tenggatDiskon_text.getText(), namaDiskon_text.getText());
+            displayTabelDiskon();
+            clearFormDiskon();
+        }
+    }//GEN-LAST:event_update_buttonActionPerformed
 
     private void tambahDiskon_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahDiskon_buttonActionPerformed
         // TODO add your handling code here:
@@ -2724,6 +2756,7 @@ public class MainJframe extends javax.swing.JFrame {
         clearFormDiskon();
     }//GEN-LAST:event_clear_buttonActionPerformed
 
+
     private void jTableTransaksiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableTransaksiPropertyChange
         // TODO add your handling code here:
 //        UpdateTotal();
@@ -2742,6 +2775,14 @@ public class MainJframe extends javax.swing.JFrame {
     public void startRunMainFrame(){
         
     }
+
+    private void diskon_tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diskon_tabelMouseClicked
+        // TODO add your handling code here:
+        klikTabelDiskon();
+    }//GEN-LAST:event_diskon_tabelMouseClicked
+
+    
+
     /**
      * @param args the command line arguments
      */
@@ -2776,8 +2817,16 @@ public class MainJframe extends javax.swing.JFrame {
 //                new MainJframe().setVisible(true);
                 
                 MainJframe main = new MainJframe();
-                main.startRunMainFrame();
+// <<<<<<< HEAD
+//                 main.startRunMainFrame();
                 
+// =======
+//                 main.setVisible(true);
+//                 main.DisplaytabelUser();
+//                 main.DisplayTabelSuplier();
+//                 main.DisplayTabelBarang();
+//                 main.displayTabelDiskon();
+// >>>>>>> main
             }
         });
         
