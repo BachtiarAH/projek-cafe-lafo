@@ -2301,15 +2301,28 @@ public class MainJframe extends javax.swing.JFrame {
         int indexRowSelected = diskon_tabel.getSelectedRow();
         
         clickDiskon.setKode(diskon_tabel.getValueAt(indexRowSelected, 0).toString());
-        clickDiskon.setNama(diskon_tabel.getValueAt(indexRowSelected, 1).toString());
-        clickDiskon.setJumlahDiskon(diskon_tabel.getValueAt(indexRowSelected, 2).toString());
-        clickDiskon.setTenggatDiskon(diskon_tabel.getValueAt(indexRowSelected, 3).toString());
+        clickDiskon.setJumlahDiskon(diskon_tabel.getValueAt(indexRowSelected, 1).toString());
+        clickDiskon.setTenggatDiskon(diskon_tabel.getValueAt(indexRowSelected, 2).toString());
+        clickDiskon.setNama(diskon_tabel.getValueAt(indexRowSelected, 3).toString());
         
         kodeDiskon_text.setText(clickDiskon.getKode());
         namaDiskon_text.setText(clickDiskon.getNama());
         jumlahDiskon_text.setText(clickDiskon.getJumlahDiskon());
         tenggatDiskon_text.setText(clickDiskon.getTenggatDiskon());
         
+    }
+    
+    public void updateDiskon(){
+        String sql = "UPDATE `diskon` "
+                + "SET "
+                + "`kode_diskon`='"+clickDiskon.getKode()+"',"
+                + "`jumlah_diskon`='"+clickDiskon.getJumlahDiskon()+"',"
+                + "`tenggat_diskon`='"+clickDiskon.getTenggatDiskon()+"',"
+                + "`nama`='"+clickDiskon.getNama()+"' "
+                + "WHERE "
+                + "kode_diskon = '"+clickDiskon.getKode()+"';";
+        
+        OperatorDbLafo.DatabaseExecutor(sql, true);
     }
     
     // navigasi
@@ -2497,6 +2510,9 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void update_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_buttonActionPerformed
         // TODO add your handling code here:
+        if (kodeDiskon_text.getText() != null) {
+            updateSuplier();
+        }
     }//GEN-LAST:event_update_buttonActionPerformed
 
     private void tambahDiskon_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahDiskon_buttonActionPerformed
@@ -2644,7 +2660,6 @@ public class MainJframe extends javax.swing.JFrame {
                 main.DisplaytabelUser();
                 main.DisplayTabelSuplier();
                 main.DisplayTabelBarang();
-//                main.setKodeDiskon();
                 main.displayTabelDiskon();
             }
         });
