@@ -2312,16 +2312,15 @@ public class MainJframe extends javax.swing.JFrame {
         
     }
     
-    public void updateDiskon(){
+    public void updateDiskon(String kodeDiskon, String jumlahDiskon, String tenggatDiskon, String namaDiskon){
         String sql = "UPDATE `diskon` "
                 + "SET "
-                + "`kode_diskon`='"+clickDiskon.getKode()+"',"
-                + "`jumlah_diskon`='"+clickDiskon.getJumlahDiskon()+"',"
-                + "`tenggat_diskon`='"+clickDiskon.getTenggatDiskon()+"',"
-                + "`nama`='"+clickDiskon.getNama()+"' "
+                + "`jumlah_diskon`='"+ jumlahDiskon +"',"
+                + "`tenggat_diskon`='"+ tenggatDiskon +"',"
+                + "`nama`='"+ namaDiskon +"' "
                 + "WHERE "
-                + "kode_diskon = '"+clickDiskon.getKode()+"';";
-        
+                + "kode_diskon = '"+ kodeDiskon +"';";
+        System.out.println(sql);
         OperatorDbLafo.DatabaseExecutor(sql, true);
     }
     
@@ -2510,8 +2509,10 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void update_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_buttonActionPerformed
         // TODO add your handling code here:
-        if (kodeDiskon_text.getText() != null) {
-            updateSuplier();
+        if ((kodeDiskon_text != null) && (namaDiskon_text != null) && (jumlahDiskon_text != null) && (tenggatDiskon_text != null)) {
+            updateDiskon(kodeDiskon_text.getText(), jumlahDiskon_text.getText(), tenggatDiskon_text.getText(), namaDiskon_text.getText());
+            displayTabelDiskon();
+            clearFormDiskon();
         }
     }//GEN-LAST:event_update_buttonActionPerformed
 
