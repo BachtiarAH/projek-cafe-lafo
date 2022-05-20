@@ -2138,7 +2138,7 @@ public class MainJframe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
 
-    //fungsi transaksi
+    //fungsi transaksi // <editor-fold defaultstate="collapsed" desc="Fungsi transaksi"> 
      public void SetTableModel(){
         String[] tbHeader = {"Nama Menu","Jumlah","Harga","Diskon","total"};
 
@@ -2163,7 +2163,7 @@ public class MainJframe extends javax.swing.JFrame {
          jLabelTotal.setText(Total+"");
      }
      
-//    Timer repeat = new Timer(WIDTH, al)
+     
     
     //set kode transaksi
      public void generateCodeTrans(){
@@ -2211,9 +2211,9 @@ public class MainJframe extends javax.swing.JFrame {
      
      //fungsi update grand total
      
-     
+     // </editor-fold> 
     
-    //data barang  
+    //data barang  <editor-fold defaultstate="collapsed" desc="Fungsi transaksi">
      
      //cari data barang
      public void CariBarang(String cari){
@@ -2254,13 +2254,10 @@ public class MainJframe extends javax.swing.JFrame {
         OperatorDbLafo.tabel(sql, header, jTableBarang);
     }
     
-    //klik tabell barang
-    public void klikTabelBarang(){
-        
-    }
+   //</editor-fold>
     
     
-    //fungsi pada data Suplier
+    //fungsi pada data Suplier <editor-fold defaultstate="collapsed" desc="Fungsi transaksi">
     dataSuplier clickedSup = new dataSuplier("");
     
     
@@ -2363,10 +2360,11 @@ public class MainJframe extends javax.swing.JFrame {
         
     }
     
+    //</editor-fold>
     //mengisi form dengan tabel yang diklik
     
 
-    //fungsi data diskon
+    //fungsi data diskon <editor-fold defaultstate="collapsed" desc="Fungsi Diskon">
     
     dataDiskon clickDiskon = new dataDiskon("");
     
@@ -2451,6 +2449,8 @@ public class MainJframe extends javax.swing.JFrame {
         System.out.println(sql);
         OperatorDbLafo.DatabaseExecutor(sql, true);
     }
+    
+    //</editor-fold>
 
     
     // navigasi
