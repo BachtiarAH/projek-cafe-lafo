@@ -9,12 +9,12 @@ package lafo.view.PopUp.Menyuplai;
  *
  * @author Hp
  */
-public class PopUpMenyuplai extends javax.swing.JFrame {
+public class Menyuplai extends javax.swing.JFrame {
 
     /**
      * Creates new form PopUpMenyuplai
      */
-    public PopUpMenyuplai() {
+    public Menyuplai() {
         initComponents();
     }
 
@@ -33,7 +33,6 @@ public class PopUpMenyuplai extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(835, 558));
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -107,20 +106,21 @@ public class PopUpMenyuplai extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PopUpMenyuplai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menyuplai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PopUpMenyuplai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menyuplai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PopUpMenyuplai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menyuplai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PopUpMenyuplai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menyuplai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PopUpMenyuplai().setVisible(true);
+                new Menyuplai().setVisible(true);
             }
         });
     }
