@@ -773,8 +773,12 @@ public class MainJframe extends javax.swing.JFrame {
         ContainerConten.setLayout(new java.awt.CardLayout());
 
         fieldPencarian.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        fieldPencarian.setText("Cari Barang");
         fieldPencarian.setPreferredSize(new java.awt.Dimension(485, 51));
+        fieldPencarian.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldPencarianKeyReleased(evt);
+            }
+        });
 
         labelShow.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         labelShow.setText("Show");
@@ -2209,7 +2213,23 @@ public class MainJframe extends javax.swing.JFrame {
      
      
     
-    //data barang    
+    //data barang  
+     
+     //cari data barang
+     public void CariBarang(String cari){
+         String sql = "SELECT "
+                + "barang.kode_Barang, "
+                + "barang.Nama_barang, "
+                + "SUM(detail_suplai.stok), "
+                + "barang.satuan "
+                + "FROM barang "
+                + "LEFT JOIN detail_suplai "
+                + "ON barang.kode_Barang = detail_suplai.kode_Barang "
+                 + "WHERE barang.nama_barang LIKE '%"+cari+"%' "
+                + "GROUP BY kode_Barang ";
+        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        OperatorDbLafo.tabel(sql, header, jTableBarang);
+     }
     
     //fungsi pada DataUser
     private  void DisplaytabelUser(){
@@ -2769,6 +2789,11 @@ public class MainJframe extends javax.swing.JFrame {
         editBarang.setJform(jTableBarang);
         editBarang.setVisible(true);
     }//GEN-LAST:event_jTableBarangMouseClicked
+
+    private void fieldPencarianKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldPencarianKeyReleased
+        // TODO add your handling code here:
+        CariBarang(fieldPencarian.getText());
+    }//GEN-LAST:event_fieldPencarianKeyReleased
 
     
 

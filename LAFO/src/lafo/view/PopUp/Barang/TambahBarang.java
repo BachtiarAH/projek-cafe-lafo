@@ -126,6 +126,24 @@ public class TambahBarang extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, massageSucc);
     }
     
+    public void updateBarang(){
+        tempBarang.setKode(jTextFieldKodeBarang.getText());
+        tempBarang.setNama(jTextFieldNamaBarang.getText());
+        tempBarang.setSatuan(jComboBoxSatuan.getEditor().getItem().toString());
+        
+            String sql = "UPDATE `barang` "
+                    + "SET "
+                    + "`kode_Barang`='"+tempBarang.getKode()+"',"
+                    + "`Nama_barang`='"+tempBarang.getNama()+"',"
+                    + "`satuan`='"+tempBarang.getSatuan()+"'"
+                    + " WHERE barang.kode_Barang = '"+tempBarang.getKode()+"'";
+        System.out.println(sql);
+        DbOp.DatabaseExecutor(sql, true);
+        String massageSucc = "Berhasil Memperbarui "+tempBarang.getNama();
+        JOptionPane.showMessageDialog(this, massageSucc);
+        
+    }
+    
     public void clearForm(){
         jTextFieldKodeBarang.setText("");
         jTextFieldNamaBarang.setText("");
@@ -314,6 +332,9 @@ public class TambahBarang extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        updateBarang();
+        RefreshTabelBarang();
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -323,7 +344,7 @@ public class TambahBarang extends javax.swing.JFrame {
 
     private void jTextFieldNamaBarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNamaBarangKeyReleased
         // TODO add your handling code here:
-        if (jTextFieldNamaBarang.getText().length() == 2) {
+        if ((jTextFieldNamaBarang.getText().length() == 2)) {
             
         jTextFieldKodeBarang.setText(generateKodeBarang());
         }
