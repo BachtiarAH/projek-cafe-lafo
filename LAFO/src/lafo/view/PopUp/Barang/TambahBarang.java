@@ -10,10 +10,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import lafo.entity.barang;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.proses.DataBase.Koneksi;
 import lafo.view.MainJframe;
+import static lafo.view.MainJframe.jTableBarang;
 
 /**
  *
@@ -24,11 +26,13 @@ public class TambahBarang extends javax.swing.JFrame {
     Koneksi konDbLaf = new Koneksi();
     DataBaseOperator DbOp = new DataBaseOperator(konDbLaf);
     barang tempBarang = new barang();
+    String mode;
     /**
      * Creates new form TambahBarang
      */
-    public TambahBarang() {
+    public TambahBarang(String mode) {
         initComponents();
+        this.mode = mode;
         setComboBox();
         
     }
@@ -43,54 +47,60 @@ public class TambahBarang extends javax.swing.JFrame {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(PopUpTambahBarang.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TambahBarang.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         }
+        if (mode.equalsIgnoreCase("edit")) {
+//            setJform();
+            
+        }
     }
+    
     
     //membuat kode barang
     public String generateKodeBarang(){
         //deklarasi variabel
-        int intIndexKode = 1;
+        int intIndexKode;
         String IndexKode;
         String kode ;
+        String indexRs = "00";
         
         //buat inisial
         String nama=jTextFieldNamaBarang.getText();
         String inisial = nama.substring(0, 2).toUpperCase();
         
-        //jika index kode kurang dari 10 akan ditambahi 0 diawal
-        if (intIndexKode < 10) {
-            IndexKode = "0"+intIndexKode;
-        }else{
-            IndexKode = intIndexKode+"";
-        }
         
         //membuat kodesuplier
-        boolean isduplcate;
-        kode = "BR"+inisial+IndexKode;
-        String sql = "SELECT kode_barang FROM `barang` WHERE kode_barang = '"+kode+"';";
-        ResultSet rs = this.DbOp.getResultSql(sql, true);
-        
+   
+        kode = "BR"+inisial;
+        String sql = "SELECT barang.kode_Barang FROM barang\n" +
+            "WHERE barang.kode_Barang LIKE '"+kode+"%'\n" +
+            "ORDER BY barang.kode_Barang DESC\n" +
+            "LIMIT 1;";
+        ResultSet rs = DbOp.getResultSql(sql, true);
         try {
-        isduplcate = rs.next();
-        while(isduplcate){
-    
-                intIndexKode++;
+            
+                while (rs.next()) {                
+                
+                indexRs = rs.getString(1).substring(4,6);
+            }
+        
+            
+                intIndexKode= Integer.valueOf(indexRs)+1;
+                
+                if (intIndexKode < 10) {
+                    IndexKode = "0"+intIndexKode;
+                }else{
+                    IndexKode = intIndexKode+"";
+                }
+            
     
             
-            if (intIndexKode < 10) {
-                IndexKode = "0"+intIndexKode;
-            }else{
-                IndexKode = intIndexKode+"";
-            }
             
             kode = "BR"+inisial+IndexKode;
-            sql = "SELECT kode_barang FROM `barang` WHERE kode_barang = '"+kode+"';";
-            rs = this.DbOp.getResultSql(sql, true);
-            isduplcate = rs.next();
-//            System.out.println(rs.getString(1));
-        }
+            
+            System.out.println(kode);
+        
         } catch (SQLException ex) {
             Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,6 +124,33 @@ public class TambahBarang extends javax.swing.JFrame {
         DbOp.DatabaseExecutor(sql, true);
         String massageSucc = "Berhasil Menambahkan "+tempBarang.getNama();
         JOptionPane.showMessageDialog(this, massageSucc);
+    }
+    
+    public void clearForm(){
+        jTextFieldKodeBarang.setText("");
+        jTextFieldNamaBarang.setText("");
+    }
+    
+    public void RefreshTabelBarang(){
+        String sql = "SELECT "
+                + "barang.kode_Barang, "
+                + "barang.Nama_barang, "
+                + "SUM(detail_suplai.stok), "
+                + "barang.satuan "
+                + "FROM barang "
+                + "LEFT JOIN detail_suplai "
+                + "ON barang.kode_Barang = detail_suplai.kode_Barang "
+                + "GROUP BY kode_Barang";
+        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        DbOp.tabel(sql, header, jTableBarang);
+    }
+    
+    public void setJform(JTable tabel){
+        jTextFieldKodeBarang.setText(tabel.getValueAt(jTableBarang.getSelectedRow(), 0).toString());
+        jTextFieldNamaBarang.setText(tabel.getValueAt(jTableBarang.getSelectedRow(), 1).toString());
+            jComboBoxSatuan.getEditor().setItem(tabel.getValueAt(tabel.getSelectedRow(), 3));
+//        jTextFieldKodeBarang.setText(MainJframe.jTableBarang.getValueAt(jTableBarang.getSelectedRow(), 0).toString());
+//        jTextFieldNamaBarang.setText(MainJframe.jTableBarang.getValueAt(jTableBarang.getSelectedRow(), 1).toString());
     }
 
     /**
@@ -165,7 +202,7 @@ public class TambahBarang extends javax.swing.JFrame {
         label3.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         label3.setText("Satuan\n");
 
-        jButton1.setBackground(new java.awt.Color(42, 48, 48));
+        jButton1.setBackground(new java.awt.Color(241, 102, 52));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("SUBMIT");
@@ -266,6 +303,13 @@ public class TambahBarang extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if (!(jTextFieldKodeBarang.getText().equalsIgnoreCase("") && jTextFieldNamaBarang.getText().equalsIgnoreCase(""))) {
+        tambahBarang();
+        RefreshTabelBarang();
+        this.setVisible(false);
+        }else{
+            JOptionPane.showMessageDialog(null, "kode barang dan nama barang tidak boleh kososng!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -274,6 +318,7 @@ public class TambahBarang extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        clearForm();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextFieldNamaBarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNamaBarangKeyReleased
@@ -314,7 +359,7 @@ public class TambahBarang extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TambahBarang().setVisible(true);
+                new TambahBarang("edit").setVisible(true);
             }
         });
     }

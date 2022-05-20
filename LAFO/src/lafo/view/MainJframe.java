@@ -6,39 +6,24 @@
 package lafo.view;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-//import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import lafo.entity.dataDiskon;
 import lafo.entity.dataSuplier;
 import lafo.entity.diskon;
 import lafo.entity.menu;
 import lafo.fungsi.fungsitTransaksi;
-import static lafo.fungsi.fungsitTransaksi.tbmodel;
-//import lafo.entity.suplier;
-//import jdk.javadoc.internal.doclets.formats.html.markup.TableHeader;
 import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
 import lafo.proses.DataBase.DataBaseOperator;
-import lafo.view.PopUp.Barang.PopUpTambahBarang;
-import lafo.view.PopUp.Barang.PopUpTmbhBarang;
 import lafo.view.PopUp.Barang.TambahBarang;
 import lafo.view.PopUp.Kasir.CariDiskon;
 import lafo.view.PopUp.Kasir.Kasir_enter;
-import org.omg.CORBA.FloatHolder;
+
 
 /**
  *
@@ -46,7 +31,15 @@ import org.omg.CORBA.FloatHolder;
  */
 public class MainJframe extends javax.swing.JFrame {
     CariDiskon CrDiss = new CariDiskon("majemuk");
-    
+    Koneksi ConnectionDbLafo = new Koneksi();
+    DataBaseOperator OperatorDbLafo = new DataBaseOperator(ConnectionDbLafo);
+    Boolean isEdit = true;
+    fungsitTransaksi fTrans = new fungsitTransaksi(this.jTableTransaksi);
+    public static menu mntemp;
+    public static diskon dissTemp;
+    public static DefaultTableModel tbModTrans = new DefaultTableModel();
+    TambahBarang tambahBarang = new TambahBarang("add");
+    TambahBarang editBarang = new TambahBarang("edit");
     /**
      * Creates new form Kasir
      */
@@ -843,6 +836,11 @@ public class MainJframe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableBarang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableBarangMouseClicked(evt);
+            }
+        });
         containerTabelBarang.setViewportView(jTableBarang);
 
         ButtonRetur2.setBackground(new java.awt.Color(241, 102, 52));
@@ -2134,10 +2132,7 @@ public class MainJframe extends javax.swing.JFrame {
 
         setBounds(0, 0, 1550, 1021);
     }// </editor-fold>//GEN-END:initComponents
-    fungsitTransaksi fTrans = new fungsitTransaksi(this.jTableTransaksi);
-    public static menu mntemp;
-    public static diskon dissTemp;
-    public static DefaultTableModel tbModTrans = new DefaultTableModel();
+    
 
     //fungsi transaksi
      public void SetTableModel(){
@@ -2214,25 +2209,7 @@ public class MainJframe extends javax.swing.JFrame {
      
      
     
-    //data barang
-    private void tabelBarang(){
-       
-        
-        
-//        jTableBarang.set
-    }
-    
-    PopUpTambahBarang subClassTB ;
-
-    public MainJframe(PopUpTambahBarang subClassTB) {
-        this.subClassTB = subClassTB;
-    }
-    
-    
-    
-    Koneksi ConnectionDbLafo = new Koneksi();
-    DataBaseOperator OperatorDbLafo = new DataBaseOperator(ConnectionDbLafo);
-    Boolean isEdit = true;
+    //data barang    
     
     //fungsi pada DataUser
     private  void DisplaytabelUser(){
@@ -2255,6 +2232,11 @@ public class MainJframe extends javax.swing.JFrame {
                 + "GROUP BY kode_Barang";
         String[] header = {"kode Barang","nama Barang","stok","satuan"};
         OperatorDbLafo.tabel(sql, header, jTableBarang);
+    }
+    
+    //klik tabell barang
+    public void klikTabelBarang(){
+        
     }
     
     
@@ -2633,14 +2615,14 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         if ((kodeDiskon_text != null) && (namaDiskon_text != null) && (jumlahDiskon_text != null) && (tenggatDiskon_text != null)) {
             updateDiskon(kodeDiskon_text.getText(), jumlahDiskon_text.getText(), tenggatDiskon_text.getText(), namaDiskon_text.getText());
             displayTabelDiskon();
             clearFormDiskon();
         }
-    }//GEN-LAST:event_update_buttonActionPerformed
+    }                                             
 
     private void tambahDiskon_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahDiskon_buttonActionPerformed
         // TODO add your handling code here:
@@ -2715,10 +2697,11 @@ public class MainJframe extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
 //    PopUpTambahBarang popUpTambahBarang = new PopUpTmbhBarang(this);
-    TambahBarang tambahBarang = new TambahBarang();
+    
     
     private void ButtornTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambahActionPerformed
         // TODO add your handling code here:
+        tambahBarang.clearForm();
         tambahBarang.setVisible(true);
 
 //        popUpTambahBarang.startRun();
@@ -2780,6 +2763,12 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         klikTabelDiskon();
     }//GEN-LAST:event_diskon_tabelMouseClicked
+
+    private void jTableBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBarangMouseClicked
+        // TODO add your handling code here:
+        editBarang.setJform(jTableBarang);
+        editBarang.setVisible(true);
+    }//GEN-LAST:event_jTableBarangMouseClicked
 
     
 
