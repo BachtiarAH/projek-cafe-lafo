@@ -2245,26 +2245,33 @@ public class MainJframe extends javax.swing.JFrame {
     
      public void setKodeDiskon() {
          try {
+            String kode = kodeDiskon_text.getText();
             String sql = "SELECT diskon.kode_diskon FROM `diskon` ORDER BY kode_diskon DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
+             
             
             if(result.next()) {
-                String kodeDiskon = result.getString("kode_diskon").substring(9);
-                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
-                String nol = "";
-                
-                if(angka.length() == 1) {
-                    nol = "000";
-                } else if(angka.length() == 2) {
-                    nol = "00";
-                } else if(angka.length() == 3) {
-                    nol = "00";
-                } else {
-                    nol = "";
+                if(kode != result.getString("kode_diskon")) {
+                    String kodeDiskon = result.getString("kode_diskon").substring(9);
+                    String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                    String nol = "";
+
+                    if(angka.length() == 1) {
+                        nol = "000";
+                    } else if(angka.length() == 2) {
+                        nol = "00";
+                    } else if(angka.length() == 3) {
+                        nol = "00";
+                    } else {
+                        nol = "";
+                    }
+
+                    String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
+                    kodeDiskon_text.setText(newKodeDiskon);
                 }
-                
-                String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
-                kodeDiskon_text.setText(newKodeDiskon);
+//                } else {
+//                    kodeDiskon_text.setText(kode);
+//                }
             }
          } catch (Exception e) {
              JOptionPane.showMessageDialog(null, e);
@@ -2319,7 +2326,7 @@ public class MainJframe extends javax.swing.JFrame {
                 + "`tenggat_diskon`='"+ tenggatDiskon +"',"
                 + "`nama`='"+ namaDiskon +"' "
                 + "WHERE "
-                + "kode_diskon = '"+ kodeDiskon +"';";
+                + "`kode_diskon`='"+ kodeDiskon +"';";
         System.out.println(sql);
         OperatorDbLafo.DatabaseExecutor(sql, true);
     }
