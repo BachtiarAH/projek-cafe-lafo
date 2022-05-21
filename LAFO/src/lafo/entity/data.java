@@ -10,8 +10,8 @@ package lafo.entity;
  * @author user
  */
 public class data {
-    String kode;
-    String nama;
+    String kode = "";
+    String nama = "";
 
     public void setKode(String kode) {
         this.kode = kode;

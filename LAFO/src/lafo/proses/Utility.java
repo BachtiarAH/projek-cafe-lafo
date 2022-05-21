@@ -5,12 +5,22 @@
  */
 package lafo.proses;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.text.DateFormatter;
+import sun.util.calendar.LocalGregorianCalendar;
 /**
  *
  * @author RSI-15
  */
+
 public class Utility extends javax.swing.JFrame{
     
     
@@ -24,5 +34,22 @@ public class Utility extends javax.swing.JFrame{
         mainPanel.revalidate();
     }
     
+    public static String GetTanggal(){
+        
+        String date = "";
+        LocalDateTime myDateObj = LocalDateTime.now();
+        
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("ddMMyy");  
+        String formattedDate = myDateObj.format(myFormatObj);
+        
+        date = formattedDate;
+        
+        return date;
+        
+    }
     
+    public static void main(String[] args) {
+        System.out.println(GetTanggal());
+    }
+   
 }
