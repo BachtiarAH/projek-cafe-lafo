@@ -116,12 +116,11 @@ public class inputBarang extends javax.swing.JFrame {
         jLabelTDis.setText(diss.getJumlahDiskon()+"");
     }
     
-    private void SubmitMenu(){
+    public void UpdateGrandTotal(){
         
-//        MainJframe.mntemp = mntp;
-//        MainJframe.dissTemp = diss;
-//        
-//        
+    }
+    
+    private void SubmitMenu(){     
   
         JTable tabelTr = MainJframe.jTableTransaksi;
         String namaMenu = mntp.getNama();
@@ -133,7 +132,6 @@ public class inputBarang extends javax.swing.JFrame {
         String[] isi = {namaMenu+"",QytMenu+"",harga+"",potongan+"",SubTotal+""};
         Object[] c = new Object[]{namaMenu,QytMenu,harga,potongan,SubTotal};
         DefaultTableModel tbMod = new DefaultTableModel();
-//        tbMod.addRow(c);
         MainJframe.tbModTrans.addRow(c);
         tabelTr.setModel(MainJframe.tbModTrans);
         this.setVisible(false);
