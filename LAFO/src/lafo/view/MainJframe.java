@@ -23,6 +23,10 @@ import lafo.proses.DataBase.DataBaseOperator;
 import lafo.view.PopUp.Barang.TambahBarang;
 import lafo.view.PopUp.Kasir.CariDiskon;
 import lafo.view.PopUp.Kasir.Kasir_enter;
+import lafo.view.PopUp.ManajemenBarang.Retur.Retur;
+import lafo.view.PopUp.Menu.PopUpTambahMenu;
+import lafo.view.PopUp.Menyuplai.Menyuplai;
+import lafo.view.PopUp.pegawai.TambhPegawai;
 
 
 /**
@@ -30,6 +34,7 @@ import lafo.view.PopUp.Kasir.Kasir_enter;
  * @author mahmu
  */
 public class MainJframe extends javax.swing.JFrame {
+
     CariDiskon CrDiss = new CariDiskon("majemuk");
     Koneksi ConnectionDbLafo = new Koneksi();
     DataBaseOperator OperatorDbLafo = new DataBaseOperator(ConnectionDbLafo);
@@ -40,6 +45,11 @@ public class MainJframe extends javax.swing.JFrame {
     public static DefaultTableModel tbModTrans = new DefaultTableModel();
     TambahBarang tambahBarang = new TambahBarang("add");
     TambahBarang editBarang = new TambahBarang("edit");
+
+
+    private Object retur;
+
+
     /**
      * Creates new form Kasir
      */
@@ -318,6 +328,11 @@ public class MainJframe extends javax.swing.JFrame {
         });
 
         jLabelLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icon/log-out.png"))); // NOI18N
+        jLabelLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLogOutMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelNavigasiBarLayout = new javax.swing.GroupLayout(panelNavigasiBar);
         panelNavigasiBar.setLayout(panelNavigasiBarLayout);
@@ -801,6 +816,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtornTambah.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtornTambah.setText("Tambah");
         ButtornTambah.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtornTambah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtornTambahMouseClicked(evt);
+            }
+        });
         ButtornTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtornTambahActionPerformed(evt);
@@ -811,6 +831,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtonRetur.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtonRetur.setText("Retur");
         ButtonRetur.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtonRetur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonReturMouseClicked(evt);
+            }
+        });
         ButtonRetur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonReturActionPerformed(evt);
@@ -851,6 +876,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtonRetur2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtonRetur2.setText("Menyuplai");
         ButtonRetur2.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtonRetur2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonRetur2MouseClicked(evt);
+            }
+        });
         ButtonRetur2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonRetur2ActionPerformed(evt);
@@ -1499,6 +1529,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtornTambah1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtornTambah1.setText("Tambah");
         ButtornTambah1.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtornTambah1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtornTambah1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1721,6 +1756,11 @@ public class MainJframe extends javax.swing.JFrame {
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jButton7.setText("Tambah");
         jButton7.setPreferredSize(new java.awt.Dimension(299, 54));
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
 
         jScrollPane2.setPreferredSize(new java.awt.Dimension(1348, 661));
 
@@ -1961,6 +2001,11 @@ public class MainJframe extends javax.swing.JFrame {
         jButtonSubmit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButtonSubmit.setText("Submit");
         jButtonSubmit.setPreferredSize(new java.awt.Dimension(457, 61));
+        jButtonSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonSubmitMouseClicked(evt);
+            }
+        });
         jButtonSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSubmitActionPerformed(evt);
@@ -2717,12 +2762,14 @@ public class MainJframe extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
 //    PopUpTambahBarang popUpTambahBarang = new PopUpTmbhBarang(this);
+
     
     
     private void ButtornTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambahActionPerformed
         // TODO add your handling code here:
         tambahBarang.clearForm();
         tambahBarang.setVisible(true);
+
 
 //        popUpTambahBarang.startRun();
         
@@ -2794,6 +2841,40 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         CariBarang(fieldPencarian.getText());
     }//GEN-LAST:event_fieldPencarianKeyReleased
+
+    private void ButtornTambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtornTambahMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtornTambahMouseClicked
+
+    private void ButtonReturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReturMouseClicked
+        // TODO add your handling code here:
+       new Retur().setVisible(true);
+       
+    }//GEN-LAST:event_ButtonReturMouseClicked
+
+    private void ButtonRetur2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonRetur2MouseClicked
+        // TODO add your handling code here:
+        new Menyuplai().setVisible(true);
+    }//GEN-LAST:event_ButtonRetur2MouseClicked
+
+    private void ButtornTambah1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtornTambah1MouseClicked
+        // TODO add your handling code here:
+        new PopUpTambahMenu().setVisible(true);
+    }//GEN-LAST:event_ButtornTambah1MouseClicked
+
+    private void jButtonSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSubmitMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSubmitMouseClicked
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+        // TODO add your handling code here:
+        new TambhPegawai().setVisible(true);
+    }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jLabelLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLogOutMouseClicked
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_jLabelLogOutMouseClicked
 
     
 
@@ -3012,7 +3093,10 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JPanel transaksi;
     // End of variables declaration//GEN-END:variables
 
+
     private String parseInt(int nomKodeIndex) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    private static class MainjFrame {
     }
 }
