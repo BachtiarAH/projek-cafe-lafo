@@ -2335,6 +2335,9 @@ public class MainJframe extends javax.swing.JFrame {
         tm.setVisible(true);
     }//GEN-LAST:event_ButtornTambah1ActionPerformed
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     
     /**
