@@ -22,7 +22,9 @@ import javax.swing.table.TableColumnModel;
 import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
 import lafo.proses.DataBase.DataBaseOperator;
+import lafo.view.PopUp.Barang.PopUpTambahBarang;
 import lafo.view.PopUp.Kasir.Kasir_enter;
+import lafo.PopUpMenu.PopUpTambahMenu;
 
 /**
  *
@@ -1405,6 +1407,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtornTambah1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtornTambah1.setText("Tambah");
         ButtornTambah1.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtornTambah1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtornTambah1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -2316,6 +2323,19 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxShowEntries2ActionPerformed
 
+<<<<<<< Updated upstream
+=======
+    private void jTextFieldAlamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAlamatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldAlamatActionPerformed
+
+    private void ButtornTambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambah1ActionPerformed
+        // TODO add your handling code here:
+        PopUpTambahMenu tm = new PopUpTambahMenu();
+        tm.setVisible(true);
+    }//GEN-LAST:event_ButtornTambah1ActionPerformed
+
+>>>>>>> Stashed changes
     
     /**
      * @param args the command line arguments
