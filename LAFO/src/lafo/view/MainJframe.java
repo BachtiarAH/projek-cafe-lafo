@@ -25,6 +25,7 @@ import lafo.entity.dataSuplier;
 import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
 import lafo.proses.DataBase.DataBaseOperator;
+import lafo.view.PopUp.Barang.Export;
 import lafo.view.PopUp.Barang.PopUpTambahBarang;
 import lafo.view.PopUp.Barang.PopUpTmbhBarang;
 import lafo.view.PopUp.Barang.TambahBarang;
@@ -824,6 +825,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtonRetur1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtonRetur1.setText("Export");
         ButtonRetur1.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtonRetur1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonRetur1MouseClicked(evt);
+            }
+        });
         ButtonRetur1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonRetur1ActionPerformed(evt);
@@ -2521,6 +2527,11 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
       
     }//GEN-LAST:event_jLabelLogOutMouseClicked
+
+    private void ButtonRetur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonRetur1MouseClicked
+        // TODO add your handling code here:
+        new Export().setVisible(true);
+    }//GEN-LAST:event_ButtonRetur1MouseClicked
 
     
     /**
