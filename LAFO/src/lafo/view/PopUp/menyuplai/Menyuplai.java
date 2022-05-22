@@ -5,6 +5,8 @@
  */
 package lafo.view.PopUp.menyuplai;
 
+import javax.swing.table.DefaultTableModel;
+import lafo.entity.barang;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.proses.DataBase.Koneksi;
 
@@ -16,13 +18,165 @@ public class Menyuplai extends javax.swing.JFrame {
 
     Koneksi konDbLafo = new Koneksi();
     DataBaseOperator DbOp = new DataBaseOperator(konDbLafo);
+    DefaultTableModel Tbmodel = new DefaultTableModel();
+    barang brang = new barang();    
     /**
      * Creates new form Menyuplai
      */
     public Menyuplai() {
         initComponents();
+        tampilBarang("");
+        tampilSuplier("");
+        tampilMenyuplai();
+        this.setLocationRelativeTo(null);
     }
 
+    public void tampilBarang(String cari){
+        String sql = "SELECT "
+                + "barang.kode_Barang, "
+                + "barang.Nama_barang, "
+                + "SUM(detail_suplai.stok), "
+                + "barang.satuan "
+                + "FROM barang "
+                + "LEFT JOIN detail_suplai "
+                + "ON barang.kode_Barang = detail_suplai.kode_Barang "
+                 + "WHERE barang.nama_barang LIKE '%"+cari+"%' "
+                + "GROUP BY kode_Barang ";
+        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        DbOp.tabel(sql, header, jTableBrg);
+    }
+    
+    public void tampilSuplier(String cari){
+        String sql = "SELECT `kode_suplaier`,`nama_suplier`, `No_Telp`, `Alamat` FROM `suplier`"
+                 + "WHERE kode_suplaier LIKE '%"+cari+"%'" ;
+        String[] header = {"Kode Suplier", "Nama", "No telpon", "Alamat"};
+        DbOp.tabel(sql, header, jTableSuplier);
+    }
+    
+    public void tampilMenyuplai(){
+        String[] header = {"kode barang","kode Suplier","harga satuan","jumlah","satuan","subtotal"};
+        for (int i = 0; i < header.length; i++) {
+            Tbmodel.addColumn(header[i]);
+        }
+        
+        jTableMenyuplai.setModel(Tbmodel);
+    }
+    
+    public void klikBarng(){
+        String kodeBarang = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 0).toString();
+        String satuan = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 3).toString();
+        brang.setKode(kodeBarang);
+        brang.setSatuan(satuan);
+        jTextFieldKdBarang.setText(kodeBarang);
+        jLabelSatuan.setText(satuan);
+        jLabelSatuan1.setText(satuan);
+    }
+    
+    public void klikSuplier(){
+        String kodeSuplier = jTableSuplier.getValueAt(jTableSuplier.getSelectedRow(), 0).toString();
+        jTextFieldKdSuplier.setText(kodeSuplier);
+    }
+    
+    public void UpdateSubtotal(){
+        float harga;
+        float jumlah;
+        
+        if (jTextFieldHargaBeli.getText().equalsIgnoreCase("")) {
+            harga = 0;
+        }else{
+            
+            harga = Float.valueOf(jTextFieldHargaBeli.getText());
+        }
+        
+        if (jTextJumlah.getText().equalsIgnoreCase("")) {
+            jumlah = 0;
+        }else{
+            jumlah = Float.valueOf(jTextJumlah.getText());
+        }
+        
+        float Subtotal = harga * jumlah;
+        jLabelSubTotal.setText(Subtotal+"");
+    }
+    
+    public void submitBarng(){
+        String kodeBrg = jTextFieldKdBarang.getText();
+        String kodeSup = jTextFieldKdSuplier.getText();
+        String harga = jTextFieldHargaBeli.getText();
+        String jumlaah = jTextJumlah.getText();
+        String satuan = brang.getSatuan();
+        String subTotal = jLabelSubTotal.getText();
+        
+        String[] SubBarang = {kodeBrg,kodeSup,harga,jumlaah,satuan,subTotal};
+        Tbmodel.addRow(SubBarang);
+    }
+    
+    public void klikTbMenyup(){
+        String kodeBrg = jTableMenyuplai.getValueAt(jTableMenyuplai.getSelectedRow(), 0).toString();
+        String kodeSup = jTableMenyuplai.getValueAt(jTableMenyuplai.getSelectedRow(), 1).toString();
+        String harga = jTableMenyuplai.getValueAt(jTableMenyuplai.getSelectedRow(), 2).toString();
+        String jumlah = jTableMenyuplai.getValueAt(jTableMenyuplai.getSelectedRow(), 3).toString();
+        String satuan = jTableMenyuplai.getValueAt(jTableMenyuplai.getSelectedRow(), 4).toString();
+        String subTotal = jTableMenyuplai.getValueAt(jTableMenyuplai.getSelectedRow(), 5).toString();
+        
+        jTextFieldKdBarang.setText(kodeBrg);
+        jTextFieldKdSuplier.setText(kodeSup);
+        jTextFieldHargaBeli.setText(harga);
+        jTextJumlah.setText(jumlah);
+        jLabelSatuan.setText(satuan);
+        jLabelSatuan1.setText(satuan);
+        jLabelSubTotal.setText(subTotal);
+    }
+    
+    public void hapusSubmitedBrg(){
+        Tbmodel.removeRow(jTableMenyuplai.getSelectedRow());
+    }
+    
+    public void updateKlikedMenyuplai(){
+         String kodeBrg = jTextFieldKdBarang.getText();
+        String kodeSup = jTextFieldKdSuplier.getText();
+        String harga = jTextFieldHargaBeli.getText();
+        String jumlaah = jTextJumlah.getText();
+        String satuan = brang.getSatuan();
+        String subTotal = jLabelSubTotal.getText();
+        
+        String[] perubahan = {kodeBrg,kodeSup,harga,jumlaah,satuan,subTotal};
+        Object isi;
+        
+        for (int i = 0; i < perubahan.length; i++) {
+            isi = perubahan[i];
+            Tbmodel.setValueAt(perubahan[i], jTableMenyuplai.getSelectedRow(), i);
+        }
+    }
+    
+    public void UpdateJumlahBrg(){
+        int jumlahBrg = jTableMenyuplai.getRowCount();
+        jLabelTtlBarang.setText(jumlahBrg+"");
+    }
+    
+    public void UpdateGrandTotal(){
+        float GrandTotal = 0;
+        float subTotal = 0;
+        
+        for (int i = 0; i < jTableMenyuplai.getRowCount(); i++) {
+            if ((jTableMenyuplai.getValueAt(i, 5) == null)||(jTableMenyuplai.getValueAt(i, 5).toString().equalsIgnoreCase(""))) {
+                subTotal = 0;
+            }else  {
+                
+            subTotal = Float.valueOf(jTableMenyuplai.getValueAt(i, 5).toString());
+            }
+            GrandTotal +=  subTotal;
+        }
+        
+        jLabelGrandTotal.setText(GrandTotal + "");
+    }
+    
+    public void SubmitMenyuplai(){
+        
+        String sql = "";
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +206,10 @@ public class Menyuplai extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabelSubTotal = new javax.swing.JLabel();
+        jLabelSatuan = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabelSatuan1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -64,7 +222,6 @@ public class Menyuplai extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(993, 636));
 
         jPanelMenyuplai.setBackground(new java.awt.Color(255, 255, 255));
         jPanelMenyuplai.setPreferredSize(new java.awt.Dimension(992, 636));
@@ -94,6 +251,11 @@ public class Menyuplai extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableBrg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableBrgMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableBrg);
 
         jTextFieldCrBrg.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -158,20 +320,52 @@ public class Menyuplai extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableSuplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableSuplierMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTableSuplier);
 
         jButton2.setText("Hapus");
         jButton2.setPreferredSize(new java.awt.Dimension(74, 33));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(241, 102, 52));
         jButton5.setText("tambah");
         jButton5.setPreferredSize(new java.awt.Dimension(74, 33));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Sub Total");
 
         jLabelSubTotal.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabelSubTotal.setText("0");
+
+        jLabelSatuan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSatuan.setText("satuan");
+
+        jButton1.setBackground(new java.awt.Color(255, 153, 0));
+        jButton1.setText("Update");
+        jButton1.setPreferredSize(new java.awt.Dimension(74, 33));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("/");
+
+        jLabelSatuan1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSatuan1.setText("satuan");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -195,25 +389,44 @@ public class Menyuplai extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextFieldKdSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldHargaBeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextFieldKdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(77, 77, 77))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(62, 62, 62)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelSubTotal))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jTextJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelSatuan1)
+                                    .addComponent(jLabelSatuan))
+                                .addGap(8, 8, 8))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelSubTotal)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jTextFieldHargaBeli, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel7)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -225,7 +438,7 @@ public class Menyuplai extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldCrBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel2)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jTextFieldKdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -235,7 +448,7 @@ public class Menyuplai extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 21, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldKdSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,19 +456,23 @@ public class Menyuplai extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldHargaBeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabelSatuan1))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelSatuan))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jLabelSubTotal))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -278,6 +495,16 @@ public class Menyuplai extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableMenyuplai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMenyuplaiMouseClicked(evt);
+            }
+        });
+        jTableMenyuplai.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTableMenyuplaiPropertyChange(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableMenyuplai);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -316,9 +543,9 @@ public class Menyuplai extends javax.swing.JFrame {
                             .addComponent(jLabelGrandTotal))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -388,6 +615,8 @@ public class Menyuplai extends javax.swing.JFrame {
 
     private void jTextFieldCrBrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCrBrgActionPerformed
         // TODO add your handling code here:
+        String cari = jTextFieldCrBrg.getText();
+        tampilBarang(cari);
     }//GEN-LAST:event_jTextFieldCrBrgActionPerformed
 
     private void jTextFieldKdSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKdSuplierActionPerformed
@@ -396,10 +625,13 @@ public class Menyuplai extends javax.swing.JFrame {
 
     private void jTextFieldHargaBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldHargaBeliActionPerformed
         // TODO add your handling code here:
+        UpdateSubtotal();
     }//GEN-LAST:event_jTextFieldHargaBeliActionPerformed
 
     private void jTextSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSuplierActionPerformed
-        // TODO add your handling code here:
+           // TODO add your handling code here:
+           String cari = jTextSuplier.getText();
+           tampilSuplier(cari);
     }//GEN-LAST:event_jTextSuplierActionPerformed
 
     private void jTextFieldKdBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKdBarangActionPerformed
@@ -408,7 +640,48 @@ public class Menyuplai extends javax.swing.JFrame {
 
     private void jTextJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextJumlahActionPerformed
         // TODO add your handling code here:
+        UpdateSubtotal();
     }//GEN-LAST:event_jTextJumlahActionPerformed
+
+    private void jTableBrgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBrgMouseClicked
+        // TODO add your handling code here:
+        klikBarng();
+    }//GEN-LAST:event_jTableBrgMouseClicked
+
+    private void jTableSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSuplierMouseClicked
+        // TODO add your handling code here:
+        klikSuplier();
+    }//GEN-LAST:event_jTableSuplierMouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        submitBarng();
+        UpdateJumlahBrg();
+        UpdateGrandTotal();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTableMenyuplaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMenyuplaiMouseClicked
+        // TODO add your handling code here:
+        klikTbMenyup();
+    }//GEN-LAST:event_jTableMenyuplaiMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        hapusSubmitedBrg();
+        UpdateJumlahBrg();
+        UpdateGrandTotal();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+//        updateKlikedMenyuplai();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTableMenyuplaiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableMenyuplaiPropertyChange
+        // TODO add your handling code here:
+//        UpdateJumlahBrg();
+//        UpdateGrandTotal();
+    }//GEN-LAST:event_jTableMenyuplaiPropertyChange
 
     /**
      * @param args the command line arguments
@@ -446,6 +719,7 @@ public class Menyuplai extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
@@ -457,8 +731,11 @@ public class Menyuplai extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelGrandTotal;
+    private javax.swing.JLabel jLabelSatuan;
+    private javax.swing.JLabel jLabelSatuan1;
     private javax.swing.JLabel jLabelSubTotal;
     private javax.swing.JLabel jLabelTtlBarang;
     private javax.swing.JPanel jPanel1;
