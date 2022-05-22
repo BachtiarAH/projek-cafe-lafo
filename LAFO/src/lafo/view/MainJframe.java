@@ -25,7 +25,7 @@ import lafo.view.PopUp.Kasir.CariDiskon;
 import lafo.view.PopUp.Kasir.Kasir_enter;
 import lafo.view.PopUp.ManajemenBarang.Retur.Retur;
 import lafo.view.PopUp.Menu.PopUpTambahMenu;
-import lafo.view.PopUp.Menyuplai.Menyuplai;
+import lafo.view.PopUp.Retur.retur;
 import lafo.view.PopUp.pegawai.TambhPegawai;
 
 
@@ -902,9 +902,9 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(ComboBoxShowEntries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LabelEntryes)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButtonRetur2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(46, 46, 46)
+                        .addComponent(ButtonRetur2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -927,7 +927,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(ButtonRetur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(containerTabelBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         ContainerConten.add(DataBarang, "card2");
@@ -2847,13 +2847,13 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void ButtonReturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReturMouseClicked
         // TODO add your handling code here:
-       new Retur().setVisible(true);
+       new retur().setVisible(true);
        
     }//GEN-LAST:event_ButtonReturMouseClicked
 
     private void ButtonRetur2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonRetur2MouseClicked
         // TODO add your handling code here:
-        new Menyuplai().setVisible(true);
+        new retur().setVisible(true);
     }//GEN-LAST:event_ButtonRetur2MouseClicked
 
     private void ButtornTambah1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtornTambah1MouseClicked
@@ -3096,6 +3096,5 @@ public class MainJframe extends javax.swing.JFrame {
     private String parseInt(int nomKodeIndex) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    private static class MainjFrame {
-    }
+
 }
