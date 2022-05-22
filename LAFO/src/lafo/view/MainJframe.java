@@ -39,7 +39,6 @@ public class MainJframe extends javax.swing.JFrame {
     Koneksi ConnectionDbLafo = new Koneksi();
     DataBaseOperator OperatorDbLafo = new DataBaseOperator(ConnectionDbLafo);
     Boolean isEdit = true;
-    fungsitTransaksi fTrans = new fungsitTransaksi(this.jTableTransaksi);
     public static menu mntemp;
     public static diskon dissTemp;
     public static DefaultTableModel tbModTrans = new DefaultTableModel();
