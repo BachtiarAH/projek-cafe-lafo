@@ -16,6 +16,7 @@ import lafo.entity.dataDiskon;
 import lafo.entity.dataSuplier;
 import lafo.entity.diskon;
 import lafo.entity.menu;
+import lafo.entity.user;
 import lafo.fungsi.fungsitTransaksi;
 import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
@@ -44,6 +45,7 @@ public class MainJframe extends javax.swing.JFrame {
     public static DefaultTableModel tbModTrans = new DefaultTableModel();
     TambahBarang tambahBarang = new TambahBarang("add");
     TambahBarang editBarang = new TambahBarang("edit");
+    user pgw = new user();
 
 
     private Object retur;
@@ -61,7 +63,7 @@ public class MainJframe extends javax.swing.JFrame {
         this.displayTabelDiskon();
         this.SetTableModel();
         this.generateCodeTrans();
-        this.setVisible(true);
+//        this.setVisible(true);
 //        tabelBarang();
     }
 
@@ -76,9 +78,9 @@ public class MainJframe extends javax.swing.JFrame {
 
         panel_Header = new javax.swing.JPanel();
         LabelNamaToko = new javax.swing.JLabel();
-        LabelNamaUser = new javax.swing.JLabel();
-        LabelJabatanUser = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabelNamaUSer = new javax.swing.JLabel();
+        jLabelAkses = new javax.swing.JLabel();
         panelNavigasiBar = new javax.swing.JPanel();
         jLabelLogoTransaksi = new javax.swing.JLabel();
         jLabelManajemenData = new javax.swing.JLabel();
@@ -248,17 +250,16 @@ public class MainJframe extends javax.swing.JFrame {
         LabelNamaToko.setForeground(new java.awt.Color(255, 255, 255));
         LabelNamaToko.setText("CAFE LAFO");
 
-        LabelNamaUser.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
-        LabelNamaUser.setForeground(new java.awt.Color(255, 255, 255));
-        LabelNamaUser.setText("Dwi Nafis Mahardika");
-
-        LabelJabatanUser.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        LabelJabatanUser.setForeground(new java.awt.Color(255, 255, 255));
-        LabelJabatanUser.setText("Admin");
-
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icon/user.png"))); // NOI18N
         jLabel7.setText("jLabel7");
         jLabel7.setPreferredSize(new java.awt.Dimension(36, 36));
+
+        jLabelNamaUSer.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabelNamaUSer.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNamaUSer.setText("Nama");
+
+        jLabelAkses.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelAkses.setText("akses");
 
         javax.swing.GroupLayout panel_HeaderLayout = new javax.swing.GroupLayout(panel_Header);
         panel_Header.setLayout(panel_HeaderLayout);
@@ -267,27 +268,27 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(panel_HeaderLayout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(LabelNamaToko)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 985, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelNamaUser)
-                    .addComponent(LabelJabatanUser))
-                .addGap(80, 80, 80))
+                    .addComponent(jLabelNamaUSer)
+                    .addComponent(jLabelAkses))
+                .addGap(183, 183, 183))
         );
         panel_HeaderLayout.setVerticalGroup(
             panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_HeaderLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(panel_HeaderLayout.createSequentialGroup()
-                            .addComponent(LabelNamaUser)
-                            .addGap(3, 3, 3)
-                            .addComponent(LabelJabatanUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabelNamaUSer)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelAkses)))
                     .addComponent(LabelNamaToko))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         panelNavigasiBar.setBackground(new java.awt.Color(42, 48, 48));
@@ -1470,7 +1471,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPanelKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelInsertKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DataDiscountLayout = new javax.swing.GroupLayout(DataDiscount);
@@ -2915,7 +2916,7 @@ public class MainJframe extends javax.swing.JFrame {
 //                 main.startRunMainFrame();
                 
 // =======
-//                 main.setVisible(true);
+                 main.setVisible(true);
 //                 main.DisplaytabelUser();
 //                 main.DisplayTabelSuplier();
 //                 main.DisplayTabelBarang();
@@ -2962,9 +2963,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel LabelEntryes;
     private javax.swing.JLabel LabelEntryes1;
     private javax.swing.JLabel LabelEntryes2;
-    private javax.swing.JLabel LabelJabatanUser;
     private javax.swing.JLabel LabelNamaToko;
-    private javax.swing.JLabel LabelNamaUser;
     private javax.swing.JPanel Laporan;
     private javax.swing.JPanel ManajemenData;
     private javax.swing.JPanel Navigasi;
@@ -3025,6 +3024,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    public javax.swing.JLabel jLabelAkses;
     private javax.swing.JLabel jLabelBulan;
     private javax.swing.JLabel jLabelGrandTotal;
     private javax.swing.JLabel jLabelHari;
@@ -3033,6 +3033,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelLogOut;
     private javax.swing.JLabel jLabelLogoTransaksi;
     private javax.swing.JLabel jLabelManajemenData;
+    public javax.swing.JLabel jLabelNamaUSer;
     private javax.swing.JLabel jLabelTahun;
     public static javax.swing.JLabel jLabelTotal;
     private javax.swing.JLabel jLabelUsesrs;
@@ -3095,6 +3096,10 @@ public class MainJframe extends javax.swing.JFrame {
 
     private String parseInt(int nomKodeIndex) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void setUser(user pegawai) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
