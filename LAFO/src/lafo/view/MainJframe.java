@@ -26,6 +26,7 @@ import lafo.view.PopUp.Kasir.CariDiskon;
 import lafo.view.PopUp.Kasir.Kasir_enter;
 import lafo.view.PopUp.ManajemenBarang.Retur.Retur;
 import lafo.view.PopUp.Menu.PopUpTambahMenu;
+import lafo.view.PopUp.Retur.ReturBarang;
 import lafo.view.PopUp.Retur.retur;
 import lafo.view.PopUp.menyuplai.Menyuplai;
 import lafo.view.PopUp.pegawai.TambhPegawai;
@@ -2586,8 +2587,10 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonRetur1ActionPerformed
 
+    ReturBarang ReturBarang = new ReturBarang();
     private void ButtonReturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonReturActionPerformed
         // TODO add your handling code here:
+        ReturBarang.setVisible(true);
     }//GEN-LAST:event_ButtonReturActionPerformed
 
     private void ComboBoxShowEntries1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxShowEntries1ActionPerformed
