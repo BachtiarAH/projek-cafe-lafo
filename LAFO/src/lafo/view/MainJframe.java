@@ -147,7 +147,7 @@ public class MainJframe extends javax.swing.JFrame {
         labelTxtFldKdSupp3 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
         jButtonUpdateSuplier = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jButtonTambahSuplier = new javax.swing.JButton();
         DataKategori = new javax.swing.JPanel();
         fieldPencarianKategori = new javax.swing.JTextField();
         jScrollPanelKategori = new javax.swing.JScrollPane();
@@ -1037,15 +1037,15 @@ public class MainJframe extends javax.swing.JFrame {
             }
         });
 
-        jButton11.setBackground(new java.awt.Color(42, 48, 48));
-        jButton11.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setText("Tambah");
-        jButton11.setBorder(null);
-        jButton11.setPreferredSize(new java.awt.Dimension(360, 41));
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTambahSuplier.setBackground(new java.awt.Color(42, 48, 48));
+        jButtonTambahSuplier.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButtonTambahSuplier.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonTambahSuplier.setText("Tambah");
+        jButtonTambahSuplier.setBorder(null);
+        jButtonTambahSuplier.setPreferredSize(new java.awt.Dimension(360, 41));
+        jButtonTambahSuplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jButtonTambahSuplierActionPerformed(evt);
             }
         });
 
@@ -1068,7 +1068,7 @@ public class MainJframe extends javax.swing.JFrame {
                             .addComponent(jTextFieldNamaSuplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextFieldKodeSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonTambahSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonUpdateSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(49, 49, 49))
@@ -1093,7 +1093,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNomerTelpSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonTambahSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonUpdateSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -2339,41 +2339,27 @@ public class MainJframe extends javax.swing.JFrame {
     
     //mengset kode suplier
     public void setKodeSuplier(){
-        //deklarasi variabel
-        int intIndexKode = 1;
-        String IndexKode;
-        
-        //jika index kode kurang dari 10 akan ditambahi 0 diawal
-        if (intIndexKode < 10) {
-            IndexKode = "0"+intIndexKode;
-        }else{
-            IndexKode = intIndexKode+"";
-        }
-        
-        //membuat kodesuplier
-        String kode = "SUP"+Utility.GetTanggal()+IndexKode;
-        
-        //mengecek apakah ada kode yang sama jika ada akan diganti
-        String sql = "SELECT suplier.kode_suplaier FROM `suplier` WHERE kode_suplaier = '"+kode+"';";
-        ResultSet rs = OperatorDbLafo.getResultSql(sql, true);
-        
-        try {
-            while (rs.next()) {                
-                intIndexKode++;
-            }
+         try {
+            String sql = "SELECT `kode_suplaier` FROM `suplier` WHERE 1 ORDER BY kode_suplaier DESC";
+            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
-            if (intIndexKode < 10) {
-                IndexKode = "0"+intIndexKode;
-            }else{
-                IndexKode = intIndexKode+"";
+            if(result.next()) {
+                String kodeDiskon = result.getString("kode_suplaier").substring(9,11);
+                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                String nol = "";
+                
+                if(angka.length() == 1) {
+                    nol = "0";
+                } else {
+                    nol = "";
+                }
+                
+                String newKodeDiskon = "SUP" + Utility.GetTanggal() + nol + angka;
+                jTextFieldKodeSuplier.setText(newKodeDiskon);
             }
-        
-            kode = "SUP"+Utility.GetTanggal()+IndexKode;
-            System.out.println("kode diubah");
-            jTextFieldKodeSuplier.setText(kode);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
     }
     
     //membersihkan form pada frame suplier
@@ -2718,16 +2704,18 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jTextFieldNamaSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNamaSuplierActionPerformed
         // TODO add your handling code here:
+        setKodeSuplier();
+        DisplayTabelSuplier();
     }//GEN-LAST:event_jTextFieldNamaSuplierActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void jButtonTambahSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahSuplierActionPerformed
         // TODO add your handling code here:
         if ((jTextFieldAlamatSuplier != null )&& (jTextFieldKodeSuplier != null) && (jTextFieldNamaSuplier != null)) {
             
             AddDataSuplier(jTextFieldKodeSuplier.getText(), jTextFieldNomerTelpSuplier.getText(), jTextFieldAlamatSuplier.getText(), jTextFieldNamaSuplier.getText());
             DisplayTabelSuplier();
         }
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_jButtonTambahSuplierActionPerformed
 
     private void jButtonUpdateSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateSuplierActionPerformed
         // TODO add your handling code here:
@@ -2751,22 +2739,24 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jTextFieldNamaSuplierKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNamaSuplierKeyTyped
         // TODO add your handling code here:
-        this.isEdit = true;
-        
-        if (isEdit) {
-            
-        setKodeSuplier();
-        }
+//        this.isEdit = true;
+//        
+//        if (isEdit) {
+//            
+//        setKodeSuplier();
+//        }
     }//GEN-LAST:event_jTextFieldNamaSuplierKeyTyped
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         ClearFormSuplier();
+        jButtonTambahSuplier.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jTableSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSuplierMouseClicked
         // TODO add your handling code here:
         klikTabelSuplier();
+        jButtonTambahSuplier.setVisible(false);
         
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
@@ -3000,7 +2990,6 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JTextField fieldPencarianKategori;
     private javax.swing.JTextField fieldPencarianKategori1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -3013,6 +3002,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonInsertDiskon;
     private javax.swing.JButton jButtonSubmit;
+    private javax.swing.JButton jButtonTambahSuplier;
     private javax.swing.JButton jButtonUpdateSuplier;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

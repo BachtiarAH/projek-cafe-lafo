@@ -199,6 +199,7 @@ public class Menyuplai extends javax.swing.JFrame {
     
     public String GenerateKodeMenyuplai(){
         int index = 1;
+        String indexKode;
         String indexString = "";
         String bulan = "";
         if (tgl.getMonthValue()<10) {
@@ -209,15 +210,18 @@ public class Menyuplai extends javax.swing.JFrame {
         String tahun = tgl.getYear()+"";
 
         String kode = "MSP"+tgl.getDayOfMonth()+bulan+tahun.substring(2);
+        System.out.println("kode sebelum: "+kode);
         String sql = "SELECT `Kode_Menyuplai` FROM `menyuplai`\n" +
-//                        "WHERE Kode_Menyuplai LIKE '"+kode+"'\n" +
-                        "ORDER by Kode_Menyuplai DESC LIMIT 1;";
+                        "ORDER by Kode_Menyuplai desc;";
         
         ResultSet rs = DbOp.getResultSql(sql, true);
         
         try {
-            while (rs.next()) {
-                index++;
+            if (rs.next()) {
+                indexKode = rs.getString("Kode_Menyuplai").substring(9, 13);
+                index = Integer.valueOf(indexKode)+1;
+                
+                System.out.println("index ditambah :"+index);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Menyuplai.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,13 +233,15 @@ public class Menyuplai extends javax.swing.JFrame {
             indexString = "00"+index;
             
         }else if(index < 1000){
-            indexString = "000"+index;
+            indexString = "0"+index;
         
         }else{
             indexString = index+"";
         }
-        
         kode += indexString;
+        System.out.println("index"+index);
+        System.out.println(indexString);
+        System.out.println("kode sesudah "+kode);
         return kode;
     }
     
