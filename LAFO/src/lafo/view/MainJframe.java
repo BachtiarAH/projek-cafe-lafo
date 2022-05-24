@@ -27,6 +27,11 @@ import lafo.proses.DataBase.DataBaseOperator;
 import lafo.view.PopUp.Barang.TambahBarang;
 import lafo.view.PopUp.Kasir.CariDiskon;
 import lafo.view.PopUp.Kasir.Kasir_enter;
+import lafo.view.PopUp.ManajemenBarang.Retur.Retur;
+import lafo.view.PopUp.Menu.PopUpTambahMenu;
+import lafo.view.PopUp.Retur.retur;
+import lafo.view.PopUp.menyuplai.Menyuplai;
+import lafo.view.PopUp.pegawai.TambhPegawai;
 
 
 /**
@@ -34,18 +39,25 @@ import lafo.view.PopUp.Kasir.Kasir_enter;
  * @author mahmu
  */
 public class MainJframe extends javax.swing.JFrame {
+
     CariDiskon CrDiss = new CariDiskon("majemuk");
     Koneksi ConnectionDbLafo = new Koneksi();
     DataBaseOperator OperatorDbLafo = new DataBaseOperator(ConnectionDbLafo);
     Boolean isEdit = true;
-    fungsitTransaksi fTrans = new fungsitTransaksi(this.jTableTransaksi);
     public static menu mntemp;
     public static diskon dissTemp;
     public static DefaultTableModel tbModTrans = new DefaultTableModel();
     TambahBarang tambahBarang = new TambahBarang("add");
     TambahBarang editBarang = new TambahBarang("edit");
     LocalDate tgl = LocalDate.now();
-    user pgw = new user(); 
+    public user pgw = new user();
+    Menyuplai menyuplai = new Menyuplai();
+
+
+    private Object retur;
+
+
+
     /**
      * Creates new form Kasir
      */
@@ -62,7 +74,6 @@ public class MainJframe extends javax.swing.JFrame {
         this.generateCodeTrans();
         this.UpdateDate();
         this.setVisible(true);
-        pgw.setKode("PGW05052201");
 //        tabelBarang();
     }
 
@@ -77,9 +88,9 @@ public class MainJframe extends javax.swing.JFrame {
 
         panel_Header = new javax.swing.JPanel();
         LabelNamaToko = new javax.swing.JLabel();
-        LabelNamaUser = new javax.swing.JLabel();
-        LabelJabatanUser = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabelNamaUSer = new javax.swing.JLabel();
+        jLabelAkses = new javax.swing.JLabel();
         panelNavigasiBar = new javax.swing.JPanel();
         jLabelLogoTransaksi = new javax.swing.JLabel();
         jLabelManajemenData = new javax.swing.JLabel();
@@ -125,7 +136,7 @@ public class MainJframe extends javax.swing.JFrame {
         ButtonRetur1 = new javax.swing.JButton();
         containerTabelBarang = new javax.swing.JScrollPane();
         jTableBarang = new javax.swing.JTable();
-        ButtonRetur2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         DataSuplier = new javax.swing.JPanel();
         labelShow1 = new javax.swing.JLabel();
         fieldPencarian1 = new javax.swing.JTextField();
@@ -144,7 +155,7 @@ public class MainJframe extends javax.swing.JFrame {
         labelTxtFldKdSupp3 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
         jButtonUpdateSuplier = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jButtonTambahSuplier = new javax.swing.JButton();
         DataKategori = new javax.swing.JPanel();
         fieldPencarianKategori = new javax.swing.JTextField();
         jScrollPanelKategori = new javax.swing.JScrollPane();
@@ -249,17 +260,16 @@ public class MainJframe extends javax.swing.JFrame {
         LabelNamaToko.setForeground(new java.awt.Color(255, 255, 255));
         LabelNamaToko.setText("CAFE LAFO");
 
-        LabelNamaUser.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
-        LabelNamaUser.setForeground(new java.awt.Color(255, 255, 255));
-        LabelNamaUser.setText("Dwi Nafis Mahardika");
-
-        LabelJabatanUser.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        LabelJabatanUser.setForeground(new java.awt.Color(255, 255, 255));
-        LabelJabatanUser.setText("Admin");
-
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icon/user.png"))); // NOI18N
         jLabel7.setText("jLabel7");
         jLabel7.setPreferredSize(new java.awt.Dimension(36, 36));
+
+        jLabelNamaUSer.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabelNamaUSer.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNamaUSer.setText("Nama");
+
+        jLabelAkses.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelAkses.setText("akses");
 
         javax.swing.GroupLayout panel_HeaderLayout = new javax.swing.GroupLayout(panel_Header);
         panel_Header.setLayout(panel_HeaderLayout);
@@ -268,27 +278,27 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(panel_HeaderLayout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(LabelNamaToko)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 985, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelNamaUser)
-                    .addComponent(LabelJabatanUser))
-                .addGap(80, 80, 80))
+                    .addComponent(jLabelNamaUSer)
+                    .addComponent(jLabelAkses))
+                .addGap(183, 183, 183))
         );
         panel_HeaderLayout.setVerticalGroup(
             panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_HeaderLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(panel_HeaderLayout.createSequentialGroup()
-                            .addComponent(LabelNamaUser)
-                            .addGap(3, 3, 3)
-                            .addComponent(LabelJabatanUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabelNamaUSer)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelAkses)))
                     .addComponent(LabelNamaToko))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         panelNavigasiBar.setBackground(new java.awt.Color(42, 48, 48));
@@ -328,6 +338,11 @@ public class MainJframe extends javax.swing.JFrame {
         });
 
         jLabelLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icon/log-out.png"))); // NOI18N
+        jLabelLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLogOutMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelNavigasiBarLayout = new javax.swing.GroupLayout(panelNavigasiBar);
         panelNavigasiBar.setLayout(panelNavigasiBarLayout);
@@ -811,6 +826,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtornTambah.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtornTambah.setText("Tambah");
         ButtornTambah.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtornTambah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtornTambahMouseClicked(evt);
+            }
+        });
         ButtornTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtornTambahActionPerformed(evt);
@@ -821,6 +841,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtonRetur.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtonRetur.setText("Retur");
         ButtonRetur.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtonRetur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonReturMouseClicked(evt);
+            }
+        });
         ButtonRetur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonReturActionPerformed(evt);
@@ -857,13 +882,12 @@ public class MainJframe extends javax.swing.JFrame {
         });
         containerTabelBarang.setViewportView(jTableBarang);
 
-        ButtonRetur2.setBackground(new java.awt.Color(241, 102, 52));
-        ButtonRetur2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        ButtonRetur2.setText("Menyuplai");
-        ButtonRetur2.setPreferredSize(new java.awt.Dimension(105, 49));
-        ButtonRetur2.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setBackground(new java.awt.Color(241, 102, 52));
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButton3.setText("Menyuplai");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonRetur2ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -883,9 +907,9 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(ComboBoxShowEntries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LabelEntryes)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButtonRetur2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(45, 45, 45)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -897,18 +921,19 @@ public class MainJframe extends javax.swing.JFrame {
             DataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DataBarangLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(DataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelShow)
-                    .addComponent(ComboBoxShowEntries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelEntryes)
-                    .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonRetur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(DataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(DataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelShow)
+                        .addComponent(ComboBoxShowEntries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LabelEntryes)
+                        .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26)
                 .addComponent(containerTabelBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         ContainerConten.add(DataBarang, "card2");
@@ -1020,15 +1045,15 @@ public class MainJframe extends javax.swing.JFrame {
             }
         });
 
-        jButton11.setBackground(new java.awt.Color(42, 48, 48));
-        jButton11.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setText("Tambah");
-        jButton11.setBorder(null);
-        jButton11.setPreferredSize(new java.awt.Dimension(360, 41));
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTambahSuplier.setBackground(new java.awt.Color(42, 48, 48));
+        jButtonTambahSuplier.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButtonTambahSuplier.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonTambahSuplier.setText("Tambah");
+        jButtonTambahSuplier.setBorder(null);
+        jButtonTambahSuplier.setPreferredSize(new java.awt.Dimension(360, 41));
+        jButtonTambahSuplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jButtonTambahSuplierActionPerformed(evt);
             }
         });
 
@@ -1051,7 +1076,7 @@ public class MainJframe extends javax.swing.JFrame {
                             .addComponent(jTextFieldNamaSuplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextFieldKodeSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonTambahSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonUpdateSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(49, 49, 49))
@@ -1076,7 +1101,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNomerTelpSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonTambahSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonUpdateSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1451,7 +1476,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPanelKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelInsertKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DataDiscountLayout = new javax.swing.GroupLayout(DataDiscount);
@@ -1509,6 +1534,11 @@ public class MainJframe extends javax.swing.JFrame {
         ButtornTambah1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtornTambah1.setText("Tambah");
         ButtornTambah1.setPreferredSize(new java.awt.Dimension(105, 49));
+        ButtornTambah1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtornTambah1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1731,6 +1761,11 @@ public class MainJframe extends javax.swing.JFrame {
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jButton7.setText("Tambah");
         jButton7.setPreferredSize(new java.awt.Dimension(299, 54));
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
 
         jScrollPane2.setPreferredSize(new java.awt.Dimension(1348, 661));
 
@@ -1909,6 +1944,11 @@ public class MainJframe extends javax.swing.JFrame {
         jButtonSubmit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButtonSubmit.setText("Submit");
         jButtonSubmit.setPreferredSize(new java.awt.Dimension(457, 61));
+        jButtonSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonSubmitMouseClicked(evt);
+            }
+        });
         jButtonSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSubmitActionPerformed(evt);
@@ -2162,7 +2202,17 @@ public class MainJframe extends javax.swing.JFrame {
         setBounds(0, 0, 1550, 1021);
     }// </editor-fold>//GEN-END:initComponents
     
-
+    public void setPegawai(user pegawai){
+        pegawai.setKode(this.pgw.getKode());
+        pegawai.setNama(this.pgw.getNama());
+        pegawai.setAlamat(this.pgw.getAlamat());
+        pegawai.setGender(this.pgw.getGender());
+        pegawai.setHakAkses(this.pgw.getHakAkses());
+        pegawai.setNoHp(this.pgw.getNoHp());
+        pegawai.setStatus(this.pgw.getStatus());
+        pegawai.setTanggalDaftar(this.pgw.getTanggalDaftar());
+    }
+    
     //fungsi transaksi // <editor-fold defaultstate="collapsed" desc="Fungsi transaksi"> 
         String tanggal = tgl.getDayOfMonth()+"";
         String bulan = tgl.getMonth().toString();
@@ -2224,57 +2274,61 @@ public class MainJframe extends javax.swing.JFrame {
      
     //set kode transaksi
      public void generateCodeTrans(){
-         //deklarasi variabel
-        int intIndexKode = 1;
-        String IndexKode;
-        
-        //jika index kode kurang dari 10 akan ditambahi 0 diawal
-        if (intIndexKode < 10) {
-            IndexKode = "0"+intIndexKode;
-        }else{
-            IndexKode = intIndexKode+"";
-        }
-        
-        //membuat kode
-        String kode = "TRK"+Utility.GetTanggal()+IndexKode;
-        
-        //mengecek apakah ada kode yang sama jika ada akan diganti
-        String sql = "SELECT kode_transaksi FROM `transaksi_penjualan` WHERE kode_transaksi = '"+kode+"'";
-        ResultSet rs = OperatorDbLafo.getResultSql(sql, true);
-        
+                String newKodeDiskon = "TRK" + Utility.GetTanggal();
+                String angka = "1" ;
+                String nol = "0";
         try {
-            while (rs.next()) {                
-                intIndexKode++;
-            }
+            String sql = "SELECT transaksi_penjualan.kode_transaksi FROM transaksi_penjualan WHERE  kode_transaksi LIKE '"+newKodeDiskon+"%' ORDER BY transaksi_penjualan.kode_transaksi DESC";
+            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
-            if (intIndexKode < 10) {
-                IndexKode = "0"+intIndexKode;
-            }else{
-                IndexKode = intIndexKode+"";
+            if(result.next()) {
+                String kodeDiskon = result.getString("kode_transaksi").substring(9,11);
+                angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                nol = "";
+                
+                if(angka.length() == 1) {
+                    nol = "0";
+                } else {
+                    nol = "";
+                }
+                
             }
-        
-            kode = "TRK"+Utility.GetTanggal()+IndexKode;
-            System.out.println("kode diubah");
-            jLabelkodeTransaksi.setText("#"+kode);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
+                newKodeDiskon = "TRK" + Utility.GetTanggal() + nol + angka;
+                jLabelkodeTransaksi.setText(newKodeDiskon);
      }
      
-     //menginsert data transaksi kedatabase
-     public void InsertTr(){
-         String tanggalTr = tanggal+angkaBulan+tahun; 
-         String sql ="INSERT INTO `transaksi_penjualan` "
-                 + "(`kode_transaksi`, `tanggal_transaksi`, `uangPelanggan`, `Total`, `Kembalian`, `Id_Pegawai`, `kode_diskon`) "
+
+     
+     
+     public void SubmitTransaksi(){
+         String kodeTransaksi = jLabelkodeTransaksi.getText();
+         String tanggalTr = Utility.GetTanggal();
+         String uangPelanggan = jTextFieldBayar.getText();
+         String grandTotal = jLabelTotal.getText();
+         String kembalian = jLabelKemabali.getText();
+         String idPegawai = pgw.getKode();
+         String diskon = jTextFieldDiskon.getText();
+         String sql = "INSERT INTO `transaksi_penjualan` "
+                 + "(`kode_transaksi`, "
+                 + "`tanggal_transaksi`, "
+                 + "`uangPelanggan`, "
+                 + "`Total`, "
+                 + "`Kembalian`, "
+                 + "`Id_Pegawai`, "
+                 + "`kode_diskon`) "
                  + "VALUES "
-                 + "('"+jLabelkodeTransaksi.getText()+"', "
-                 + "'"+tanggalTr+"', "
-                 + "'"+jTextFieldBayar.getText()+"', "
-                 + "'"+jLabelGrandTotal.getText()+"', "
-                 + "'"+jLabelKemabali.getText()+"', "
-                 + "'"+pgw.getKode()+"', "
-                 + "'"+jTextFieldDiskon.getText()+"')";
-         
+                 + "('"+kodeTransaksi+"',"
+                 + " '"+tanggalTr+"',"
+                 + " '"+uangPelanggan+"',"
+                 + " '"+grandTotal+"',"
+                 + " '"+kembalian+"',"
+                 + " '"+idPegawai+"',"
+                 + " '"+diskon+"')";
+         System.out.println(sql);
+
      }
      //fungsi mengambil jumlah barang yang dibutuhakan
      public float getJumBarang(){
@@ -2288,6 +2342,7 @@ public class MainJframe extends javax.swing.JFrame {
      // </editor-fold> 
     
     //data barang  <editor-fold defaultstate="collapsed" desc="Fungsi Barang">
+
      
      //cari data barang
      public void CariBarang(String cari){
@@ -2304,6 +2359,8 @@ public class MainJframe extends javax.swing.JFrame {
         String[] header = {"kode Barang","nama Barang","stok","satuan"};
         OperatorDbLafo.tabel(sql, header, jTableBarang);
      }
+     
+     
     
     //fungsi pada DataUser
     private  void DisplaytabelUser(){
@@ -2330,7 +2387,11 @@ public class MainJframe extends javax.swing.JFrame {
     
    //</editor-fold>
     
+
     //fungsi pada data Suplier <editor-fold defaultstate="collapsed" desc="Fungsi Suplier">
+
+    
+
     dataSuplier clickedSup = new dataSuplier("");
     
     
@@ -2358,41 +2419,27 @@ public class MainJframe extends javax.swing.JFrame {
     
     //mengset kode suplier
     public void setKodeSuplier(){
-        //deklarasi variabel
-        int intIndexKode = 1;
-        String IndexKode;
-        
-        //jika index kode kurang dari 10 akan ditambahi 0 diawal
-        if (intIndexKode < 10) {
-            IndexKode = "0"+intIndexKode;
-        }else{
-            IndexKode = intIndexKode+"";
-        }
-        
-        //membuat kodesuplier
-        String kode = "SUP"+Utility.GetTanggal()+IndexKode;
-        
-        //mengecek apakah ada kode yang sama jika ada akan diganti
-        String sql = "SELECT suplier.kode_suplaier FROM `suplier` WHERE kode_suplaier = '"+kode+"';";
-        ResultSet rs = OperatorDbLafo.getResultSql(sql, true);
-        
-        try {
-            while (rs.next()) {                
-                intIndexKode++;
-            }
+         try {
+            String sql = "SELECT `kode_suplaier` FROM `suplier` WHERE 1 ORDER BY kode_suplaier DESC";
+            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
-            if (intIndexKode < 10) {
-                IndexKode = "0"+intIndexKode;
-            }else{
-                IndexKode = intIndexKode+"";
+            if(result.next()) {
+                String kodeDiskon = result.getString("kode_suplaier").substring(9,11);
+                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                String nol = "";
+                
+                if(angka.length() == 1) {
+                    nol = "0";
+                } else {
+                    nol = "";
+                }
+                
+                String newKodeDiskon = "SUP" + Utility.GetTanggal() + nol + angka;
+                jTextFieldKodeSuplier.setText(newKodeDiskon);
             }
-        
-            kode = "SUP"+Utility.GetTanggal()+IndexKode;
-            System.out.println("kode diubah");
-            jTextFieldKodeSuplier.setText(kode);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
     }
     
     //membersihkan form pada frame suplier
@@ -2735,16 +2782,18 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jTextFieldNamaSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNamaSuplierActionPerformed
         // TODO add your handling code here:
+        setKodeSuplier();
+        DisplayTabelSuplier();
     }//GEN-LAST:event_jTextFieldNamaSuplierActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void jButtonTambahSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahSuplierActionPerformed
         // TODO add your handling code here:
         if ((jTextFieldAlamatSuplier != null )&& (jTextFieldKodeSuplier != null) && (jTextFieldNamaSuplier != null)) {
             
             AddDataSuplier(jTextFieldKodeSuplier.getText(), jTextFieldNomerTelpSuplier.getText(), jTextFieldAlamatSuplier.getText(), jTextFieldNamaSuplier.getText());
             DisplayTabelSuplier();
         }
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_jButtonTambahSuplierActionPerformed
 
     private void jButtonUpdateSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateSuplierActionPerformed
         // TODO add your handling code here:
@@ -2768,32 +2817,36 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jTextFieldNamaSuplierKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNamaSuplierKeyTyped
         // TODO add your handling code here:
-        this.isEdit = true;
-        
-        if (isEdit) {
-            
-        setKodeSuplier();
-        }
+//        this.isEdit = true;
+//        
+//        if (isEdit) {
+//            
+//        setKodeSuplier();
+//        }
     }//GEN-LAST:event_jTextFieldNamaSuplierKeyTyped
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         ClearFormSuplier();
+        jButtonTambahSuplier.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jTableSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSuplierMouseClicked
         // TODO add your handling code here:
         klikTabelSuplier();
+        jButtonTambahSuplier.setVisible(false);
         
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
 //    PopUpTambahBarang popUpTambahBarang = new PopUpTmbhBarang(this);
+
     
     
     private void ButtornTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambahActionPerformed
         // TODO add your handling code here:
         tambahBarang.clearForm();
         tambahBarang.setVisible(true);
+
 
 //        popUpTambahBarang.startRun();
         
@@ -2844,6 +2897,7 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
         // TODO add your handling code here:
+        SubmitTransaksi();
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 
     public void startRunMainFrame(){
@@ -2866,10 +2920,56 @@ public class MainJframe extends javax.swing.JFrame {
         CariBarang(fieldPencarian.getText());
     }//GEN-LAST:event_fieldPencarianKeyReleased
 
+
     private void jLabelTotalPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabelTotalPropertyChange
         // TODO add your handling code here:
         UpdateGrandTotal();
     }//GEN-LAST:event_jLabelTotalPropertyChange
+
+    private void ButtornTambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtornTambahMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtornTambahMouseClicked
+
+    private void ButtonReturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReturMouseClicked
+        // TODO add your handling code here:
+       new retur().setVisible(true);
+       
+    }//GEN-LAST:event_ButtonReturMouseClicked
+
+    private void ButtornTambah1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtornTambah1MouseClicked
+        // TODO add your handling code here:
+        new PopUpTambahMenu().setVisible(true);
+    }//GEN-LAST:event_ButtornTambah1MouseClicked
+
+    private void jButtonSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSubmitMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSubmitMouseClicked
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+        // TODO add your handling code here:
+        new TambhPegawai().setVisible(true);
+    }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jLabelLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLogOutMouseClicked
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_jLabelLogOutMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        menyuplai.setVisible(true);
+        menyuplai.pegawai.setKode(this.pgw.getKode());
+        menyuplai.pegawai.setNama(this.pgw.getNama());
+        menyuplai.pegawai.setAlamat(this.pgw.getAlamat());
+        menyuplai.pegawai.setGender(this.pgw.getGender());
+        menyuplai.pegawai.setHakAkses(this.pgw.getHakAkses());
+        menyuplai.pegawai.setNoHp(this.pgw.getNoHp());
+        menyuplai.pegawai.setStatus(this.pgw.getStatus());
+        menyuplai.pegawai.setTanggalDaftar(this.pgw.getTanggalDaftar());
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    
 
     private void jLabeldiskonPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabeldiskonPropertyChange
         // TODO add your handling code here:
@@ -2916,7 +3016,7 @@ public class MainJframe extends javax.swing.JFrame {
             public void run() {
       
                 MainJframe main = new MainJframe();
-
+                 main.setVisible(true);
             }
         });
         
@@ -2926,7 +3026,6 @@ public class MainJframe extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonRetur;
     private javax.swing.JButton ButtonRetur1;
-    private javax.swing.JButton ButtonRetur2;
     private javax.swing.JButton ButtornTambah;
     private javax.swing.JButton ButtornTambah1;
     private javax.swing.JComboBox<String> ComboBoxShowEntries;
@@ -2958,9 +3057,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel LabelEntryes;
     private javax.swing.JLabel LabelEntryes1;
     private javax.swing.JLabel LabelEntryes2;
-    private javax.swing.JLabel LabelJabatanUser;
     private javax.swing.JLabel LabelNamaToko;
-    private javax.swing.JLabel LabelNamaUser;
     private javax.swing.JPanel Laporan;
     private javax.swing.JPanel ManajemenData;
     private javax.swing.JPanel Navigasi;
@@ -2980,9 +3077,9 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JTextField fieldPencarianKategori;
     private javax.swing.JTextField fieldPencarianKategori1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -2992,6 +3089,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonInsertDiskon;
     private javax.swing.JButton jButtonSubmit;
+    private javax.swing.JButton jButtonTambahSuplier;
     private javax.swing.JButton jButtonUpdateSuplier;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -3021,6 +3119,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    public javax.swing.JLabel jLabelAkses;
     private javax.swing.JLabel jLabelBulan;
     private javax.swing.JLabel jLabelGrandTotal;
     private javax.swing.JLabel jLabelHari;
@@ -3029,6 +3128,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelLogOut;
     private javax.swing.JLabel jLabelLogoTransaksi;
     private javax.swing.JLabel jLabelManajemenData;
+    public javax.swing.JLabel jLabelNamaUSer;
     private javax.swing.JLabel jLabelTahun;
     public static javax.swing.JLabel jLabelTotal;
     private javax.swing.JLabel jLabelUsesrs;
@@ -3088,7 +3188,13 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JPanel transaksi;
     // End of variables declaration//GEN-END:variables
 
+
     private String parseInt(int nomKodeIndex) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    void setUser(user pegawai) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
