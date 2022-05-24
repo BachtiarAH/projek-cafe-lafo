@@ -2219,46 +2219,59 @@ public class MainJframe extends javax.swing.JFrame {
     
     //set kode transaksi
      public void generateCodeTrans(){
-         //deklarasi variabel
-        int intIndexKode = 1;
-        String IndexKode;
-        
-        //jika index kode kurang dari 10 akan ditambahi 0 diawal
-        if (intIndexKode < 10) {
-            IndexKode = "0"+intIndexKode;
-        }else{
-            IndexKode = intIndexKode+"";
-        }
-        
-        //membuat kode
-        String kode = "TRK"+Utility.GetTanggal()+IndexKode;
-        
-        //mengecek apakah ada kode yang sama jika ada akan diganti
-        String sql = "SELECT kode_transaksi FROM `transaksi_penjualan` WHERE kode_transaksi = '"+kode+"'";
-        ResultSet rs = OperatorDbLafo.getResultSql(sql, true);
-        
+                String newKodeDiskon = "TRK" + Utility.GetTanggal();
+                String angka = "1" ;
+                String nol = "0";
         try {
-            while (rs.next()) {                
-                intIndexKode++;
-            }
+            String sql = "SELECT transaksi_penjualan.kode_transaksi FROM transaksi_penjualan WHERE  kode_transaksi LIKE '"+newKodeDiskon+"%' ORDER BY transaksi_penjualan.kode_transaksi DESC";
+            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
-            if (intIndexKode < 10) {
-                IndexKode = "0"+intIndexKode;
-            }else{
-                IndexKode = intIndexKode+"";
+            if(result.next()) {
+                String kodeDiskon = result.getString("kode_transaksi").substring(9,11);
+                angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                nol = "";
+                
+                if(angka.length() == 1) {
+                    nol = "0";
+                } else {
+                    nol = "";
+                }
+                
             }
-        
-            kode = "TRK"+Utility.GetTanggal()+IndexKode;
-            System.out.println("kode diubah");
-            jLabelkodeTransaksi.setText("#"+kode);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
+                newKodeDiskon = "TRK" + Utility.GetTanggal() + nol + angka;
+                jLabelkodeTransaksi.setText(newKodeDiskon);
      }
      
+     
+     
      public void SubmitTransaksi(){
-         String sql;
-         
+         String kodeTransaksi = jLabelkodeTransaksi.getText();
+         String tanggalTr = Utility.GetTanggal();
+         String uangPelanggan = jTextFieldBayar.getText();
+         String grandTotal = jLabelTotal.getText();
+         String kembalian = jLabelKemabali.getText();
+         String idPegawai = pgw.getKode();
+         String diskon = jTextFieldDiskon.getText();
+         String sql = "INSERT INTO `transaksi_penjualan` "
+                 + "(`kode_transaksi`, "
+                 + "`tanggal_transaksi`, "
+                 + "`uangPelanggan`, "
+                 + "`Total`, "
+                 + "`Kembalian`, "
+                 + "`Id_Pegawai`, "
+                 + "`kode_diskon`) "
+                 + "VALUES "
+                 + "('"+kodeTransaksi+"',"
+                 + " '"+tanggalTr+"',"
+                 + " '"+uangPelanggan+"',"
+                 + " '"+grandTotal+"',"
+                 + " '"+kembalian+"',"
+                 + " '"+idPegawai+"',"
+                 + " '"+diskon+"')";
+         System.out.println(sql);
      }
      
      //fungsi update grand total
@@ -2819,6 +2832,7 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
         // TODO add your handling code here:
+        SubmitTransaksi();
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 
     public void startRunMainFrame(){
