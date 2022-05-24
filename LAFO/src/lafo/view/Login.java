@@ -68,7 +68,14 @@ public class Login extends javax.swing.JFrame {
             pegawai.setStatus(rs.getString(7));
             pegawai.setHakAkses(rs.getString(8));
             
-            mainFrame.pgw = pegawai;
+            mainFrame.pgw.setKode(pegawai.getKode());
+            mainFrame.pgw.setNama(pegawai.getNama());
+            mainFrame.pgw.setAlamat(pegawai.getAlamat());
+            mainFrame.pgw.setGender(pegawai.getGender());
+            mainFrame.pgw.setHakAkses(pegawai.getHakAkses());
+            mainFrame.pgw.setNoHp(pegawai.getNoHp());
+            mainFrame.pgw.setStatus(pegawai.getStatus());
+            mainFrame.pgw.setTanggalDaftar(pegawai.getTanggalDaftar());
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(sql );

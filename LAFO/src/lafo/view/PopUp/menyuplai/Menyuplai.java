@@ -13,8 +13,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import lafo.entity.barang;
+import lafo.entity.user;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.proses.DataBase.Koneksi;
+import lafo.view.MainJframe;
 
 /**
  *
@@ -26,7 +28,8 @@ public class Menyuplai extends javax.swing.JFrame {
     DataBaseOperator DbOp = new DataBaseOperator(konDbLafo);
     DefaultTableModel Tbmodel = new DefaultTableModel();
     LocalDate tgl = LocalDate.now();
-    barang brang = new barang();    
+    barang brang = new barang();  
+    public user pegawai = new user();
     /**
      * Creates new form Menyuplai
      */
@@ -36,6 +39,8 @@ public class Menyuplai extends javax.swing.JFrame {
         tampilSuplier("");
         tampilMenyuplai();
         this.setLocationRelativeTo(null);
+//        pegawai.setKode(MainJframe.pgw.getKode());
+        System.out.println(pegawai.getKode());
     }
 
     public void tampilBarang(String cari){
@@ -184,8 +189,8 @@ public class Menyuplai extends javax.swing.JFrame {
         }else{
             bulan = tgl.getMonthValue()+"";
         }
-        String tahun = (tgl.getYear()+"").substring(2);
-        String tanggal = tgl.getDayOfMonth()+bulan+tahun;
+        String tahun = (tgl.getYear()+"");
+        String tanggal = tahun+bulan+tgl.getDayOfMonth();
         
         return tanggal;
                 
@@ -205,8 +210,50 @@ public class Menyuplai extends javax.swing.JFrame {
 
         String kode = "MSP"+tgl.getDayOfMonth()+bulan+tahun.substring(2);
         String sql = "SELECT `Kode_Menyuplai` FROM `menyuplai`\n" +
-                        "WHERE Kode_Menyuplai LIKE '"+kode+"'\n" +
+//                        "WHERE Kode_Menyuplai LIKE '"+kode+"'\n" +
                         "ORDER by Kode_Menyuplai DESC LIMIT 1;";
+        
+        ResultSet rs = DbOp.getResultSql(sql, true);
+        
+        try {
+            while (rs.next()) {
+                index++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Menyuplai.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (index < 10) {
+            indexString = "000"+index;
+        }else if(index < 100){
+            indexString = "00"+index;
+            
+        }else if(index < 1000){
+            indexString = "000"+index;
+        
+        }else{
+            indexString = index+"";
+        }
+        
+        kode += indexString;
+        return kode;
+    }
+    
+     public String GenerateDetailSuplai(){
+        int index = 1;
+        String indexString = "";
+        String bulan = "";
+        if (tgl.getMonthValue()<10) {
+            bulan = "0"+tgl.getMonthValue();
+        }else{
+            bulan = tgl.getMonthValue()+"";
+        }
+        String tahun = tgl.getYear()+"";
+
+        String kode = "DSUP"+tgl.getDayOfMonth()+bulan+tahun.substring(2);
+        String sql = "SELECT detail_suplai.Id_detail_suplai FROM `detail_suplai` \n" +
+            "WHERE detail_suplai.Id_detail_suplai LIKE '"+kode+"%'\n" +
+            "ORDER by detail_suplai.Id_detail_suplai DESC";
         
         ResultSet rs = DbOp.getResultSql(sql, true);
         
@@ -233,34 +280,75 @@ public class Menyuplai extends javax.swing.JFrame {
     public void UpdateAntrianSuplier(){
         antrianSuplier = jTableMenyuplai.getValueAt(0, 1).toString();
     }
-    
-    public void SubmitMenyuplai(){
-        if (!(Tbmodel.getValueAt(0, 1).toString().equalsIgnoreCase(antrianSuplier))) {
-            UpdateAntrianSuplier();
+    String kodeMenyuplai;
+    public void menyuplai(){
+        kodeMenyuplai = GenerateKodeMenyuplai();
+        UpdateAntrianSuplier();
         String sqlMenyuplai = "INSERT INTO `menyuplai`"
                 + "(`Kode_Menyuplai`, `Tanggal_menyuplai`, `kode_suplaier`, `Id_Pegawai`) "
                 + "VALUES ('"
-                + ""+GenerateKodeMenyuplai()+"','"
+                + ""+kodeMenyuplai+"','"
                 + ""+getTanggal()+"','"
                 + ""+antrianSuplier+"','"
-                + "[value-4]')";
-            System.out.println("udah beda");
-        }else{
-            String detailSup = "INSERT INTO `detail_suplai`"
-                    + "(`harga_beli`, `qty`, `Id_detail_suplai`, `satuan`, `Kode_Menyuplai`, `kode_Barang`, `stok`, `harga_beli_per_satuan`) "
+                + ""+pegawai.getKode()+"')";
+//            System.out.println(sqlMenyuplai);
+        DbOp.DatabaseExecutor(sqlMenyuplai, true);
+            
+    }
+    
+  
+    
+    public void detailSup(){
+        String detailSup = "INSERT INTO `detail_suplai`"
+                    + "(`harga_beli`,`qty`, `Id_detail_suplai`, `satuan`, `Kode_Menyuplai`, `kode_Barang`, `stok`, `harga_beli_per_satuan`) "
                     + "VALUES ("
-                    + "'[value-1]',"
-                    + "'[value-2]',"
-                    + "'[value-3]',"
-                    + "'[value-4]',"
-                    + "'[value-5]',"
-                    + "'[value-6]',"
-                    + "'[value-7]',"
-                    + "'[value-8]')";
-            System.out.println("masih sama");
+                    + "'"+jTableMenyuplai.getValueAt(0, 5)+"',"
+                    + "'"+jTableMenyuplai.getValueAt(0, 3)+"',"
+                    + "'"+GenerateDetailSuplai()+"',"
+                    + "'"+jTableMenyuplai.getValueAt(0, 4)+"',"
+                    + "'"+kodeMenyuplai+"',"
+                    + "'"+jTableMenyuplai.getValueAt(0, 0)+"',"
+                    + "'"+jTableMenyuplai.getValueAt(0, 3)+"',"
+                    + "'"+jTableMenyuplai.getValueAt(0, 2)+"')";
+//            System.out.println(detailSup);
+            DbOp.DatabaseExecutor(detailSup, true);
+    }
+    
+    public void SubmitMenyuplai(){
+//        menyuplai();
+        if ( jTableMenyuplai.getRowCount()>0) {
+            UpdateAntrianSuplier();
+            menyuplai();
+            
+            while (( jTableMenyuplai.getRowCount()>0)) {            
+                if (!(Tbmodel.getValueAt(0, 1).toString().equalsIgnoreCase(antrianSuplier))) {
+                    menyuplai();
+                }else{
+
+                    detailSup();
+                    Tbmodel.removeRow(0);
+                }
+        }   
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "tabel bawah tidak boleh kosong");
         }
         
-        Tbmodel.removeRow(0);
+    }
+    
+    public void refreshBarang(){
+        String sql = "SELECT "
+                + "barang.kode_Barang, "
+                + "barang.Nama_barang, "
+                + "SUM(detail_suplai.stok), "
+                + "barang.satuan "
+                + "FROM barang "
+                + "LEFT JOIN detail_suplai "
+                + "ON barang.kode_Barang = detail_suplai.kode_Barang "
+                 + "WHERE barang.nama_barang LIKE '%"+""+"%' "
+                + "GROUP BY kode_Barang ";
+        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        DbOp.tabel(sql, header, MainJframe.jTableBarang);
     }
     
     
@@ -309,7 +397,7 @@ public class Menyuplai extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanelMenyuplai.setBackground(new java.awt.Color(255, 255, 255));
         jPanelMenyuplai.setPreferredSize(new java.awt.Dimension(992, 636));
@@ -628,18 +716,15 @@ public class Menyuplai extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabelTtlBarang)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabelGrandTotal))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabelTtlBarang)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabelGrandTotal)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(71, 71, 71)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -778,15 +863,9 @@ public class Menyuplai extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         System.out.println(GenerateKodeMenyuplai());
-        if ( jTableMenyuplai.getRowCount()>0) {
-        UpdateAntrianSuplier();
-        while (( jTableMenyuplai.getRowCount()>0)) {            
         SubmitMenyuplai();
-        }
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "tabel bawah tidak boleh kosong");
-        }
+        refreshBarang();
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

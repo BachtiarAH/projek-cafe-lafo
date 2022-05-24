@@ -27,6 +27,7 @@ import lafo.view.PopUp.Kasir.Kasir_enter;
 import lafo.view.PopUp.ManajemenBarang.Retur.Retur;
 import lafo.view.PopUp.Menu.PopUpTambahMenu;
 import lafo.view.PopUp.Retur.retur;
+import lafo.view.PopUp.menyuplai.Menyuplai;
 import lafo.view.PopUp.pegawai.TambhPegawai;
 
 
@@ -45,7 +46,8 @@ public class MainJframe extends javax.swing.JFrame {
     public static DefaultTableModel tbModTrans = new DefaultTableModel();
     TambahBarang tambahBarang = new TambahBarang("add");
     TambahBarang editBarang = new TambahBarang("edit");
-    user pgw = new user();
+    public user pgw = new user();
+    Menyuplai menyuplai = new Menyuplai();
 
 
     private Object retur;
@@ -126,7 +128,7 @@ public class MainJframe extends javax.swing.JFrame {
         ButtonRetur1 = new javax.swing.JButton();
         containerTabelBarang = new javax.swing.JScrollPane();
         jTableBarang = new javax.swing.JTable();
-        ButtonRetur2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         DataSuplier = new javax.swing.JPanel();
         labelShow1 = new javax.swing.JLabel();
         fieldPencarian1 = new javax.swing.JTextField();
@@ -872,18 +874,12 @@ public class MainJframe extends javax.swing.JFrame {
         });
         containerTabelBarang.setViewportView(jTableBarang);
 
-        ButtonRetur2.setBackground(new java.awt.Color(241, 102, 52));
-        ButtonRetur2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        ButtonRetur2.setText("Menyuplai");
-        ButtonRetur2.setPreferredSize(new java.awt.Dimension(105, 49));
-        ButtonRetur2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonRetur2MouseClicked(evt);
-            }
-        });
-        ButtonRetur2.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setBackground(new java.awt.Color(241, 102, 52));
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButton3.setText("Menyuplai");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonRetur2ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -903,8 +899,8 @@ public class MainJframe extends javax.swing.JFrame {
                         .addComponent(ComboBoxShowEntries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LabelEntryes)
-                        .addGap(46, 46, 46)
-                        .addComponent(ButtonRetur2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -917,15 +913,16 @@ public class MainJframe extends javax.swing.JFrame {
             DataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DataBarangLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(DataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelShow)
-                    .addComponent(ComboBoxShowEntries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelEntryes)
-                    .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonRetur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(DataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(DataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelShow)
+                        .addComponent(ComboBoxShowEntries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LabelEntryes)
+                        .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26)
                 .addComponent(containerTabelBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -2182,7 +2179,17 @@ public class MainJframe extends javax.swing.JFrame {
         setBounds(0, 0, 1550, 1021);
     }// </editor-fold>//GEN-END:initComponents
     
-
+    public void setPegawai(user pegawai){
+        pegawai.setKode(this.pgw.getKode());
+        pegawai.setNama(this.pgw.getNama());
+        pegawai.setAlamat(this.pgw.getAlamat());
+        pegawai.setGender(this.pgw.getGender());
+        pegawai.setHakAkses(this.pgw.getHakAkses());
+        pegawai.setNoHp(this.pgw.getNoHp());
+        pegawai.setStatus(this.pgw.getStatus());
+        pegawai.setTanggalDaftar(this.pgw.getTanggalDaftar());
+    }
+    
     //fungsi transaksi // <editor-fold defaultstate="collapsed" desc="Fungsi transaksi"> 
      public void SetTableModel(){
         String[] tbHeader = {"Nama Menu","Jumlah","Harga","Diskon","total"};
@@ -2258,7 +2265,7 @@ public class MainJframe extends javax.swing.JFrame {
      
      // </editor-fold> 
     
-    //data barang  <editor-fold defaultstate="collapsed" desc="Fungsi transaksi">
+    //data barang  <editor-fold defaultstate="collapsed" desc="Fungsi barang">
      
      //cari data barang
      public void CariBarang(String cari){
@@ -2275,6 +2282,8 @@ public class MainJframe extends javax.swing.JFrame {
         String[] header = {"kode Barang","nama Barang","stok","satuan"};
         OperatorDbLafo.tabel(sql, header, jTableBarang);
      }
+     
+     
     
     //fungsi pada DataUser
     private  void DisplaytabelUser(){
@@ -2302,7 +2311,7 @@ public class MainJframe extends javax.swing.JFrame {
    //</editor-fold>
     
     
-    //fungsi pada data Suplier <editor-fold defaultstate="collapsed" desc="Fungsi transaksi">
+    //fungsi pada data Suplier <editor-fold defaultstate="collapsed" desc="suplier">
     dataSuplier clickedSup = new dataSuplier("");
     
     
@@ -2852,11 +2861,6 @@ public class MainJframe extends javax.swing.JFrame {
        
     }//GEN-LAST:event_ButtonReturMouseClicked
 
-    private void ButtonRetur2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonRetur2MouseClicked
-        // TODO add your handling code here:
-        new retur().setVisible(true);
-    }//GEN-LAST:event_ButtonRetur2MouseClicked
-
     private void ButtornTambah1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtornTambah1MouseClicked
         // TODO add your handling code here:
         new PopUpTambahMenu().setVisible(true);
@@ -2875,6 +2879,20 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
       
     }//GEN-LAST:event_jLabelLogOutMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        menyuplai.setVisible(true);
+        menyuplai.pegawai.setKode(this.pgw.getKode());
+        menyuplai.pegawai.setNama(this.pgw.getNama());
+        menyuplai.pegawai.setAlamat(this.pgw.getAlamat());
+        menyuplai.pegawai.setGender(this.pgw.getGender());
+        menyuplai.pegawai.setHakAkses(this.pgw.getHakAkses());
+        menyuplai.pegawai.setNoHp(this.pgw.getNoHp());
+        menyuplai.pegawai.setStatus(this.pgw.getStatus());
+        menyuplai.pegawai.setTanggalDaftar(this.pgw.getTanggalDaftar());
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     
 
@@ -2931,7 +2949,6 @@ public class MainJframe extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonRetur;
     private javax.swing.JButton ButtonRetur1;
-    private javax.swing.JButton ButtonRetur2;
     private javax.swing.JButton ButtornTambah;
     private javax.swing.JButton ButtornTambah1;
     private javax.swing.JComboBox<String> ComboBoxShowEntries;
@@ -2986,6 +3003,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
