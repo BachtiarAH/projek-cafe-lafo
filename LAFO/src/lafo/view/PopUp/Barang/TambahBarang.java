@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lafo.view.PopUp.Barang;
 
 import java.sql.ResultSet;
@@ -192,7 +187,6 @@ public class TambahBarang extends javax.swing.JFrame {
         jComboBoxSatuan = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(592, 623));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(592, 623));
@@ -216,6 +210,11 @@ public class TambahBarang extends javax.swing.JFrame {
         });
 
         jTextFieldKodeBarang.setPreferredSize(new java.awt.Dimension(478, 48));
+        jTextFieldKodeBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldKodeBarangActionPerformed(evt);
+            }
+        });
 
         label3.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         label3.setText("Satuan\n");
@@ -349,6 +348,10 @@ public class TambahBarang extends javax.swing.JFrame {
         jTextFieldKodeBarang.setText(generateKodeBarang());
         }
     }//GEN-LAST:event_jTextFieldNamaBarangKeyReleased
+
+    private void jTextFieldKodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKodeBarangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldKodeBarangActionPerformed
 
     /**
      * @param args the command line arguments
