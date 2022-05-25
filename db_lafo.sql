@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Bulan Mei 2022 pada 03.47
+-- Waktu pembuatan: 25 Bulan Mei 2022 pada 03.10
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.10
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_lafo`
 --
+
+DELIMITER $$
+--
+-- Prosedur
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `count detail trans` (IN `kodeTransaksi` VARCHAR(13))  SELECT COUNT(detail_transaksi.kode_Menu) FROM detail_transaksi WHERE detail_transaksi.kode_transaksi = `kodeTransaksi`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `countResep` (INOUT `kodeMenu` CHAR(5))  SELECT COUNT(resep.kode_resep) FROM resep WHERE resep.kode_Menu = `kodeMenu`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `menulist` ()  BEGIN
+SELECT * FROM db_lafo.menu;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -50,16 +64,25 @@ INSERT INTO `akun` (`Username`, `password`, `Id_Pegawai`) VALUES
 CREATE TABLE `barang` (
   `kode_Barang` char(6) NOT NULL,
   `Nama_barang` varchar(50) NOT NULL,
-  `satuan` varchar(10) NOT NULL
+  `satuan` varchar(10) NOT NULL,
+  `stok` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `barang`
 --
 
-INSERT INTO `barang` (`kode_Barang`, `Nama_barang`, `satuan`) VALUES
-('BRG001', 'Teh celup', 'buah'),
-('BRG002', 'Kopi bubuk', 'gram');
+INSERT INTO `barang` (`kode_Barang`, `Nama_barang`, `satuan`, `stok`) VALUES
+('BRG002', 'Kopi bubuk', 'gram', NULL),
+('BRG003', 'MILO', 'buah', NULL),
+('BRGU01', 'gula pasir', 'buah', NULL),
+('BRKO01', 'kopi luak', 'buah', 12),
+('BRLU02', 'kopi luak', 'buah', NULL),
+('BRNE01', 'Nesscafe', 'buah', NULL),
+('BRSU01', 'susu uht', 'liter', NULL),
+('BRSU02', 'susu kental manis', 'liter', NULL),
+('BRSU03', 'sukijan', 'buah', NULL),
+('BRTE01', 'Teh celup', 'buah', NULL);
 
 -- --------------------------------------------------------
 
@@ -83,8 +106,39 @@ CREATE TABLE `detail_suplai` (
 --
 
 INSERT INTO `detail_suplai` (`harga_beli`, `qty`, `Id_detail_suplai`, `satuan`, `Kode_Menyuplai`, `kode_Barang`, `stok`, `harga_beli_per_satuan`) VALUES
-(6000, 12, 'DSUP050522001', 'buah', 'MSP0505220001', 'BRG001', 12, 500),
-(20000, 1000, 'DSUP050522002', 'gram', 'MSP0505220001', 'BRG002', 1000, 20);
+(6000, 12, 'DSUP050522001', 'buah', 'MSP0505220001', 'BRTE01', 12, 500),
+(20000, 1000, 'DSUP050522002', 'gram', 'MSP0505220001', 'BRG002', 1000, 20),
+(18000, 12, 'DSUP23052201', 'buah', 'MSP2305220001', 'BRGU01', 12, 1500),
+(45000, 30, 'DSUP23052202', 'buah', 'MSP2305220001', 'BRNE01', 30, 1500),
+(12000, 12, 'DSUP23052203', 'buah', 'MSP2305220002', 'BRLU02', 12, 1000),
+(12000, 12, 'DSUP23052204', 'liter', 'MSP2305220002', 'BRSU01', 12, 1000),
+(20000, 2, 'DSUP23052205', 'liter', 'MSP2305220002', 'BRSU02', 2, 10000),
+(90000, 30, 'DSUP23052206', 'buah', 'MSP2305220002', 'BRG003', 30, 3000),
+(20000, 4, 'DSUP24052201', 'buah', 'MSP2405220004', 'BRSU03', 4, 5000),
+(12000, 12, 'DSUP24052202', 'buah', 'MSP2405220005', 'BRKO01', 12, 1000),
+(12000, 12, 'DSUP24052203', 'buah', 'MSP2405220006', 'BRSU03', 12, 1000),
+(12000, 12, 'DSUP24052204', 'buah', 'MSP2405220008', 'BRSU03', 12, 1000),
+(34500, 23, 'DSUP24052205', 'buah', 'MSP2405220009', 'BRSU03', 23, 1500),
+(12000, 12, 'DSUP24052206', 'buah', 'MSP2405220010', 'BRKO01', 12, 1000);
+
+--
+-- Trigger `detail_suplai`
+--
+DELIMITER $$
+CREATE TRIGGER `setTotalMenyuplai` AFTER INSERT ON `detail_suplai` FOR EACH ROW UPDATE `menyuplai` 
+SET 
+`total`= 
+	(SELECT SUM(new.harga_beli)
+     FROM detail_suplai
+ 	WHERE 
+     detail_suplai.Kode_Menyuplai = 	new.Kode_Menyuplai) 
+WHERE menyuplai.Kode_Menyuplai = new.Kode_Menyuplai
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tambahStokBarang` AFTER INSERT ON `detail_suplai` FOR EACH ROW UPDATE barang SET barang.stok = new.stok WHERE barang.kode_Barang = new.kode_Barang
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -100,6 +154,13 @@ CREATE TABLE `detail_transaksi` (
   `kode_Menu` char(5) NOT NULL,
   `kode_transaksi` char(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `detail_transaksi`
+--
+
+INSERT INTO `detail_transaksi` (`qty`, `sub_total`, `harga`, `detail_transaksi`, `kode_Menu`, `kode_transaksi`) VALUES
+(2, 8000, 4000, '12345678901234', 'MN001', 'TR24042022001');
 
 -- --------------------------------------------------------
 
@@ -119,7 +180,8 @@ CREATE TABLE `diskon` (
 --
 
 INSERT INTO `diskon` (`kode_diskon`, `jumlah_diskon`, `tenggat_diskon`, `nama`) VALUES
-('HARGANORMAL', 0, NULL, 'harga normal');
+('HARGANORMAL', 0, NULL, 'harga normal'),
+('KESEPULUH', 1000, NULL, 'Diskon Pembelian Ke ');
 
 -- --------------------------------------------------------
 
@@ -153,15 +215,26 @@ CREATE TABLE `menyuplai` (
   `Kode_Menyuplai` char(13) NOT NULL,
   `Tanggal_menyuplai` date NOT NULL,
   `kode_suplaier` char(11) NOT NULL,
-  `Id_Pegawai` char(11) NOT NULL
+  `Id_Pegawai` char(11) NOT NULL,
+  `total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `menyuplai`
 --
 
-INSERT INTO `menyuplai` (`Kode_Menyuplai`, `Tanggal_menyuplai`, `kode_suplaier`, `Id_Pegawai`) VALUES
-('MSP0505220001', '2022-05-05', 'SUP05052202', 'PGW05052201');
+INSERT INTO `menyuplai` (`Kode_Menyuplai`, `Tanggal_menyuplai`, `kode_suplaier`, `Id_Pegawai`, `total`) VALUES
+('MSP0505220001', '2022-05-05', 'SUP05052202', 'PGW05052201', 26000),
+('MSP2305220001', '2022-05-23', 'SUP05052202', 'ADM05052201', 0),
+('MSP2305220002', '2022-05-23', 'SUP15052201', 'ADM05052201', 0),
+('MSP2405220003', '2022-05-24', 'SUP15052202', 'ADM05052201', 0),
+('MSP2405220004', '2022-05-24', 'SUP05052201', 'ADM05052201', 18000),
+('MSP2405220005', '2022-05-24', 'SUP05052201', 'ADM05052201', 12000),
+('MSP2405220006', '2022-05-24', 'SUP05052202', 'ADM05052201', 132000),
+('MSP2405220007', '2022-05-24', 'SUP05052202', 'ADM05052201', 0),
+('MSP2405220008', '2022-05-24', 'SUP05052202', 'ADM05052201', 12000),
+('MSP2405220009', '2022-05-24', 'SUP05052202', 'ADM05052201', 34500),
+('MSP2405220010', '2022-05-24', 'SUP15052201', 'ADM05052201', 12000);
 
 -- --------------------------------------------------------
 
@@ -197,17 +270,19 @@ INSERT INTO `pegawai` (`Id_Pegawai`, `Nama_Pegawai`, `gender`, `Alamat`, `No_Hp`
 CREATE TABLE `resep` (
   `qty` float NOT NULL,
   `kode_Barang` char(6) NOT NULL,
-  `kode_Menu` char(5) NOT NULL
+  `kode_Menu` char(5) NOT NULL,
+  `kode_resep` varchar(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `resep`
 --
 
-INSERT INTO `resep` (`qty`, `kode_Barang`, `kode_Menu`) VALUES
-(1, 'BRG001', 'MN001'),
-(1, 'BRG001', 'MN002'),
-(20, 'BRG002', 'MN003');
+INSERT INTO `resep` (`qty`, `kode_Barang`, `kode_Menu`, `kode_resep`) VALUES
+(1, 'BRTE01', 'MN001', NULL),
+(1, 'BRTE01', 'MN002', NULL),
+(20, 'BRG002', 'MN003', NULL),
+(5, 'BRGU01', 'MN001', '123');
 
 -- --------------------------------------------------------
 
@@ -259,7 +334,9 @@ CREATE TABLE `suplier` (
 
 INSERT INTO `suplier` (`kode_suplaier`, `No_Telp`, `Alamat`, `nama_suplier`) VALUES
 ('SUP05052201', '084637216482', 'JEMBER', 'RUMAH BAKTI'),
-('SUP05052202', '084726384231', 'MADIUN', 'Toko Grosir Bu Anik');
+('SUP05052202', '084726384231', 'MADIUN', 'Toko Grosir Bu Anik'),
+('SUP15052201', '089123754897', 'Banyuwangi', 'bandar'),
+('SUP15052202', '093412349532', 'Bondowoso', 'pengepul');
 
 -- --------------------------------------------------------
 
@@ -276,6 +353,13 @@ CREATE TABLE `transaksi_penjualan` (
   `Id_Pegawai` char(11) NOT NULL,
   `kode_diskon` char(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `transaksi_penjualan`
+--
+
+INSERT INTO `transaksi_penjualan` (`kode_transaksi`, `tanggal_transaksi`, `uangPelanggan`, `Total`, `Kembalian`, `Id_Pegawai`, `kode_diskon`) VALUES
+('TR24042022001', '2022-04-24', 10000, 8000, 2000, 'PGW05052201', 'HARGANORMAL');
 
 --
 -- Indexes for dumped tables
@@ -298,13 +382,14 @@ ALTER TABLE `barang`
 --
 ALTER TABLE `detail_suplai`
   ADD PRIMARY KEY (`Id_detail_suplai`),
-  ADD KEY `Kode_Menyuplai` (`Kode_Menyuplai`),
-  ADD KEY `kode_Barang` (`kode_Barang`);
+  ADD KEY `detail_suplai_ibfk_2` (`kode_Barang`),
+  ADD KEY `detail_suplai_ibfk_1` (`Kode_Menyuplai`);
 
 --
 -- Indeks untuk tabel `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
+  ADD PRIMARY KEY (`detail_transaksi`),
   ADD KEY `kode_Menu` (`kode_Menu`),
   ADD KEY `kode_transaksi` (`kode_transaksi`);
 
@@ -338,8 +423,9 @@ ALTER TABLE `pegawai`
 -- Indeks untuk tabel `resep`
 --
 ALTER TABLE `resep`
-  ADD KEY `kode_Barang` (`kode_Barang`),
-  ADD KEY `kode_Menu` (`kode_Menu`);
+  ADD UNIQUE KEY `unik` (`kode_resep`),
+  ADD KEY `kode_Menu` (`kode_Menu`),
+  ADD KEY `resep_ibfk_1` (`kode_Barang`);
 
 --
 -- Indeks untuk tabel `retur`
@@ -376,8 +462,8 @@ ALTER TABLE `akun`
 -- Ketidakleluasaan untuk tabel `detail_suplai`
 --
 ALTER TABLE `detail_suplai`
-  ADD CONSTRAINT `detail_suplai_ibfk_1` FOREIGN KEY (`Kode_Menyuplai`) REFERENCES `menyuplai` (`Kode_Menyuplai`),
-  ADD CONSTRAINT `detail_suplai_ibfk_2` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`);
+  ADD CONSTRAINT `detail_suplai_ibfk_1` FOREIGN KEY (`Kode_Menyuplai`) REFERENCES `menyuplai` (`Kode_Menyuplai`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_suplai_ibfk_2` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`) ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `detail_transaksi`
@@ -397,7 +483,7 @@ ALTER TABLE `menyuplai`
 -- Ketidakleluasaan untuk tabel `resep`
 --
 ALTER TABLE `resep`
-  ADD CONSTRAINT `resep_ibfk_1` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`),
+  ADD CONSTRAINT `resep_ibfk_1` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`) ON UPDATE CASCADE,
   ADD CONSTRAINT `resep_ibfk_2` FOREIGN KEY (`kode_Menu`) REFERENCES `menu` (`kode_Menu`);
 
 --

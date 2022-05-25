@@ -17,10 +17,9 @@ public class user extends data{
     String Status;
     String hakAkses;
     String Kelamin;
-    String noHp;
     String Alamt;
     String TanggalGabung;
-    String Status;
+
 
     
     
@@ -64,14 +63,6 @@ public class user extends data{
         this.Status = Status;
     }
 
-    public String getNoHp() {
-        return noHp;
-    }
-
-    public void setNoHp(String noHp) {
-        this.noHp = noHp;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -94,14 +85,6 @@ public class user extends data{
 
     public void setTanggalDaftar(String tanggalDaftar) {
         this.tanggalDaftar = tanggalDaftar;
-    }
-
-    public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String Status) {
-        this.Status = Status;
     }
 
     
