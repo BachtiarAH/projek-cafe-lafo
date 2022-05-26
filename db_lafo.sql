@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Bulan Mei 2022 pada 09.30
+-- Waktu pembuatan: 26 Bulan Mei 2022 pada 18.00
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.10
 
@@ -74,7 +74,7 @@ CREATE TABLE `barang` (
 
 INSERT INTO `barang` (`kode_Barang`, `Nama_barang`, `satuan`, `stok`) VALUES
 ('BRG002', 'Kopi bubuk', 'gram', 0),
-('BRG003', 'MILO', 'buah', 9),
+('BRG003', 'MILO', 'buah', 1),
 ('BRGU01', 'gula pasir', 'buah', 12),
 ('BRKO01', 'kopi luak', 'buah', 12),
 ('BRLU02', 'kopi luak', 'buah', NULL),
@@ -132,18 +132,7 @@ INSERT INTO `detail_suplai` (`harga_beli`, `qty`, `Id_detail_suplai`, `satuan`, 
 -- Trigger `detail_suplai`
 --
 DELIMITER $$
-CREATE TRIGGER `setTotalMenyuplai` AFTER INSERT ON `detail_suplai` FOR EACH ROW UPDATE `menyuplai` 
-SET 
-`total`= 
-	(SELECT SUM(new.harga_beli)
-     FROM detail_suplai
- 	WHERE 
-     detail_suplai.Kode_Menyuplai = 	new.Kode_Menyuplai) 
-WHERE menyuplai.Kode_Menyuplai = new.Kode_Menyuplai
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `tambahStokBarang` AFTER INSERT ON `detail_suplai` FOR EACH ROW UPDATE barang SET barang.stok = new.stok WHERE barang.kode_Barang = new.kode_Barang
+CREATE TRIGGER `tambahStokBarang` AFTER INSERT ON `detail_suplai` FOR EACH ROW UPDATE barang SET barang.stok = barang.stok + new.stok WHERE barang.kode_Barang = new.kode_Barang
 $$
 DELIMITER ;
 
@@ -172,7 +161,15 @@ INSERT INTO `detail_transaksi` (`qty`, `sub_total`, `harga`, `detail_transaksi`,
 (1, 5000, 5000, 'DTR26052203', 'MN004', 'TRK26052203'),
 (1, 5000, 5000, 'DTR26052204', 'MN004', 'TRK26052203'),
 (1, 5000, 5000, 'DTR26052205', 'MN003', 'TRK26052206'),
-(1, 5000, 5000, 'DTR26052206', 'MN004', 'TRK26052207');
+(1, 5000, 5000, 'DTR26052206', 'MN004', 'TRK26052207'),
+(1, 5000, 5000, 'DTR26052208', 'MN004', 'TRK26052207'),
+(1, 5000, 5000, 'DTR26052209', 'MN004', 'TRK26052207'),
+(1, 5000, 5000, 'DTR26052210', 'MN004', 'TRK26052208'),
+(1, 5000, 5000, 'DTR26052211', 'MN004', 'TRK26052209'),
+(1, 5000, 5000, 'DTR26052212', 'MN004', 'TRK26052210'),
+(1, 5000, 5000, 'DTR26052213', 'MN004', 'TRK26052211'),
+(1, 5000, 5000, 'DTR26052214', 'MN004', 'TRK26052212'),
+(1, 5000, 5000, 'DTR26052215', 'MN004', 'TRK26052213');
 
 --
 -- Trigger `detail_transaksi`
@@ -294,20 +291,6 @@ INSERT INTO `pegawai` (`Id_Pegawai`, `Nama_Pegawai`, `gender`, `Alamat`, `No_Hp`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penggunaanbarang`
---
-
-CREATE TABLE `penggunaanbarang` (
-  `kodePenggunaan` char(13) NOT NULL DEFAULT '',
-  `tanggal` date NOT NULL,
-  `kodebrg` char(6) NOT NULL,
-  `qty` float NOT NULL,
-  `kode_menu` char(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `resep`
 --
 
@@ -329,14 +312,6 @@ INSERT INTO `resep` (`qty`, `kode_Barang`, `kode_Menu`, `totalResepDDigunakan`) 
 (5, 'BRGU01', 'MN001', 123),
 (1, 'BRG003', 'MN004', 1),
 (1, 'BRG003', 'MN005', 4);
-
---
--- Trigger `resep`
---
-DELIMITER $$
-CREATE TRIGGER `kurangistokBarang` AFTER UPDATE ON `resep` FOR EACH ROW UPDATE barang SET barang.stok = (barang.stok - (new.qty * new.totalResepDDigunakan)) WHERE barang.kode_Barang = new.kode_Barang
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -420,7 +395,13 @@ INSERT INTO `transaksi_penjualan` (`kode_transaksi`, `tanggal_transaksi`, `uangP
 ('TRK26052204', '2026-05-22', 5000, 4000, 0, 'ADM05052201', 'HARGANORMAL'),
 ('TRK26052205', '2026-05-22', 5000, 4000, 0, 'ADM05052201', 'HARGANORMAL'),
 ('TRK26052206', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
-('TRK26052207', '2026-05-22', 5000, 4000, 0, 'ADM05052201', 'HARGANORMAL');
+('TRK26052207', '2026-05-22', 5000, 15000, 0, 'ADM05052201', 'HARGANORMAL'),
+('TRK26052208', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
+('TRK26052209', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
+('TRK26052210', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
+('TRK26052211', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
+('TRK26052212', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
+('TRK26052213', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL');
 
 --
 -- Indexes for dumped tables
@@ -479,12 +460,6 @@ ALTER TABLE `menyuplai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`Id_Pegawai`);
-
---
--- Indeks untuk tabel `penggunaanbarang`
---
-ALTER TABLE `penggunaanbarang`
-  ADD PRIMARY KEY (`kodePenggunaan`);
 
 --
 -- Indeks untuk tabel `resep`
