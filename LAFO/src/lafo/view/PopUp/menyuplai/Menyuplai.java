@@ -44,17 +44,10 @@ public class Menyuplai extends javax.swing.JFrame {
     }
 
     public void tampilBarang(String cari){
-        String sql = "SELECT "
-                + "barang.kode_Barang, "
-                + "barang.Nama_barang, "
-                + "SUM(detail_suplai.stok), "
-                + "barang.satuan "
-                + "FROM barang "
-                + "LEFT JOIN detail_suplai "
-                + "ON barang.kode_Barang = detail_suplai.kode_Barang "
+        String sql = "SELECT * FROM `barang` "
                  + "WHERE barang.nama_barang LIKE '%"+cari+"%' "
                 + "GROUP BY kode_Barang ";
-        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        String[] header = {"kode Barang","nama Barang","satuan","stok" };
         DbOp.tabel(sql, header, jTableBrg);
     }
     
@@ -76,7 +69,7 @@ public class Menyuplai extends javax.swing.JFrame {
     
     public void klikBarng(){
         String kodeBarang = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 0).toString();
-        String satuan = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 3).toString();
+        String satuan = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 2).toString();
         brang.setKode(kodeBarang);
         brang.setSatuan(satuan);
         jTextFieldKdBarang.setText(kodeBarang);
@@ -344,17 +337,9 @@ public class Menyuplai extends javax.swing.JFrame {
     }
     
     public void refreshBarang(){
-        String sql = "SELECT "
-                + "barang.kode_Barang, "
-                + "barang.Nama_barang, "
-                + "SUM(detail_suplai.stok), "
-                + "barang.satuan "
-                + "FROM barang "
-                + "LEFT JOIN detail_suplai "
-                + "ON barang.kode_Barang = detail_suplai.kode_Barang "
-                 + "WHERE barang.nama_barang LIKE '%"+""+"%' "
-                + "GROUP BY kode_Barang ";
-        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        String sql = "SELECT * FROM `barang` "
+                + "GROUP BY kode_Barang";
+        String[] header = {"kode Barang","nama Barang","satuan","stok"};;
         DbOp.tabel(sql, header, MainJframe.jTableBarang);
     }
     
