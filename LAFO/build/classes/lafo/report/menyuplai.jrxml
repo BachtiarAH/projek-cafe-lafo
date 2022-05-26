@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="210" pageHeight="400" columnWidth="100" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="20" uuid="a77a79cc-531c-411e-ad04-49dcc0548d21">
+	<property name="ireport.zoom" value="11.918176537727248"/>
+	<property name="ireport.x" value="1899"/>
+	<property name="ireport.y" value="2220"/>
+	<subDataset name="dataset1" uuid="eac961e5-ff9a-45cc-bde4-89c191645480"/>
+	<queryString>
+		<![CDATA[SELECT menu.Nama_Menu as menu, menu.Harga as harga, detail_transaksi.qty as qty, detail_transaksi.sub_total as `sub total`, transaksi_penjualan.Total FROM detail_transaksi
+JOIN menu 
+ON detail_transaksi.kode_Menu = menu.kode_Menu
+JOIN transaksi_penjualan
+on transaksi_penjualan.kode_transaksi = detail_transaksi.kode_transaksi]]>
+	</queryString>
+	<field name="menu" class="java.lang.String"/>
+	<field name="harga" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sub total" class="java.lang.Float"/>
+	<field name="Total" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="64" y="14" width="64" height="29" uuid="d159d642-f00e-4c45-9739-b081bdc36aa7"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[LAFO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="30" height="15" uuid="7bc7c922-e9cc-49d9-bc89-621a5dfef922"/>
+				<text><![CDATA[menu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="53" y="0" width="30" height="15" uuid="6904b2e7-53c1-4bcf-9c37-a9344130a463"/>
+				<text><![CDATA[harga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="0" width="16" height="15" uuid="e0883640-ec94-4cf3-94ff-4fcb3043828b"/>
+				<text><![CDATA[qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="0" width="42" height="15" uuid="b663561b-50dc-4c1d-ba3a-c200e58557cd"/>
+				<text><![CDATA[Sub total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="41" height="15" uuid="fea42c61-6c3a-4f67-8586-cba18ff571d1"/>
+				<textFieldExpression><![CDATA[$F{menu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="0" width="48" height="15" uuid="4c3cee5c-9581-4376-9704-a8530c37dd30"/>
+				<textFieldExpression><![CDATA[$F{harga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="0" width="16" height="15" uuid="7b814835-8e49-4df0-b03f-e767de9c577c"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="0" width="42" height="15" uuid="f0488596-10ae-4f5b-9f48-8254444bd1d8"/>
+				<textFieldExpression><![CDATA[$F{sub total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="128" y="11" width="49" height="13" uuid="4c792601-290f-402e-9b03-4aa48e6bfe9d"/>
+				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="11" width="30" height="13" uuid="cad61a75-67e3-4b55-a273-07a8a36bb3a2"/>
+				<text><![CDATA[total]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
