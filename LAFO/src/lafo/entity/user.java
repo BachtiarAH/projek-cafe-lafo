@@ -16,6 +16,20 @@ public class user extends data{
     String tanggalDaftar;
     String Status;
     String hakAkses;
+    String Kelamin;
+    String Alamt;
+    String TanggalGabung;
+
+
+    
+    
+    public String getKelamin() {
+        return Kelamin;
+    }
+
+    public void setKelamin(String Kelamin) {
+        this.Kelamin = Kelamin;
+    }
 
     public String getNoHp() {
         return noHp;
@@ -23,6 +37,30 @@ public class user extends data{
 
     public void setNoHp(String noHp) {
         this.noHp = noHp;
+    }
+
+    public String getAlamt() {
+        return Alamt;
+    }
+
+    public void setAlamt(String Alamt) {
+        this.Alamt = Alamt;
+    }
+
+    public String getTanggalGabung() {
+        return TanggalGabung;
+    }
+
+    public void setTanggalGabung(String TanggalGabung) {
+        this.TanggalGabung = TanggalGabung;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
 
     public String getGender() {
@@ -47,14 +85,6 @@ public class user extends data{
 
     public void setTanggalDaftar(String tanggalDaftar) {
         this.tanggalDaftar = tanggalDaftar;
-    }
-
-    public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String Status) {
-        this.Status = Status;
     }
 
     

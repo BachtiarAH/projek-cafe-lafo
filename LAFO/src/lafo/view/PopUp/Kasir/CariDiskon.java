@@ -76,7 +76,7 @@ public class CariDiskon extends javax.swing.JFrame {
             MainJframe.dissTemp = disc;
             System.out.println(disc.getKode());
            MainJframe.jTextFieldDiskon.setText(disc.getKode());
-           
+           MainJframe.jLabeldiskon.setText(disc.getJumlahDiskon()+"");
         }
            this.setVisible(false);
         

@@ -291,12 +291,13 @@ public class Menyuplai extends javax.swing.JFrame {
         kodeMenyuplai = GenerateKodeMenyuplai();
         UpdateAntrianSuplier();
         String sqlMenyuplai = "INSERT INTO `menyuplai`"
-                + "(`Kode_Menyuplai`, `Tanggal_menyuplai`, `kode_suplaier`, `Id_Pegawai`) "
+                + "(`Kode_Menyuplai`, `Tanggal_menyuplai`, `kode_suplaier`, `Id_Pegawai`, `total`) "
                 + "VALUES ('"
                 + ""+kodeMenyuplai+"','"
                 + ""+getTanggal()+"','"
                 + ""+antrianSuplier+"','"
-                + ""+pegawai.getKode()+"')";
+                + ""+pegawai.getKode()+"','"
+                + "0')";
 //            System.out.println(sqlMenyuplai);
         DbOp.DatabaseExecutor(sqlMenyuplai, true);
             
@@ -871,6 +872,7 @@ public class Menyuplai extends javax.swing.JFrame {
         System.out.println(GenerateKodeMenyuplai());
         SubmitMenyuplai();
         refreshBarang();
+        tampilBarang("");
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
