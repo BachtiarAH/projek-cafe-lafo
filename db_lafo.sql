@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Bulan Mei 2022 pada 18.05
+-- Waktu pembuatan: 27 Bulan Mei 2022 pada 02.05
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.10
 
@@ -62,7 +62,7 @@ INSERT INTO `akun` (`Username`, `password`, `Id_Pegawai`) VALUES
 --
 
 CREATE TABLE `barang` (
-  `kode_Barang` char(6) NOT NULL,
+  `kode_Barang` char(15) NOT NULL,
   `Nama_barang` varchar(50) NOT NULL,
   `satuan` varchar(10) NOT NULL,
   `stok` float DEFAULT NULL
@@ -73,6 +73,7 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`kode_Barang`, `Nama_barang`, `satuan`, `stok`) VALUES
+('8991002105584', 'KOPI KAPAL API', 'buah', NULL),
 ('BRG002', 'Kopi bubuk', 'gram', 0),
 ('BRG003', 'MILO', 'buah', 1),
 ('BRGU01', 'gula pasir', 'buah', 12),
@@ -97,7 +98,7 @@ CREATE TABLE `detail_suplai` (
   `Id_detail_suplai` char(13) NOT NULL,
   `satuan` varchar(10) NOT NULL,
   `Kode_Menyuplai` char(13) NOT NULL,
-  `kode_Barang` char(6) NOT NULL,
+  `kode_Barang` char(15) NOT NULL,
   `stok` float NOT NULL,
   `harga_beli_per_satuan` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -296,7 +297,7 @@ INSERT INTO `pegawai` (`Id_Pegawai`, `Nama_Pegawai`, `gender`, `Alamat`, `No_Hp`
 
 CREATE TABLE `resep` (
   `qty` float NOT NULL,
-  `kode_Barang` char(6) NOT NULL,
+  `kode_Barang` char(15) NOT NULL,
   `kode_Menu` char(5) NOT NULL,
   `totalResepDDigunakan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -323,7 +324,7 @@ CREATE TABLE `retur` (
   `kode_Retur` char(13) NOT NULL,
   `qty` float NOT NULL,
   `Id_detail_suplai` char(13) NOT NULL,
-  `kode_barang` char(6) NOT NULL
+  `kode_barang` char(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -424,8 +425,8 @@ ALTER TABLE `barang`
 --
 ALTER TABLE `detail_suplai`
   ADD PRIMARY KEY (`Id_detail_suplai`),
-  ADD KEY `detail_suplai_ibfk_2` (`kode_Barang`),
-  ADD KEY `detail_suplai_ibfk_1` (`Kode_Menyuplai`);
+  ADD KEY `detail_suplai_ibfk_1` (`Kode_Menyuplai`),
+  ADD KEY `detail_suplai_ke_barang` (`kode_Barang`);
 
 --
 -- Indeks untuk tabel `detail_transaksi`
@@ -466,7 +467,7 @@ ALTER TABLE `pegawai`
 --
 ALTER TABLE `resep`
   ADD KEY `kode_Menu` (`kode_Menu`),
-  ADD KEY `resep_ibfk_1` (`kode_Barang`);
+  ADD KEY `resep_ke_barang` (`kode_Barang`);
 
 --
 -- Indeks untuk tabel `retur`
@@ -504,7 +505,7 @@ ALTER TABLE `akun`
 --
 ALTER TABLE `detail_suplai`
   ADD CONSTRAINT `detail_suplai_ibfk_1` FOREIGN KEY (`Kode_Menyuplai`) REFERENCES `menyuplai` (`Kode_Menyuplai`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detail_suplai_ibfk_2` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `detail_suplai_ke_barang` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`);
 
 --
 -- Ketidakleluasaan untuk tabel `detail_transaksi`
@@ -524,8 +525,8 @@ ALTER TABLE `menyuplai`
 -- Ketidakleluasaan untuk tabel `resep`
 --
 ALTER TABLE `resep`
-  ADD CONSTRAINT `resep_ibfk_1` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `resep_ibfk_2` FOREIGN KEY (`kode_Menu`) REFERENCES `menu` (`kode_Menu`);
+  ADD CONSTRAINT `resep_ibfk_2` FOREIGN KEY (`kode_Menu`) REFERENCES `menu` (`kode_Menu`),
+  ADD CONSTRAINT `resep_ke_barang` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`);
 
 --
 -- Ketidakleluasaan untuk tabel `retur`
