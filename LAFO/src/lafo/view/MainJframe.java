@@ -1235,7 +1235,7 @@ public class MainJframe extends javax.swing.JFrame {
         kodeDiskon_button.setBackground(new java.awt.Color(241, 102, 52));
         kodeDiskon_button.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         kodeDiskon_button.setForeground(new java.awt.Color(255, 255, 255));
-        kodeDiskon_button.setText("kodeDiskon");
+        kodeDiskon_button.setText("Kode");
         kodeDiskon_button.setActionCommand("kodeDiskon");
         kodeDiskon_button.setPreferredSize(new java.awt.Dimension(360, 41));
         kodeDiskon_button.addActionListener(new java.awt.event.ActionListener() {
@@ -1251,41 +1251,43 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
                 .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
+                        .addGap(118, 118, 118)
                         .addComponent(jLabel3))
                     .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
+                        .addGap(114, 114, 114)
                         .addComponent(jLabel32))
                     .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
+                        .addGap(21, 21, 21)
                         .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tenggatDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jumlahDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(namaDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(kodeDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
+                                .addComponent(kodeDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(kodeDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
+                        .addGap(105, 105, 105)
                         .addComponent(jLabel33))
                     .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel34)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInsertKategori1Layout.createSequentialGroup()
-                .addGap(0, 55, Short.MAX_VALUE)
-                .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(kodeDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tambahDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52))
+                        .addGap(98, 98, 98)
+                        .addComponent(jLabel34))
+                    .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tambahDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanelInsertKategori1Layout.setVerticalGroup(
             jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(kodeDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(kodeDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kodeDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
                 .addComponent(jLabel32)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1299,14 +1301,12 @@ public class MainJframe extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tenggatDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(kodeDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addGap(18, 18, 18)
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(tambahDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jScrollPanelKategori1.setPreferredSize(new java.awt.Dimension(781, 559));
@@ -2690,33 +2690,29 @@ public class MainJframe extends javax.swing.JFrame {
     
      public void setKodeDiskon() {
          try {
-            String kode = kodeDiskon_text.getText();
-            String sql = "SELECT diskon.kode_diskon FROM `diskon` ORDER BY kode_diskon DESC";
+            String sql = "SELECT diskon.kode_diskon FROM `diskon` ORDER BY kode_diskon ASC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-             
             
             if(result.next()) {
-                if(kode != result.getString("kode_diskon")) {
-                    String kodeDiskon = result.getString("kode_diskon").substring(9);
-                    String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
-                    String nol = "";
+                System.out.println(result.next());
+                String kodeDiskon = result.getString("kode_diskon").substring(9);
+                System.out.println(kodeDiskon);
+                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                System.out.println(angka);
+                String nol = "";
 
-                    if(angka.length() == 1) {
-                        nol = "000";
-                    } else if(angka.length() == 2) {
-                        nol = "00";
-                    } else if(angka.length() == 3) {
-                        nol = "0";
-                    } else {
-                        nol = "";
-                    }
-
-                    String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
-                    kodeDiskon_text.setText(newKodeDiskon);
+                if(angka.length() == 1) {
+                    nol = "000";
+                } else if(angka.length() == 2) {
+                    nol = "00";
+                } else if(angka.length() == 3) {
+                    nol = "0";
+                } else {
+                    nol = "";
                 }
-//                } else {
-//                    kodeDiskon_text.setText(kode);
-//                }
+
+                String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
+                kodeDiskon_text.setText(newKodeDiskon);
             }
          } catch (Exception e) {
              System.out.println("kodeDiskon: " + e);
