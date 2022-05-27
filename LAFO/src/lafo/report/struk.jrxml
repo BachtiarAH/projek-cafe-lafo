@@ -4,8 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="kodeTr" class="java.lang.String">
-		<defaultValueExpression><![CDATA[TRK26052201
-]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[TRK26052201]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
@@ -43,7 +42,7 @@ FROM
      INNER JOIN `diskon` diskon ON transaksi_penjualan.`kode_diskon` = diskon.`kode_diskon`
      INNER JOIN `pegawai` pegawai ON transaksi_penjualan.`Id_Pegawai` = pegawai.`Id_Pegawai`
      INNER JOIN `menu` menu ON detail_transaksi.`kode_Menu` = menu.`kode_Menu`
-]]>
+WHERE transaksi_penjualan.kode_transaksi = $P{kodeTr}]]>
 	</queryString>
 	<field name="detail_transaksi_qty" class="java.lang.Float"/>
 	<field name="detail_transaksi_sub_total" class="java.lang.Float"/>
@@ -93,7 +92,7 @@ FROM
 		<band height="136" splitType="Stretch">
 			<image>
 				<reportElement x="80" y="13" width="30" height="51" uuid="4fbebdd0-021c-48b8-8d76-758217dbaa87"/>
-				<imageExpression><![CDATA["D:\\KULIAH\\Semester 2\\tugas akhir\\projek-cafe-lafo\\LAFO\\src\\asset\\icon\\logo for struk.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\Hp\\OneDrive\\Documents\\GitHub\\bachtiar\\projek-cafe-lafo\\LAFO\\src\\asset\\icon\\logo for struk.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="130" y="13" width="145" height="51" uuid="f59ebcf3-b547-478a-9604-a78766281bb0"/>
@@ -134,7 +133,7 @@ SUMBERSARI-JEMBER]]></text>
 				<text><![CDATA[no Transaksi]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="76" y="20" width="54" height="20" uuid="872ec693-15af-4ba6-8aae-10f6f023a056"/>
+				<reportElement x="76" y="20" width="140" height="48" uuid="872ec693-15af-4ba6-8aae-10f6f023a056"/>
 				<textFieldExpression><![CDATA[$F{transaksi_penjualan_kode_transaksi}]]></textFieldExpression>
 			</textField>
 		</band>

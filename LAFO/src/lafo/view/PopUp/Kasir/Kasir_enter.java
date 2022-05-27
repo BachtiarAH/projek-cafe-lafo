@@ -138,8 +138,7 @@ public class Kasir_enter extends javax.swing.JFrame {
     }
     
     public void cariDataBarang(){
-        String sql = "SELECT * FROM `menu`"
-                + "WHERE barang.kode_Barang LIKE '%"+searchfiield.getText()+"%' ";
+        String sql = "SELECT * FROM `menu`";
         String[] header = {"kode Barang","nama Barang","stok","satuan"};
         DBLafoOp.tabel(sql, header, jTable1);
 //        System.out.println(sql);

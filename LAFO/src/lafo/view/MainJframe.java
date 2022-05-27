@@ -2263,12 +2263,15 @@ public class MainJframe extends javax.swing.JFrame {
                 String newKodeDiskon = "TRK" + Utility.GetTanggal();
                 String angka = "1" ;
                 String nol = "0";
+                String kodeDiskon = "";
         try {
             String sql = "SELECT transaksi_penjualan.kode_transaksi FROM transaksi_penjualan WHERE  kode_transaksi LIKE '"+newKodeDiskon+"%' ORDER BY transaksi_penjualan.kode_transaksi DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
             if(result.next()) {
-                String kodeDiskon = result.getString("kode_transaksi").substring(9,11);
+                kodeDiskon = result.getString("kode_transaksi");
+                System.out.println(kodeDiskon);
+                kodeDiskon = kodeDiskon.substring(9);
                 angka = "" + (Integer.parseInt(kodeDiskon) + 1);
                 nol = "";
                 
@@ -2280,32 +2283,33 @@ public class MainJframe extends javax.swing.JFrame {
                 
             }
          } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, e);
+             JOptionPane.showMessageDialog(null, kodeDiskon +e);
          }
                 newKodeDiskon = "TRK" + Utility.GetTanggal() + nol + angka;
+                System.out.println(newKodeDiskon);
                 jLabelkodeTransaksi.setText(newKodeDiskon);
      }
      
      public String generateCodeDetail(){
-         String newKodeDiskon = "TRK" + Utility.GetTanggal();
+         String newKodeDiskon = "DTR" + Utility.GetTanggal();
                 String angka = "1" ;
                 String nol = "0";
         try {
             String sql = "SELECT detail_transaksi.detail_transaksi AS `kode` FROM `detail_transaksi` "
-                    + "WHERE detail_transaksi.kode_transaksi LIKE '"+newKodeDiskon+"%' "
+                    + "WHERE detail_transaksi.detail_transaksi LIKE '"+newKodeDiskon+"%' "
                     + "ORDER BY detail_transaksi.detail_transaksi DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
             if(result.next()) {
-                String kodeDiskon = result.getString("kode").substring(9,11);
+                String kodeDiskon = result.getString("kode").substring(9);
                 angka = "" + (Integer.parseInt(kodeDiskon) + 1);
                 nol = "";
                 
                 if(angka.length() == 1) {
-                    nol = "0";
+                    nol = "00";
                 }
                 if (angka.length() == 2) {
-                    nol = "";
+                    nol = "0";
                 }
                 else {
                     nol = "";
@@ -2313,9 +2317,10 @@ public class MainJframe extends javax.swing.JFrame {
                 
             }
          } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, e);
+             JOptionPane.showMessageDialog(null, newKodeDiskon+e);
          }
                 newKodeDiskon = "DTR" + Utility.GetTanggal() + nol + angka;
+                System.out.println(newKodeDiskon);
                 return newKodeDiskon;
      }
      
@@ -2323,10 +2328,10 @@ public class MainJframe extends javax.swing.JFrame {
          String kodeTransaksi = jLabelkodeTransaksi.getText();
          String tanggalTr = Utility.GetTanggal();
          String uangPelanggan = jTextFieldBayar.getText();
-         String grandTotal = jLabelTotal.getText();
+         String grandTotal = jLabelGrandTotal.getText();
          String kembalian = jLabelKemabali.getText();
          String idPegawai = pgw.getKode();
-         String diskon = jTextFieldDiskon.getText();
+         String diskon1 = jTextFieldDiskon.getText();
          String sql = "INSERT INTO `transaksi_penjualan` "
                  + "(`kode_transaksi`, "
                  + "`tanggal_transaksi`, "
@@ -2342,7 +2347,7 @@ public class MainJframe extends javax.swing.JFrame {
                  + " '"+grandTotal+"',"
                  + " '"+kembalian+"',"
                  + " '"+idPegawai+"',"
-                 + " '"+diskon+"')";
+                 + " '"+diskon1+"')";
          System.out.println("tr");
          OperatorDbLafo.DatabaseExecutor(sql, true);
 
@@ -2472,7 +2477,7 @@ public class MainJframe extends javax.swing.JFrame {
      
      public void CetakStruk(String kodeTr){
          try {
-             String jasdi = ("D:\\KULIAH\\Semester 2\\tugas akhir\\projek-cafe-lafo\\LAFO\\src\\lafo\\report\\struk.jrxml");
+             String jasdi = ("C:\\Users\\Hp\\OneDrive\\Documents\\GitHub\\bachtiar\\projek-cafe-lafo\\LAFO\\src\\lafo\\report\\struk.jrxml");
              
              HashMap hash = new HashMap();
              //mengambil parameter ireport
@@ -2481,6 +2486,7 @@ public class MainJframe extends javax.swing.JFrame {
              JasperPrint jPrint = JasperFillManager.fillReport(JRpt, hash, Koneksi.conn);
              JasperViewer.viewReport(jPrint, false);
          } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "gagal membuat struk");
              System.out.println("jasper error : "+e);
          }
      }
@@ -2518,15 +2524,10 @@ public class MainJframe extends javax.swing.JFrame {
                  isKurang = true;
                  
                  while (isKurang) {
-                     kodeDsup = getIdDetaiSuplaiAtBarang(kodeBarang);
-                     if (dStok > totalbrgperesep) {
+                    
                          dStok -= totalbrgperesep;
-                     }else if (dStok < totalbrgperesep){
-                         totalbrgperesep -= dStok;
-                     }else{
-                         dStok = 0;
-                     }
-                         UpdateBarang(dStok, kodeDsup);
+                     
+                        
                  }
              }
              tbModTrans.removeRow(0);
@@ -3086,6 +3087,7 @@ public class MainJframe extends javax.swing.JFrame {
         submitPenjualan2();
         JOptionPane.showMessageDialog(null, "berhasil Melakukan Transaksi");
         CetakStruk(jLabelkodeTransaksi.getText());
+        System.out.println("untuk struk"+jLabelkodeTransaksi.getText());
         generateCodeTrans();
     }//GEN-LAST:event_jButtonSubmitActionPerformed
 
