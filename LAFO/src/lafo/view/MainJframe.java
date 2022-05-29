@@ -83,6 +83,7 @@ public class MainJframe extends javax.swing.JFrame {
         this.SetTableModel();
         this.generateCodeTrans();
         this.UpdateDate();
+        this.DisplayLaporanTransaksi();
 //        this.setVisible(true);
 //        tabelBarang();
     }
@@ -207,7 +208,7 @@ public class MainJframe extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableLaporan = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -1604,6 +1605,11 @@ public class MainJframe extends javax.swing.JFrame {
 
         jPanelTotalTransaksi.setBackground(new java.awt.Color(255, 255, 255));
         jPanelTotalTransaksi.setPreferredSize(new java.awt.Dimension(194, 116));
+        jPanelTotalTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelTotalTransaksiMouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel4.setText("Total Transaksi");
@@ -1647,7 +1653,7 @@ public class MainJframe extends javax.swing.JFrame {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1146, 611));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLaporan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1658,7 +1664,7 @@ public class MainJframe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable2);
+        jScrollPane1.setViewportView(jTableLaporan);
 
         jButton5.setBackground(new java.awt.Color(241, 102, 52));
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -2758,8 +2764,16 @@ public class MainJframe extends javax.swing.JFrame {
     }
     
     //</editor-fold>
-
     
+    //fungsi data diskon <editor-fold defaultstate="collapsed" desc="Fungsi Laporan">
+        public void DisplayLaporanTransaksi(){
+            String sql = "SELECT `kode_transaksi`,  menu.Nama_Menu,`qty`, detail_transaksi.harga, `sub_total` FROM `detail_transaksi`\n" +
+                "JOIN menu ON menu.kode_Menu = detail_transaksi.kode_Menu\n" +
+                "WHERE 1";
+            String[] header = {"kode transaksi","menu", "qty","harga","total"};
+            OperatorDbLafo.tabel(sql, header, jTableLaporan);
+        }
+    //</editor-fold>
     // jFrame Event <editor-fold defaultstate="collapsed" desc="Jframe Event">
     private void panelNavigasiBarComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelNavigasiBarComponentMoved
         // TODO add your handling code here:
@@ -3177,6 +3191,11 @@ public class MainJframe extends javax.swing.JFrame {
         UpdateKemabalian();
     }//GEN-LAST:event_jTextFieldBayarKeyReleased
 
+    private void jPanelTotalTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTotalTransaksiMouseClicked
+        // TODO add your handling code here:
+        DisplayLaporanTransaksi();
+    }//GEN-LAST:event_jPanelTotalTransaksiMouseClicked
+
     
 //</editor-fold>
     /**
@@ -3340,10 +3359,10 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPanelKategori;
     private javax.swing.JScrollPane jScrollPanelKategori1;
-    private javax.swing.JTable jTable2;
     public static javax.swing.JTable jTableBarang;
     private javax.swing.JTable jTableBarang1;
     private javax.swing.JTable jTableKategori;
+    private javax.swing.JTable jTableLaporan;
     private javax.swing.JTable jTableSuplier;
     public static javax.swing.JTable jTableTransaksi;
     private javax.swing.JTable jTableUser;
