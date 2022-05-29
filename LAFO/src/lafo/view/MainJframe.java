@@ -63,6 +63,9 @@ public class MainJframe extends javax.swing.JFrame {
     public user pgw = new user();
     Menyuplai menyuplai = new Menyuplai();
     String modeLaporan = "transaksi";
+    float penghasilan;
+    float pengeluaran;
+    float keuntungan;
 
     private Object retur;
 
@@ -84,6 +87,9 @@ public class MainJframe extends javax.swing.JFrame {
         this.generateCodeTrans();
         this.UpdateDate();
         this.DisplayLaporanTransaksi();
+        this.DisplayPemasukan("");
+        this.DisplayPengeluaran("");
+        this.DisplayKeuntungan();
 //        this.setVisible(true);
 //        tabelBarang();
     }
@@ -217,6 +223,13 @@ public class MainJframe extends javax.swing.JFrame {
         jYearChooser1 = new com.toedter.calendar.JYearChooser();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableDetailLaporan = new javax.swing.JTable();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabelPengahasilan = new javax.swing.JLabel();
+        jLabelPengeluaran = new javax.swing.JLabel();
+        checkboxFilter = new java.awt.Checkbox();
+        jLabel24 = new javax.swing.JLabel();
+        jLabelKeuntungan = new javax.swing.JLabel();
         Users = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
@@ -1627,11 +1640,13 @@ public class MainJframe extends javax.swing.JFrame {
         jPanelTotalTransaksiLayout.setHorizontalGroup(
             jPanelTotalTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTotalTransaksiLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelTotalTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                .addGap(159, 159, 159)
+                .addComponent(jLabel5)
                 .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTotalTransaksiLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addContainerGap())
         );
         jPanelTotalTransaksiLayout.setVerticalGroup(
             jPanelTotalTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1730,6 +1745,29 @@ public class MainJframe extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(jTableDetailLaporan);
 
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel19.setText("Total Penghasilan");
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel20.setText("Total Pengeluaran");
+
+        jLabelPengahasilan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabelPengahasilan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelPengahasilan.setText("0");
+
+        jLabelPengeluaran.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabelPengeluaran.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelPengeluaran.setText("0");
+
+        checkboxFilter.setLabel("use filter");
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel24.setText("Total Keuntungan");
+
+        jLabelKeuntungan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabelKeuntungan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelKeuntungan.setText("0");
+
         javax.swing.GroupLayout LaporanLayout = new javax.swing.GroupLayout(Laporan);
         Laporan.setLayout(LaporanLayout);
         LaporanLayout.setHorizontalGroup(
@@ -1738,45 +1776,75 @@ public class MainJframe extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LaporanLayout.createSequentialGroup()
-                        .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(LaporanLayout.createSequentialGroup()
                         .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
                             .addGroup(LaporanLayout.createSequentialGroup()
+                                .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
+                                .addComponent(checkboxFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(94, 94, 94)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(LaporanLayout.createSequentialGroup()
+                                .addGap(16, 16, 16)
                                 .addComponent(jPanelTotalTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanelTotalTransaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(34, 34, 34)
+                                .addComponent(jPanelTotalTransaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(LaporanLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(550, 550, 550)
+                        .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel24))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelPengahasilan, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelPengeluaran, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelKeuntungan, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(154, 154, 154))))
             .addGroup(LaporanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
                 .addContainerGap())
         );
         LaporanLayout.setVerticalGroup(
             LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LaporanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
-                .addGap(26, 26, 26)
-                .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelTotalTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelTotalTransaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabelPengahasilan))
+                .addGap(22, 22, 22)
+                .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabelPengeluaran))
+                .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(LaporanLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelTotalTransaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(LaporanLayout.createSequentialGroup()
+                            .addGap(22, 22, 22)
+                            .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel24)
+                                .addComponent(jLabelKeuntungan)))
+                        .addGroup(LaporanLayout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addComponent(jPanelTotalTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(77, 77, 77)
+                .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(LaporanLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jYearChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                            .addComponent(jMonthChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkboxFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
@@ -2383,7 +2451,7 @@ public class MainJframe extends javax.swing.JFrame {
      
      public void SubmitTransaksi(){
          String kodeTransaksi = jLabelkodeTransaksi.getText();
-         String tanggalTr = Utility.GetTanggal();
+         String tanggalTr = Utility.GetTanggalFormatDb();
          String uangPelanggan = jTextFieldBayar.getText();
          String grandTotal = jLabelGrandTotal.getText();
          String kembalian = jLabelKemabali.getText();
@@ -2861,7 +2929,41 @@ public class MainJframe extends javax.swing.JFrame {
                     + "WHERE detail_suplai.Kode_Menyuplai = '"+kode+"'";
             String[] header = {"kode", "barang", "qty", "satuan", "harga", "sub total"};
             OperatorDbLafo.tabel(sql, header, jTableDetailLaporan);
-        }   
+        }
+        
+        public void DisplayPemasukan(String filter){
+            String sql = "SELECT SUM(transaksi_penjualan.Total) FROM transaksi_penjualan WHERE transaksi_penjualan.tanggal_transaksi LIKE '"+filter+"%'";
+            ResultSet rs = OperatorDbLafo.getResultSql(sql, true);
+        try {
+            if (rs.next()) {
+            penghasilan = rs.getFloat(1);
+            jLabelPengahasilan.setText(penghasilan+"");
+            
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        }
+        
+        public void DisplayPengeluaran(String filter){
+            String sql = "SELECT SUM(menyuplai.total) FROM menyuplai WHERE menyuplai.Tanggal_menyuplai LIKE '"+filter+"%'";
+            ResultSet rs = OperatorDbLafo.getResultSql(sql, true);
+        try {
+            if (rs.next()) {
+                pengeluaran = rs.getFloat(1);
+                jLabelPengeluaran.setText(pengeluaran+"");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        
+        public void DisplayKeuntungan(){
+            float keuntungan = penghasilan - pengeluaran;
+            
+            jLabelKeuntungan.setText(""+keuntungan);
+        }
         
     //</editor-fold>
     // jFrame Event <editor-fold defaultstate="collapsed" desc="Jframe Event">
@@ -3380,6 +3482,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JPanel cardTotalKategori;
     private javax.swing.JPanel cardTotalMenu;
     private javax.swing.JPanel cardTotalSuplier;
+    private java.awt.Checkbox checkboxFilter;
     private javax.swing.JPanel containerFormSuplaier;
     private javax.swing.JScrollPane containerTabelBarang;
     private javax.swing.JScrollPane containerTabelBarang1;
@@ -3413,10 +3516,13 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -3437,11 +3543,14 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelGrandTotal;
     private javax.swing.JLabel jLabelHari;
     private javax.swing.JLabel jLabelKemabali;
+    private javax.swing.JLabel jLabelKeuntungan;
     private javax.swing.JLabel jLabelLaporan;
     private javax.swing.JLabel jLabelLogOut;
     private javax.swing.JLabel jLabelLogoTransaksi;
     private javax.swing.JLabel jLabelManajemenData;
     public javax.swing.JLabel jLabelNamaUSer;
+    private javax.swing.JLabel jLabelPengahasilan;
+    private javax.swing.JLabel jLabelPengeluaran;
     private javax.swing.JLabel jLabelTahun;
     public static javax.swing.JLabel jLabelTotal;
     private javax.swing.JLabel jLabelUsesrs;

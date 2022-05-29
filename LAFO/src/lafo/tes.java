@@ -5,23 +5,17 @@
  */
 package lafo;
 
+import java.time.LocalDate;
 import lafo.entity.user;
+import lafo.proses.Utility;
 /**
  *
  * @author user
  */
 public class tes {
-    
     public static void main(String[] args) {
-        user pengguna = new user();
-        
-        pengguna.setKode("1234");
-        pengguna.setHakAkses("pegawai");
-        pengguna.setNama("dika");
-        
-        System.out.println(pengguna.getKode());
-        System.out.println(pengguna.getNama());
-        System.out.println(pengguna.getHakAkses());
+    LocalDate tgl = LocalDate.now();
+        System.out.println(tgl.getYear()+"-"+tgl.getMonthValue());
         
     }
 }
