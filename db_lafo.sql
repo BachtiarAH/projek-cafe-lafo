@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Bulan Mei 2022 pada 02.05
+-- Waktu pembuatan: 29 Bulan Mei 2022 pada 09.31
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.10
 
@@ -25,12 +25,51 @@ DELIMITER $$
 --
 -- Prosedur
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `count detail trans` (IN `kodeTransaksi` VARCHAR(13))  SELECT COUNT(detail_transaksi.kode_Menu) FROM detail_transaksi WHERE detail_transaksi.kode_transaksi = `kodeTransaksi`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `countResep` (IN `kodeMenu` CHAR(5), OUT `jumlah` INT)  SELECT COUNT(resep.kode_Barang) INTO jumlah FROM resep WHERE resep.kode_Menu = `kodeMenu`$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `countResep` (INOUT `kodeMenu` CHAR(5))  SELECT COUNT(resep.kode_resep) FROM resep WHERE resep.kode_Menu = `kodeMenu`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_Jum_diskon` (IN `kodeDiskon` CHAR(13), IN `jumlahDiskon` FLOAT)  SELECT diskon.jumlah_diskon INTO jumlahDiskon FROM diskon WHERE diskon.kode_diskon = kodeDiskon$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `menulist` ()  BEGIN
-SELECT * FROM db_lafo.menu;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_KodeBarang` (IN `kodeMenu` CHAR(6), IN `urutan` INT, OUT `kode` CHAR(15))  SELECT resep.kode_Barang INTO kode FROM resep WHERE resep.kode_Menu = kodeMenu ORDER BY resep.kode_Barang ASC LIMIT 1 OFFSET urutan$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_KodeBarang_from_Resep` (IN `kodebarang` CHAR(15), IN `kodeMenu` CHAR(6), OUT `qty_barang_resep` INT)  SELECT resep.qty INTO qty_barang_resep FROM resep WHERE resep.kode_Barang = kodebarang AND resep.kode_Menu = kodeMenu$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Get_sum_Subtotal` (IN `kodeTransaksi` CHAR(13), OUT `hasil` INT)  SELECT SUM(detail_transaksi.sub_total) INTO hasil FROM detail_transaksi WHERE detail_transaksi.kode_transaksi = kodeTransaksi$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `kurangi_stok_barang` (IN `kodebarang` CHAR(15), IN `jumlahKurang` INT)  UPDATE barang SET barang.stok = barang.stok - jumlahKurang WHERE barang.kode_Barang = kodebarang$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Untuk_Triger_Transaksi` (IN `kodeMenu` CHAR(6), IN `qtyPesanana` INT)  BEGIN
+
+	/*deklarasi variabel*/
+	DECLARE x INT;
+    DECLARE banyakBarang INT;
+    DECLARE kodeBarangDikurangi CHAR(15);
+    DECLARE qtyResep FLOAT;
+    DECLARE qtyKurangi FLOAT;
+    
+    /*ambil jumlah komposisi pada menu*/
+   	CALL `countResep`(`kodeMenu`, banyakBarang);
+    
+    SET x = 0;
+    
+    /*ulangi sebanyak jumlah komposisi menu*/
+    WHILE x < banyakBarang DO
+    
+    	/*memasukan value kode barang ke variabel kodebarangDikurangi*/
+    	CALL `get_KodeBarang`(kodeMenu, x,kodeBarangDikurangi);
+        
+        /*memasukkan value jumlah barang dari 1 komposisi ke qtyResep*/
+        CALL `get_KodeBarang_from_Resep`(kodeBarangDikurangi, kodeMenu, qtyResep);
+        
+        /*menghitung banyak bahan yang digunakan*/
+        SET qtyKurangi = qtyResep * qtyPesanana;
+        
+        /*kurangi barang sesuai kode barang dan jumlah barang */
+        CALL `kurangi_stok_barang`(kodeBarangDikurangi, qtyKurangi);
+        SET x = x + 1;
+        
+        
+    END WHILE;
+
 END$$
 
 DELIMITER ;
@@ -73,17 +112,17 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`kode_Barang`, `Nama_barang`, `satuan`, `stok`) VALUES
-('8991002105584', 'KOPI KAPAL API', 'buah', NULL),
-('BRG002', 'Kopi bubuk', 'gram', 0),
-('BRG003', 'MILO', 'buah', 1),
-('BRGU01', 'gula pasir', 'buah', 12),
-('BRKO01', 'kopi luak', 'buah', 12),
-('BRLU02', 'kopi luak', 'buah', NULL),
-('BRNE01', 'Nesscafe', 'buah', 24),
-('BRSU01', 'susu uht', 'liter', NULL),
-('BRSU02', 'susu kental manis', 'liter', 1),
-('BRSU03', 'sukijan', 'buah', NULL),
-('BRTE01', 'Teh celup', 'buah', NULL),
+('8991002105584', 'KOPI KAPAL API', 'buah', 4),
+('BRG002', 'Kopi bubuk', 'gram', 4),
+('BRG003', 'MILO', 'buah', 2),
+('BRGU01', 'gula pasir', 'buah', -2),
+('BRKO01', 'kopi luak', 'buah', 4),
+('BRLU02', 'kopi luak', 'buah', 4),
+('BRNE01', 'Nesscafe', 'buah', 3),
+('BRSU01', 'susu uht', 'liter', 4),
+('BRSU02', 'susu kental manis', 'liter', 4),
+('BRSU03', 'sukijan', 'buah', 4),
+('BRTE01', 'Teh celup', 'buah', 2),
 ('MNKO04', 'kopicupal', 'buah', 4);
 
 -- --------------------------------------------------------
@@ -170,15 +209,26 @@ INSERT INTO `detail_transaksi` (`qty`, `sub_total`, `harga`, `detail_transaksi`,
 (1, 5000, 5000, 'DTR26052212', 'MN004', 'TRK26052210'),
 (1, 5000, 5000, 'DTR26052213', 'MN004', 'TRK26052211'),
 (1, 5000, 5000, 'DTR26052214', 'MN004', 'TRK26052212'),
-(1, 5000, 5000, 'DTR26052215', 'MN004', 'TRK26052213');
+(1, 5000, 5000, 'DTR26052215', 'MN004', 'TRK26052213'),
+(1, 5000, 5000, 'DTR29052201', 'MN004', 'TR24042022001'),
+(1, 5000, 5000, 'DTR29052202', 'MN004', 'TR24042022001');
 
 --
 -- Trigger `detail_transaksi`
 --
 DELIMITER $$
-CREATE TRIGGER `kurangi stok Barang` AFTER INSERT ON `detail_transaksi` FOR EACH ROW UPDATE barang SET barang.stok = barang.stok - (new.qty * (SELECT  resep.qty FROM resep WHERE resep.kode_Menu = new.kode_Menu LIMIT 1))
-    WHERE barang.kode_Barang = 
-     (SELECT resep.kode_Barang FROM resep WHERE resep.kode_Menu = new.kode_Menu LIMIT 1)
+CREATE TRIGGER `kurangi stok Barang` AFTER INSERT ON `detail_transaksi` FOR EACH ROW CALL `Untuk_Triger_Transaksi`(new.kode_Menu, new.qty)
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_total` AFTER INSERT ON `detail_transaksi` FOR EACH ROW BEGIN
+DECLARE `total` FLOAT;
+DECLARE `jumDiss` FLOAT;
+CALL `Get_sum_Subtotal`(new.kode_transaksi, `total`);
+UPDATE transaksi_penjualan SET 
+transaksi_penjualan.Total = `total` - `jumDiss` 
+WHERE transaksi_penjualan.kode_transaksi = new.kode_transaksi;
+END
 $$
 DELIMITER ;
 
@@ -389,7 +439,7 @@ CREATE TABLE `transaksi_penjualan` (
 --
 
 INSERT INTO `transaksi_penjualan` (`kode_transaksi`, `tanggal_transaksi`, `uangPelanggan`, `Total`, `Kembalian`, `Id_Pegawai`, `kode_diskon`) VALUES
-('TR24042022001', '2022-04-24', 10000, 8000, 2000, 'PGW05052201', 'HARGANORMAL'),
+('TR24042022001', '2022-04-24', 10000, 10000, 2000, 'PGW05052201', 'HARGANORMAL'),
 ('TRK26052201', '2026-05-22', 5000, 4000, 0, 'ADM05052201', 'HARGANORMAL'),
 ('TRK26052202', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
 ('TRK26052203', '2022-05-26', 10000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
