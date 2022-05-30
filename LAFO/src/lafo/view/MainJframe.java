@@ -3001,6 +3001,8 @@ public class MainJframe extends javax.swing.JFrame {
     private void ButtornTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambahActionPerformed
         // TODO add your handling code here:
         tambahBarang.clearForm();
+        tambahBarang.jButtonUpdateBarang.setVisible(false);
+        tambahBarang.jButtonSubmitBArang.setVisible(true);
         tambahBarang.setVisible(true);
 
 
@@ -3071,6 +3073,8 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jTableBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBarangMouseClicked
         // TODO add your handling code here:
+        editBarang.jButtonSubmitBArang.setVisible(false);
+        editBarang.jButtonUpdateBarang.setVisible(true);
         editBarang.setJform(jTableBarang);
         editBarang.setVisible(true);
     }//GEN-LAST:event_jTableBarangMouseClicked
@@ -3118,6 +3122,7 @@ public class MainJframe extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         menyuplai.setVisible(true);
+        
         menyuplai.pegawai.setKode(this.pgw.getKode());
         menyuplai.pegawai.setNama(this.pgw.getNama());
         menyuplai.pegawai.setAlamat(this.pgw.getAlamat());

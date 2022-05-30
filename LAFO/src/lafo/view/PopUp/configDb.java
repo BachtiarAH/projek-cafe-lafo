@@ -53,7 +53,6 @@ public class configDb extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(288, 433));
 
         jPanelConfigDb.setBackground(new java.awt.Color(255, 255, 255));
         jPanelConfigDb.setPreferredSize(new java.awt.Dimension(288, 433));
@@ -61,7 +60,7 @@ public class configDb extends javax.swing.JFrame {
         jLabelJudul.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelJudul.setText("LAFO - KONFIGURASI DATABASE");
 
-        jLabelIp.setText("Ip Server");
+        jLabelIp.setText("Ip Server / domain server");
 
         jTextFieldIp.setPreferredSize(new java.awt.Dimension(202, 30));
 

@@ -33,6 +33,7 @@ public class TambahBarang extends javax.swing.JFrame {
     public TambahBarang(String mode) {
         initComponents();
         this.mode = mode;
+        this.setLocationRelativeTo(null);
         setComboBox();
         
     }
@@ -186,8 +187,8 @@ public class TambahBarang extends javax.swing.JFrame {
         jTextFieldNamaBarang = new javax.swing.JTextField();
         jTextFieldKodeBarang = new javax.swing.JTextField();
         label3 = new java.awt.Label();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonSubmitBArang = new javax.swing.JButton();
+        jButtonUpdateBarang = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jComboBoxSatuan = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
@@ -220,25 +221,25 @@ public class TambahBarang extends javax.swing.JFrame {
         label3.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         label3.setText("Satuan\n");
 
-        jButton1.setBackground(new java.awt.Color(241, 102, 52));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("SUBMIT");
-        jButton1.setPreferredSize(new java.awt.Dimension(478, 46));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSubmitBArang.setBackground(new java.awt.Color(241, 102, 52));
+        jButtonSubmitBArang.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButtonSubmitBArang.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSubmitBArang.setText("SUBMIT");
+        jButtonSubmitBArang.setPreferredSize(new java.awt.Dimension(478, 46));
+        jButtonSubmitBArang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonSubmitBArangActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(241, 102, 52));
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("UPDATE");
-        jButton2.setPreferredSize(new java.awt.Dimension(478, 46));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUpdateBarang.setBackground(new java.awt.Color(241, 102, 52));
+        jButtonUpdateBarang.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButtonUpdateBarang.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonUpdateBarang.setText("UPDATE");
+        jButtonUpdateBarang.setPreferredSize(new java.awt.Dimension(478, 46));
+        jButtonUpdateBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonUpdateBarangActionPerformed(evt);
             }
         });
 
@@ -280,8 +281,8 @@ public class TambahBarang extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4))
                     .addComponent(jTextFieldNamaBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSubmitBArang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonUpdateBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxSatuan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldKodeBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -305,9 +306,9 @@ public class TambahBarang extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(87, 87, 87)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonSubmitBArang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonUpdateBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
@@ -333,7 +334,7 @@ public class TambahBarang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNamaBarangActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonSubmitBArangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitBArangActionPerformed
         // TODO add your handling code here:
         if (!(jTextFieldKodeBarang.getText().equalsIgnoreCase("") && jTextFieldNamaBarang.getText().equalsIgnoreCase(""))) {
         tambahBarang();
@@ -342,15 +343,15 @@ public class TambahBarang extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "kode barang dan nama barang tidak boleh kososng!");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonSubmitBArangActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonUpdateBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateBarangActionPerformed
         // TODO add your handling code here:
         
         updateBarang();
         RefreshTabelBarang();
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonUpdateBarangActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -364,9 +365,11 @@ public class TambahBarang extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         if ((jTextFieldNamaBarang.getText().length() == 2)) {
+        if ((jTextFieldNamaBarang.getText().length() >= 2)) {
             
         jTextFieldKodeBarang.setText(generateKodeBarang());
+        }else{
+            JOptionPane.showMessageDialog(null, "membutuhkan nama barang setidaknya 2 karakter");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -406,10 +409,10 @@ public class TambahBarang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    public javax.swing.JButton jButtonSubmitBArang;
+    public javax.swing.JButton jButtonUpdateBarang;
     private javax.swing.JComboBox<String> jComboBoxSatuan;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldKodeBarang;
