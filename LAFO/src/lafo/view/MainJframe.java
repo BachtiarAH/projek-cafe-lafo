@@ -2690,7 +2690,7 @@ public class MainJframe extends javax.swing.JFrame {
     
      public void setKodeDiskon() {
          try {
-            String sql = "SELECT diskon.kode_diskon FROM `diskon` ORDER BY kode_diskon ASC";
+            String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
             if(result.next()) {
