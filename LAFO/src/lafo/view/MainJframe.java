@@ -2400,6 +2400,8 @@ public class MainJframe extends javax.swing.JFrame {
          String newKodeDiskon = "DTR" + Utility.GetTanggal();
                 String angka = "1" ;
                 String nol = "";
+                int urutan = 1;
+                
         try {
             String sql = "SELECT detail_transaksi.detail_transaksi AS `kode` FROM `detail_transaksi` "
                     + "WHERE detail_transaksi.detail_transaksi LIKE '"+newKodeDiskon+"%' "
@@ -2408,43 +2410,17 @@ public class MainJframe extends javax.swing.JFrame {
             
             if(result.next()) {
                 String kodeDiskon = result.getString("kode").substring(9);
+                urutan = result.getInt("kode");
                 angka = "" + (Integer.parseInt(kodeDiskon) + 1);
                 newKodeDiskon = "DTR" + Utility.GetTanggal() + nol + angka;
-                
-//                sql = "SELECT detail_transaksi.detail_transaksi AS `kode` FROM `detail_transaksi` "
-//                    + "WHERE detail_transaksi.detail_transaksi LIKE '"+newKodeDiskon+"%' "
-//                    + "ORDER BY detail_transaksi.detail_transaksi DESC";
-//                result = OperatorDbLafo.getResultSql(sql, true);
-//                
-//                if (result.next()) {
-//                    isDuplicate = true;
-//                }else{
-//                    isDuplicate = false;
-//                }
-//                
-//                while (isDuplicate) { 
-//                     kodeDiskon = result.getString("kode").substring(9);
-//                    angka = "00" + (Integer.parseInt(kodeDiskon) + 1);
-//                    newKodeDiskon = "DTR" + Utility.GetTanggal() + nol + angka;
-//                    sql = "SELECT detail_transaksi.detail_transaksi AS `kode` FROM `detail_transaksi` "
-//                    + "WHERE detail_transaksi.detail_transaksi LIKE '"+newKodeDiskon+"%' "
-//                    + "ORDER BY detail_transaksi.detail_transaksi DESC";
-//                    result = OperatorDbLafo.getResultSql(sql, true);
-//                    
-//                    if (result.next()) {
-//                        isDuplicate = true;
-//                    }else{
-//                        isDuplicate = false;
-//                    }
-//                }
                 
                 nol = "";
                 
                 if(angka.length() == 1) {
-                    nol = "";
+                    nol = "00";
                 }
                 if (angka.length() == 2) {
-                    nol = "";
+                    nol = "0";
                 }
                 else {
                     nol = "";
@@ -2455,6 +2431,7 @@ public class MainJframe extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, newKodeDiskon+e);
          }
                 newKodeDiskon = "DTR" + Utility.GetTanggal() + nol + angka;
+                
                 System.out.println(newKodeDiskon);
                 return newKodeDiskon;
      }
