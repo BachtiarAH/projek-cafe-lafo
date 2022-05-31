@@ -2446,7 +2446,7 @@ public class MainJframe extends javax.swing.JFrame {
      
      public void CetakStruk(String kodeTr){
          try {
-             String jasdi = ("C:\\Users\\Hp\\OneDrive\\Documents\\GitHub\\bachtiar\\projek-cafe-lafo\\LAFO\\src\\lafo\\report\\struk.jrxml");
+             String jasdi = ("src/lafo/report/struk.jrxml");
              
              HashMap hash = new HashMap();
              //mengambil parameter ireport
@@ -2471,37 +2471,7 @@ public class MainJframe extends javax.swing.JFrame {
          }
      }
      
-     public void SubmitPenjualan(){
-         boolean isKurang ;
-         String kodeMenu ;
-         String kodeBarang;
-         String kodeDsup;
-         float dStok;
-         float totalbrgperesep;
-         SubmitTransaksi();
-         
-         
-         while (tbModTrans.getRowCount()>0) {
-             
-             submitDetailTr();
-             kodeMenu = tbModTrans.getValueAt(0, 1).toString();
-             
-             for (int i = 0; i < CountResep(kodeMenu); i++) {
-                 kodeBarang = getKodeBarangFromMenu(kodeMenu, i);
-                 totalbrgperesep = totalBarangPerResep(kodeMenu, kodeBarang);
-                 dStok = StokBarangTerlama(kodeBarang);
-                 isKurang = true;
-                 
-                 while (isKurang) {
-                    
-                         dStok -= totalbrgperesep;
-                     
-                        
-                 }
-             }
-             tbModTrans.removeRow(0);
-         }
-     }
+    
      //fungsi mengambil jumlah barang yang dibutuhakan
      public float getJumBarang(){
          float qty = 0;
