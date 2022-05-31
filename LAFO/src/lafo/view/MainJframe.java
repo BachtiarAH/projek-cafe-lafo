@@ -86,7 +86,7 @@ public class MainJframe extends javax.swing.JFrame {
         this.SetTableModel();
         this.generateCodeTrans();
         this.UpdateDate();
-        this.DisplayLaporanTransaksi();
+        this.DisplayLaporanTransaksi("");
         this.DisplayPemasukan("");
         this.DisplayPengeluaran("");
         this.DisplayKeuntungan();
@@ -221,13 +221,13 @@ public class MainJframe extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
         jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        checkboxFilter = new java.awt.Checkbox();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableDetailLaporan = new javax.swing.JTable();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabelPengahasilan = new javax.swing.JLabel();
         jLabelPengeluaran = new javax.swing.JLabel();
-        checkboxFilter = new java.awt.Checkbox();
         jLabel24 = new javax.swing.JLabel();
         jLabelKeuntungan = new javax.swing.JLabel();
         Users = new javax.swing.JPanel();
@@ -323,7 +323,7 @@ public class MainJframe extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelAkses)))
                     .addComponent(LabelNamaToko))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         panelNavigasiBar.setBackground(new java.awt.Color(42, 48, 48));
@@ -990,7 +990,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jButtonUpdateSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DataSuplierLayout = new javax.swing.GroupLayout(DataSuplier);
@@ -1134,7 +1134,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1292,7 +1292,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel34)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tenggatDiskon_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1591,7 +1591,7 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ManajemenDataLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(ManajemenDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Navigasi, javax.swing.GroupLayout.DEFAULT_SIZE, 1471, Short.MAX_VALUE)
+                    .addComponent(Navigasi, javax.swing.GroupLayout.DEFAULT_SIZE, 1418, Short.MAX_VALUE)
                     .addComponent(ContainerConten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         ManajemenDataLayout.setVerticalGroup(
@@ -1599,7 +1599,7 @@ public class MainJframe extends javax.swing.JFrame {
             .addGroup(ManajemenDataLayout.createSequentialGroup()
                 .addComponent(Navigasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(ContainerConten, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+                .addComponent(ContainerConten, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -1642,7 +1642,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -1719,6 +1719,18 @@ public class MainJframe extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
+        checkboxFilter.setLabel("use filter");
+        checkboxFilter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkboxFilterMouseClicked(evt);
+            }
+        });
+        checkboxFilter.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                checkboxFilterPropertyChange(evt);
+            }
+        });
+
         jTableDetailLaporan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1745,8 +1757,6 @@ public class MainJframe extends javax.swing.JFrame {
         jLabelPengeluaran.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabelPengeluaran.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelPengeluaran.setText("0");
-
-        checkboxFilter.setLabel("use filter");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel24.setText("Total Keuntungan");
@@ -1795,7 +1805,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
                 .addContainerGap())
         );
         LaporanLayout.setVerticalGroup(
@@ -2090,7 +2100,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel23)
@@ -2263,7 +2273,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(JPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_Header, javax.swing.GroupLayout.DEFAULT_SIZE, 1471, Short.MAX_VALUE)))
+                    .addComponent(panel_Header, javax.swing.GroupLayout.DEFAULT_SIZE, 1418, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2273,7 +2283,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(JPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelNavigasiBar, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)))
+                    .addComponent(panelNavigasiBar, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)))
         );
 
         setBounds(0, 0, 1425, 1019);
@@ -2295,6 +2305,10 @@ public class MainJframe extends javax.swing.JFrame {
         String bulan = tgl.getMonth().toString();
         String tahun = tgl.getYear()+"";
         String angkaBulan = tgl.getMonthValue()+"";
+        float total  ;
+         float diskon ;
+         float grndTotl ;
+         float bayar  ;
         
      public void SetTableModel(){
         String[] tbHeader = {"Nama Menu","kode Menu","Jumlah","Harga","Diskon","total"};
@@ -2315,10 +2329,7 @@ public class MainJframe extends javax.swing.JFrame {
         jLabelHari.setText(getHari()+",");
      }
      
-         float total  ;
-         float diskon ;
-         float grndTotl ;
-         float bayar  ;
+         
          
      public void UpdateGrandTotal(){
          total = Float.valueOf(jLabelTotal.getText());
@@ -2385,9 +2396,10 @@ public class MainJframe extends javax.swing.JFrame {
      }
      
      public String generateCodeDetail(){
+         boolean isDuplicate = true;
          String newKodeDiskon = "DTR" + Utility.GetTanggal();
                 String angka = "1" ;
-                String nol = "0";
+                String nol = "";
         try {
             String sql = "SELECT detail_transaksi.detail_transaksi AS `kode` FROM `detail_transaksi` "
                     + "WHERE detail_transaksi.detail_transaksi LIKE '"+newKodeDiskon+"%' "
@@ -2397,13 +2409,42 @@ public class MainJframe extends javax.swing.JFrame {
             if(result.next()) {
                 String kodeDiskon = result.getString("kode").substring(9);
                 angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                newKodeDiskon = "DTR" + Utility.GetTanggal() + nol + angka;
+                
+//                sql = "SELECT detail_transaksi.detail_transaksi AS `kode` FROM `detail_transaksi` "
+//                    + "WHERE detail_transaksi.detail_transaksi LIKE '"+newKodeDiskon+"%' "
+//                    + "ORDER BY detail_transaksi.detail_transaksi DESC";
+//                result = OperatorDbLafo.getResultSql(sql, true);
+//                
+//                if (result.next()) {
+//                    isDuplicate = true;
+//                }else{
+//                    isDuplicate = false;
+//                }
+//                
+//                while (isDuplicate) { 
+//                     kodeDiskon = result.getString("kode").substring(9);
+//                    angka = "00" + (Integer.parseInt(kodeDiskon) + 1);
+//                    newKodeDiskon = "DTR" + Utility.GetTanggal() + nol + angka;
+//                    sql = "SELECT detail_transaksi.detail_transaksi AS `kode` FROM `detail_transaksi` "
+//                    + "WHERE detail_transaksi.detail_transaksi LIKE '"+newKodeDiskon+"%' "
+//                    + "ORDER BY detail_transaksi.detail_transaksi DESC";
+//                    result = OperatorDbLafo.getResultSql(sql, true);
+//                    
+//                    if (result.next()) {
+//                        isDuplicate = true;
+//                    }else{
+//                        isDuplicate = false;
+//                    }
+//                }
+                
                 nol = "";
                 
                 if(angka.length() == 1) {
-                    nol = "00";
+                    nol = "";
                 }
                 if (angka.length() == 2) {
-                    nol = "0";
+                    nol = "";
                 }
                 else {
                     nol = "";
@@ -2824,7 +2865,7 @@ public class MainJframe extends javax.swing.JFrame {
     //</editor-fold>
     
     //fungsi data diskon <editor-fold defaultstate="collapsed" desc="Fungsi Laporan">
-        public void DisplayLaporanTransaksi(){
+        public void DisplayLaporanTransaksi(String filter){
             String sql = "SELECT "
                     + "transaksi_penjualan.kode_transaksi, "
                     + "pegawai.Nama_Pegawai, "
@@ -2840,6 +2881,7 @@ public class MainJframe extends javax.swing.JFrame {
                     + "LEFT JOIN diskon "
                     + "on diskon.kode_diskon = diskon.kode_diskon "
                     + "LEFT JOIN pegawai ON pegawai.Id_Pegawai = transaksi_penjualan.Id_Pegawai "
+                    + "WHERE transaksi_penjualan.tanggal_transaksi LIKE '"+filter+"%'"
                     + "GROUP BY transaksi_penjualan.kode_transaksi "
                     + "ORDER BY transaksi_penjualan.kode_transaksi ASC;";
             String[] header = {"kode transaksi","nama kasir", "tanggal","total","potongan","grand total", "bayar", "kembalian"};
@@ -2855,9 +2897,10 @@ public class MainJframe extends javax.swing.JFrame {
             OperatorDbLafo.tabel(sql, header, jTableDetailLaporan);
         }
         
-        public void DisplayLaporanSuplai(){
+        public void DisplayLaporanSuplai(String filter){
             String sql = "SELECT menyuplai.Kode_Menyuplai, pegawai.Nama_Pegawai, menyuplai.Tanggal_menyuplai, menyuplai.total\n" +
-                "FROM menyuplai JOIN pegawai ON pegawai.Id_Pegawai = menyuplai.Id_Pegawai";
+                "FROM menyuplai JOIN pegawai ON pegawai.Id_Pegawai = menyuplai.Id_Pegawai "
+                    + "WHERE menyuplai.Tanggal_menyuplai LIKE '"+filter+"%'";
             String[] header = {"kode", "nama", "tanggal","total"};
             OperatorDbLafo.tabel(sql, header, jTableLaporan);
         }
@@ -2902,6 +2945,50 @@ public class MainJframe extends javax.swing.JFrame {
             float keuntungan = penghasilan - pengeluaran;
             
             jLabelKeuntungan.setText(""+keuntungan);
+        }
+        
+        public void tampilLaporanTransaksiWithFilter(){
+            int tahun = jYearChooser1.getYear();
+            String bulan ="" ;
+            if ( (jMonthChooser1.getMonth()+1) < 10) {
+                bulan = "0"+ (jMonthChooser1.getMonth()+1);
+            }else{
+                bulan = ""+ (jMonthChooser1.getMonth()+1);
+            }
+            String filter = tahun +"-"+ bulan+"";
+            System.out.println("filter: " +filter);
+            if (checkboxFilter.getState()) {
+                DisplayLaporanTransaksi(filter);
+            }else if (!(checkboxFilter.getState())) {
+                DisplayLaporanTransaksi("");
+            }
+        }
+        
+        public void tampilLaporanSuplaiWithFilter(){
+            int tahun = jYearChooser1.getYear();
+            String bulan ="" ;
+            if ( (jMonthChooser1.getMonth()+1) < 10) {
+                bulan = "0"+ (jMonthChooser1.getMonth()+1);
+            }else{
+                bulan = ""+ (jMonthChooser1.getMonth()+1);
+            }
+            String filter = tahun +"-"+ bulan+"";
+            System.out.println("filter: " +filter);
+            if (checkboxFilter.getState()) {
+                DisplayLaporanSuplai(filter);
+            }else if (!(checkboxFilter.getState())) {
+                DisplayLaporanSuplai("");
+            }
+        }
+        
+        public void tampilLaporan(){
+            if (modeLaporan.equalsIgnoreCase("transaksi")) {
+                tampilLaporanTransaksiWithFilter();
+            }
+            
+            if (modeLaporan.equalsIgnoreCase("suplai")) {
+                tampilLaporanSuplaiWithFilter();
+            }
         }
         
     //</editor-fold>
@@ -3316,13 +3403,14 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jPanelTotalTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTotalTransaksiMouseClicked
         // TODO add your handling code here:
-        DisplayLaporanTransaksi();
+        
+        tampilLaporan();
         modeLaporan = "transaksi";
     }//GEN-LAST:event_jPanelTotalTransaksiMouseClicked
 
     private void jPanelTotalTransaksi1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTotalTransaksi1MouseClicked
         // TODO add your handling code here:
-        DisplayLaporanSuplai();
+        tampilLaporan();
         modeLaporan = "suplai";
     }//GEN-LAST:event_jPanelTotalTransaksi1MouseClicked
 
@@ -3336,6 +3424,16 @@ public class MainJframe extends javax.swing.JFrame {
             DisplayLaporanDetailSuplai(kodeTr);
         }
     }//GEN-LAST:event_jTableLaporanMouseClicked
+
+    private void checkboxFilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkboxFilterMouseClicked
+        // TODO add your handling code here:
+        tampilLaporan();
+    }//GEN-LAST:event_checkboxFilterMouseClicked
+
+    private void checkboxFilterPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_checkboxFilterPropertyChange
+        // TODO add your handling code here:
+        tampilLaporan();
+    }//GEN-LAST:event_checkboxFilterPropertyChange
 
     
 //</editor-fold>
@@ -3481,7 +3579,6 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBulan;
     private javax.swing.JLabel jLabelGrandTotal;
     private javax.swing.JLabel jLabelHari;
-    private javax.swing.JLabel jLabelKemabali;
     private javax.swing.JLabel jLabelKeuntungan;
     private javax.swing.JLabel jLabelLaporan;
     private javax.swing.JLabel jLabelLogOut;

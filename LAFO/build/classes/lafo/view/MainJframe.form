@@ -40,7 +40,7 @@
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panel_ContenContainer" max="32767" attributes="0"/>
-                  <Component id="panel_Header" pref="1605" max="32767" attributes="0"/>
+                  <Component id="panel_Header" pref="1418" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -54,7 +54,7 @@
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panel_ContenContainer" max="32767" attributes="0"/>
-                  <Component id="panelNavigasiBar" pref="904" max="32767" attributes="0"/>
+                  <Component id="panelNavigasiBar" pref="1006" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -296,7 +296,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Navigasi" pref="1605" max="32767" attributes="0"/>
+                          <Component id="Navigasi" pref="1418" max="32767" attributes="0"/>
                           <Component id="ContainerConten" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -1652,7 +1652,7 @@
                                       <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="tenggatDiskon_text" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                                      <EmptySpace pref="71" max="32767" attributes="0"/>
                                       <Component id="jButton8" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton9" min="-2" max="-2" attributes="0"/>
@@ -2249,7 +2249,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="886" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" pref="491" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" pref="494" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -2493,6 +2493,15 @@
             </Component>
             <Component class="com.toedter.calendar.JYearChooser" name="jYearChooser1">
             </Component>
+            <Component class="java.awt.Checkbox" name="checkboxFilter">
+              <Properties>
+                <Property name="label" type="java.lang.String" value="use filter"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkboxFilterMouseClicked"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="checkboxFilterPropertyChange"/>
+              </Events>
+            </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane5">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
@@ -2543,11 +2552,6 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0"/>
-              </Properties>
-            </Component>
-            <Component class="java.awt.Checkbox" name="checkboxFilter">
-              <Properties>
-                <Property name="label" type="java.lang.String" value="use filter"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel24">
@@ -2819,7 +2823,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
