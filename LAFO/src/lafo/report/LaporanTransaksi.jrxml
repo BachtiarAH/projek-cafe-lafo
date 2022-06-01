@@ -172,7 +172,7 @@ WHERE transaksi_penjualan.tanggal_transaksi LIKE $P{tahunDanBulan}
 		<band height="136" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="164" height="126" uuid="eff88710-4db5-421e-b33b-fb99608e127d"/>
-				<imageExpression><![CDATA["coffee.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["src/lafo/report/coffee.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="170" y="0" width="297" height="62" uuid="0e29b272-674a-4911-9693-28f68b149460"/>
@@ -197,7 +197,7 @@ WHERE transaksi_penjualan.tanggal_transaksi LIKE $P{tahunDanBulan}
 			</staticText>
 			<image>
 				<reportElement x="433" y="-115" width="267" height="209" uuid="8136f529-bee5-4c71-b4fd-818950f23b19"/>
-				<imageExpression><![CDATA["coffee_stain.png"]]></imageExpression>
+				<imageExpression><![CDATA["src/lafo/report/coffee_stain.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

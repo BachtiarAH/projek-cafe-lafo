@@ -2881,7 +2881,25 @@ public class MainJframe extends javax.swing.JFrame {
             }
         }
         
+        public void CetakLaporanTransaksi(String filter){
+         try {
+             String jasdi = ("src/lafo/report/LaporanTransaksi.jrxml");
+             
+             HashMap hash = new HashMap();
+             //mengambil parameter ireport
+             hash.put("tahunDanBulan", (filter+"%"));
+             JasperReport JRpt =  JasperCompileManager.compileReport(jasdi);
+             JasperPrint jPrint = JasperFillManager.fillReport(JRpt, hash, Koneksi.conn);
+             JasperViewer.viewReport(jPrint, false);
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "gagal membuat struk");
+             System.out.println("jasper error : "+e);
+         }
+     
+        }
+        
     //</editor-fold>
+        
     // jFrame Event <editor-fold defaultstate="collapsed" desc="Jframe Event">
     private void panelNavigasiBarComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelNavigasiBarComponentMoved
         // TODO add your handling code here:
@@ -2982,7 +3000,8 @@ public class MainJframe extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboBoxShowEntries1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+           // TODO add your handling code here:
+           CetakLaporanTransaksi("");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextFieldBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBayarActionPerformed
