@@ -8,6 +8,8 @@ package lafo.proses;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -48,8 +50,36 @@ public class Utility extends javax.swing.JFrame{
         
     }
     
+    public static String GetTanggalFormatDb(){
+        LocalDate tgl = LocalDate.now();
+        
+        
+        String hasil;
+        int tahun = tgl.getYear();
+        int bulan = tgl.getMonthValue();
+        int tanggal = tgl.getDayOfMonth();
+        String Stanggal;
+        String SBulan;
+        if (tanggal<10) {
+            Stanggal = "0"+tanggal;
+        }else{
+            Stanggal = ""+tanggal;
+        }
+        
+        if (bulan<10) {
+            SBulan = "0"+bulan;
+        }else{
+            SBulan = ""+bulan;
+            
+        }
+        hasil = tahun+"-"+SBulan+"-"+Stanggal;
+        
+        
+        return hasil;
+    }
+    
     public static void main(String[] args) {
-        System.out.println(GetTanggal());
+        System.out.println("DTR"+GetTanggal());
     }
    
 }

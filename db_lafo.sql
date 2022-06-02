@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2022 at 05:40 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- Waktu pembuatan: 29 Bulan Mei 2022 pada 09.31
+-- Versi server: 10.4.21-MariaDB
+-- Versi PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -23,17 +23,15 @@ SET time_zone = "+00:00";
 
 DELIMITER $$
 --
--- Procedures
+-- Prosedur
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `countResep` (IN `kodeMenu` CHAR(5), OUT `jumlah` INT)  SELECT COUNT(resep.kode_Barang) INTO jumlah FROM resep WHERE resep.kode_Menu = `kodeMenu`$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_Jum_diskon` (IN `kodeDiskon` CHAR(13), OUT `jumlahDiskon` FLOAT)  SELECT diskon.jumlah_diskon INTO jumlahDiskon FROM diskon WHERE diskon.kode_diskon = kodeDiskon$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_Jum_diskon` (IN `kodeDiskon` CHAR(13), IN `jumlahDiskon` FLOAT)  SELECT diskon.jumlah_diskon INTO jumlahDiskon FROM diskon WHERE diskon.kode_diskon = kodeDiskon$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_KodeBarang` (IN `kodeMenu` CHAR(6), IN `urutan` INT, OUT `kode` CHAR(15))  SELECT resep.kode_Barang INTO kode FROM resep WHERE resep.kode_Menu = kodeMenu ORDER BY resep.kode_Barang ASC LIMIT 1 OFFSET urutan$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_KodeBarang_from_Resep` (IN `kodebarang` CHAR(15), IN `kodeMenu` CHAR(6), OUT `qty_barang_resep` INT)  SELECT resep.qty INTO qty_barang_resep FROM resep WHERE resep.kode_Barang = kodebarang AND resep.kode_Menu = kodeMenu$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_kode_diskon` (IN `kodeTr` CHAR(15), OUT `kodeDiss` CHAR(13))  SELECT transaksi_penjualan.kode_diskon INTO kodeDiss FROM transaksi_penjualan WHERE transaksi_penjualan.kode_transaksi = kodeTr$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Get_sum_Subtotal` (IN `kodeTransaksi` CHAR(13), OUT `hasil` INT)  SELECT SUM(detail_transaksi.sub_total) INTO hasil FROM detail_transaksi WHERE detail_transaksi.kode_transaksi = kodeTransaksi$$
 
@@ -79,7 +77,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `akun`
+-- Struktur dari tabel `akun`
 --
 
 CREATE TABLE `akun` (
@@ -89,7 +87,7 @@ CREATE TABLE `akun` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `akun`
+-- Dumping data untuk tabel `akun`
 --
 
 INSERT INTO `akun` (`Username`, `password`, `Id_Pegawai`) VALUES
@@ -99,7 +97,7 @@ INSERT INTO `akun` (`Username`, `password`, `Id_Pegawai`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barang`
+-- Struktur dari tabel `barang`
 --
 
 CREATE TABLE `barang` (
@@ -110,13 +108,13 @@ CREATE TABLE `barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `barang`
+-- Dumping data untuk tabel `barang`
 --
 
 INSERT INTO `barang` (`kode_Barang`, `Nama_barang`, `satuan`, `stok`) VALUES
-('8991002105584', 'KOPI KAPAL API', 'buah', 3),
+('8991002105584', 'KOPI KAPAL API', 'buah', 4),
 ('BRG002', 'Kopi bubuk', 'gram', 4),
-('BRG003', 'MILO', 'buah', 0),
+('BRG003', 'MILO', 'buah', 2),
 ('BRGU01', 'gula pasir', 'buah', -2),
 ('BRKO01', 'kopi luak', 'buah', 4),
 ('BRLU02', 'kopi luak', 'buah', 4),
@@ -130,7 +128,7 @@ INSERT INTO `barang` (`kode_Barang`, `Nama_barang`, `satuan`, `stok`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_suplai`
+-- Struktur dari tabel `detail_suplai`
 --
 
 CREATE TABLE `detail_suplai` (
@@ -145,7 +143,7 @@ CREATE TABLE `detail_suplai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `detail_suplai`
+-- Dumping data untuk tabel `detail_suplai`
 --
 
 INSERT INTO `detail_suplai` (`harga_beli`, `qty`, `Id_detail_suplai`, `satuan`, `Kode_Menyuplai`, `kode_Barang`, `stok`, `harga_beli_per_satuan`) VALUES
@@ -171,7 +169,7 @@ INSERT INTO `detail_suplai` (`harga_beli`, `qty`, `Id_detail_suplai`, `satuan`, 
 (72000, 12, 'DSUP26052205', 'buah', 'MSP2605220016', 'BRGU01', 12, 6000);
 
 --
--- Triggers `detail_suplai`
+-- Trigger `detail_suplai`
 --
 DELIMITER $$
 CREATE TRIGGER `tambahStokBarang` AFTER INSERT ON `detail_suplai` FOR EACH ROW UPDATE barang SET barang.stok = barang.stok + new.stok WHERE barang.kode_Barang = new.kode_Barang
@@ -181,7 +179,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_transaksi`
+-- Struktur dari tabel `detail_transaksi`
 --
 
 CREATE TABLE `detail_transaksi` (
@@ -194,7 +192,7 @@ CREATE TABLE `detail_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `detail_transaksi`
+-- Dumping data untuk tabel `detail_transaksi`
 --
 
 INSERT INTO `detail_transaksi` (`qty`, `sub_total`, `harga`, `detail_transaksi`, `kode_Menu`, `kode_transaksi`) VALUES
@@ -213,12 +211,10 @@ INSERT INTO `detail_transaksi` (`qty`, `sub_total`, `harga`, `detail_transaksi`,
 (1, 5000, 5000, 'DTR26052214', 'MN004', 'TRK26052212'),
 (1, 5000, 5000, 'DTR26052215', 'MN004', 'TRK26052213'),
 (1, 5000, 5000, 'DTR29052201', 'MN004', 'TR24042022001'),
-(1, 5000, 5000, 'DTR29052202', 'MN004', 'TR24042022001'),
-(1, 5000, 5000, 'DTR30052201', 'MN004', 'TRK30052201'),
-(1, 4000, 4000, 'DTR3005222', 'MN005', 'TRK30052202');
+(1, 5000, 5000, 'DTR29052202', 'MN004', 'TR24042022001');
 
 --
--- Triggers `detail_transaksi`
+-- Trigger `detail_transaksi`
 --
 DELIMITER $$
 CREATE TRIGGER `kurangi stok Barang` AFTER INSERT ON `detail_transaksi` FOR EACH ROW CALL `Untuk_Triger_Transaksi`(new.kode_Menu, new.qty)
@@ -226,15 +222,9 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_total` AFTER INSERT ON `detail_transaksi` FOR EACH ROW BEGIN
-
 DECLARE `total` FLOAT;
 DECLARE `jumDiss` FLOAT;
-DECLARE `kodeDisc` CHAR(13);
-
 CALL `Get_sum_Subtotal`(new.kode_transaksi, `total`);
-CALL `get_kode_diskon`(new.kode_transaksi, kodeDisc);
-CALL `get_Jum_diskon`(kodeDisc, jumDiss);
-
 UPDATE transaksi_penjualan SET 
 transaksi_penjualan.Total = `total` - `jumDiss` 
 WHERE transaksi_penjualan.kode_transaksi = new.kode_transaksi;
@@ -245,7 +235,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `diskon`
+-- Struktur dari tabel `diskon`
 --
 
 CREATE TABLE `diskon` (
@@ -256,7 +246,7 @@ CREATE TABLE `diskon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `diskon`
+-- Dumping data untuk tabel `diskon`
 --
 
 INSERT INTO `diskon` (`kode_diskon`, `jumlah_diskon`, `tenggat_diskon`, `nama`) VALUES
@@ -266,7 +256,7 @@ INSERT INTO `diskon` (`kode_diskon`, `jumlah_diskon`, `tenggat_diskon`, `nama`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu`
+-- Struktur dari tabel `menu`
 --
 
 CREATE TABLE `menu` (
@@ -277,7 +267,7 @@ CREATE TABLE `menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `menu`
+-- Dumping data untuk tabel `menu`
 --
 
 INSERT INTO `menu` (`kode_Menu`, `Nama_Menu`, `Harga`, `Kategori`) VALUES
@@ -290,7 +280,7 @@ INSERT INTO `menu` (`kode_Menu`, `Nama_Menu`, `Harga`, `Kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menyuplai`
+-- Struktur dari tabel `menyuplai`
 --
 
 CREATE TABLE `menyuplai` (
@@ -302,7 +292,7 @@ CREATE TABLE `menyuplai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `menyuplai`
+-- Dumping data untuk tabel `menyuplai`
 --
 
 INSERT INTO `menyuplai` (`Kode_Menyuplai`, `Tanggal_menyuplai`, `kode_suplaier`, `Id_Pegawai`, `total`) VALUES
@@ -327,7 +317,7 @@ INSERT INTO `menyuplai` (`Kode_Menyuplai`, `Tanggal_menyuplai`, `kode_suplaier`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pegawai`
+-- Struktur dari tabel `pegawai`
 --
 
 CREATE TABLE `pegawai` (
@@ -342,7 +332,7 @@ CREATE TABLE `pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pegawai`
+-- Dumping data untuk tabel `pegawai`
 --
 
 INSERT INTO `pegawai` (`Id_Pegawai`, `Nama_Pegawai`, `gender`, `Alamat`, `No_Hp`, `Tanggal_Terdaftar`, `status`, `hak_akses`) VALUES
@@ -352,7 +342,7 @@ INSERT INTO `pegawai` (`Id_Pegawai`, `Nama_Pegawai`, `gender`, `Alamat`, `No_Hp`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `resep`
+-- Struktur dari tabel `resep`
 --
 
 CREATE TABLE `resep` (
@@ -363,7 +353,7 @@ CREATE TABLE `resep` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `resep`
+-- Dumping data untuk tabel `resep`
 --
 
 INSERT INTO `resep` (`qty`, `kode_Barang`, `kode_Menu`, `totalResepDDigunakan`) VALUES
@@ -377,34 +367,38 @@ INSERT INTO `resep` (`qty`, `kode_Barang`, `kode_Menu`, `totalResepDDigunakan`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `retur`
+-- Struktur dari tabel `retur`
 --
 
 CREATE TABLE `retur` (
   `kode_Retur` char(13) NOT NULL,
   `qty` float NOT NULL,
+  `Id_detail_suplai` char(13) NOT NULL,
   `kode_barang` char(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `retur`
---
-
-INSERT INTO `retur` (`kode_Retur`, `qty`, `kode_barang`) VALUES
-('1', 1, '8991002105584');
-
---
--- Triggers `retur`
+-- Trigger `retur`
 --
 DELIMITER $$
-CREATE TRIGGER `kurangi_stok_diRetur` AFTER INSERT ON `retur` FOR EACH ROW UPDATE barang SET barang.stok = barang.stok - new.qty WHERE barang.kode_Barang = new.kode_barang
+CREATE TRIGGER `kurangi_stok` AFTER INSERT ON `retur` FOR EACH ROW BEGIN
+
+UPDATE detail_suplai SET 
+detail_suplai.qty = detail_suplai.qty - new.qty
+
+WHERE 
+new.kode_barang = detail_suplai.kode_Barang
+AND
+new.Id_detail_suplai = detail_suplai.Id_detail_suplai;
+
+END
 $$
 DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suplier`
+-- Struktur dari tabel `suplier`
 --
 
 CREATE TABLE `suplier` (
@@ -415,7 +409,7 @@ CREATE TABLE `suplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `suplier`
+-- Dumping data untuk tabel `suplier`
 --
 
 INSERT INTO `suplier` (`kode_suplaier`, `No_Telp`, `Alamat`, `nama_suplier`) VALUES
@@ -427,7 +421,7 @@ INSERT INTO `suplier` (`kode_suplaier`, `No_Telp`, `Alamat`, `nama_suplier`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi_penjualan`
+-- Struktur dari tabel `transaksi_penjualan`
 --
 
 CREATE TABLE `transaksi_penjualan` (
@@ -441,7 +435,7 @@ CREATE TABLE `transaksi_penjualan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `transaksi_penjualan`
+-- Dumping data untuk tabel `transaksi_penjualan`
 --
 
 INSERT INTO `transaksi_penjualan` (`kode_transaksi`, `tanggal_transaksi`, `uangPelanggan`, `Total`, `Kembalian`, `Id_Pegawai`, `kode_diskon`) VALUES
@@ -458,28 +452,26 @@ INSERT INTO `transaksi_penjualan` (`kode_transaksi`, `tanggal_transaksi`, `uangP
 ('TRK26052210', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
 ('TRK26052211', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
 ('TRK26052212', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
-('TRK26052213', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL'),
-('TRK30052201', '2030-05-22', 5000, 0, 0, 'ADM05052201', 'HARGANORMAL'),
-('TRK30052202', '2030-05-22', 5000, 4000, 1000, 'ADM05052201', 'HARGANORMAL');
+('TRK26052213', '2026-05-22', 5000, 5000, 0, 'ADM05052201', 'HARGANORMAL');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `akun`
+-- Indeks untuk tabel `akun`
 --
 ALTER TABLE `akun`
   ADD KEY `Id_Pegawai` (`Id_Pegawai`);
 
 --
--- Indexes for table `barang`
+-- Indeks untuk tabel `barang`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`kode_Barang`);
 
 --
--- Indexes for table `detail_suplai`
+-- Indeks untuk tabel `detail_suplai`
 --
 ALTER TABLE `detail_suplai`
   ADD PRIMARY KEY (`Id_detail_suplai`),
@@ -487,7 +479,7 @@ ALTER TABLE `detail_suplai`
   ADD KEY `detail_suplai_ke_barang` (`kode_Barang`);
 
 --
--- Indexes for table `detail_transaksi`
+-- Indeks untuk tabel `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
   ADD PRIMARY KEY (`detail_transaksi`),
@@ -495,19 +487,19 @@ ALTER TABLE `detail_transaksi`
   ADD KEY `kode_transaksi` (`kode_transaksi`);
 
 --
--- Indexes for table `diskon`
+-- Indeks untuk tabel `diskon`
 --
 ALTER TABLE `diskon`
   ADD PRIMARY KEY (`kode_diskon`);
 
 --
--- Indexes for table `menu`
+-- Indeks untuk tabel `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`kode_Menu`);
 
 --
--- Indexes for table `menyuplai`
+-- Indeks untuk tabel `menyuplai`
 --
 ALTER TABLE `menyuplai`
   ADD PRIMARY KEY (`Kode_Menyuplai`),
@@ -515,33 +507,33 @@ ALTER TABLE `menyuplai`
   ADD KEY `Id_Pegawai` (`Id_Pegawai`);
 
 --
--- Indexes for table `pegawai`
+-- Indeks untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`Id_Pegawai`);
 
 --
--- Indexes for table `resep`
+-- Indeks untuk tabel `resep`
 --
 ALTER TABLE `resep`
   ADD KEY `kode_Menu` (`kode_Menu`),
   ADD KEY `resep_ke_barang` (`kode_Barang`);
 
 --
--- Indexes for table `retur`
+-- Indeks untuk tabel `retur`
 --
 ALTER TABLE `retur`
   ADD PRIMARY KEY (`kode_Retur`),
-  ADD KEY `barang` (`kode_barang`);
+  ADD KEY `Id_detail_suplai` (`Id_detail_suplai`);
 
 --
--- Indexes for table `suplier`
+-- Indeks untuk tabel `suplier`
 --
 ALTER TABLE `suplier`
   ADD PRIMARY KEY (`kode_suplaier`);
 
 --
--- Indexes for table `transaksi_penjualan`
+-- Indeks untuk tabel `transaksi_penjualan`
 --
 ALTER TABLE `transaksi_penjualan`
   ADD PRIMARY KEY (`kode_transaksi`),
@@ -549,51 +541,51 @@ ALTER TABLE `transaksi_penjualan`
   ADD KEY `kode_diskon` (`kode_diskon`);
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `akun`
+-- Ketidakleluasaan untuk tabel `akun`
 --
 ALTER TABLE `akun`
   ADD CONSTRAINT `akun_ibfk_1` FOREIGN KEY (`Id_Pegawai`) REFERENCES `pegawai` (`Id_Pegawai`);
 
 --
--- Constraints for table `detail_suplai`
+-- Ketidakleluasaan untuk tabel `detail_suplai`
 --
 ALTER TABLE `detail_suplai`
   ADD CONSTRAINT `detail_suplai_ibfk_1` FOREIGN KEY (`Kode_Menyuplai`) REFERENCES `menyuplai` (`Kode_Menyuplai`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detail_suplai_ke_barang` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`);
 
 --
--- Constraints for table `detail_transaksi`
+-- Ketidakleluasaan untuk tabel `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
   ADD CONSTRAINT `detail_transaksi_ibfk_1` FOREIGN KEY (`kode_Menu`) REFERENCES `menu` (`kode_Menu`),
   ADD CONSTRAINT `detail_transaksi_ibfk_2` FOREIGN KEY (`kode_transaksi`) REFERENCES `transaksi_penjualan` (`kode_transaksi`);
 
 --
--- Constraints for table `menyuplai`
+-- Ketidakleluasaan untuk tabel `menyuplai`
 --
 ALTER TABLE `menyuplai`
   ADD CONSTRAINT `menyuplai_ibfk_1` FOREIGN KEY (`kode_suplaier`) REFERENCES `suplier` (`kode_suplaier`),
   ADD CONSTRAINT `menyuplai_ibfk_2` FOREIGN KEY (`Id_Pegawai`) REFERENCES `pegawai` (`Id_Pegawai`);
 
 --
--- Constraints for table `resep`
+-- Ketidakleluasaan untuk tabel `resep`
 --
 ALTER TABLE `resep`
   ADD CONSTRAINT `resep_ibfk_2` FOREIGN KEY (`kode_Menu`) REFERENCES `menu` (`kode_Menu`),
   ADD CONSTRAINT `resep_ke_barang` FOREIGN KEY (`kode_Barang`) REFERENCES `barang` (`kode_Barang`);
 
 --
--- Constraints for table `retur`
+-- Ketidakleluasaan untuk tabel `retur`
 --
 ALTER TABLE `retur`
-  ADD CONSTRAINT `barang` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`kode_Barang`);
+  ADD CONSTRAINT `retur_ibfk_1` FOREIGN KEY (`Id_detail_suplai`) REFERENCES `detail_suplai` (`Id_detail_suplai`);
 
 --
--- Constraints for table `transaksi_penjualan`
+-- Ketidakleluasaan untuk tabel `transaksi_penjualan`
 --
 ALTER TABLE `transaksi_penjualan`
   ADD CONSTRAINT `transaksi_penjualan_ibfk_1` FOREIGN KEY (`Id_Pegawai`) REFERENCES `pegawai` (`Id_Pegawai`),
