@@ -414,7 +414,7 @@ public class ReturBarang extends javax.swing.JFrame {
         
         if ((!(qty.equalsIgnoreCase(""))&&(!(kodeBarang.equalsIgnoreCase(""))))) {
             if (DefaultGroovyMethods.isFloat(qty)) {
-                if (stok>jumlah) {
+                if (stok>=jumlah) {
                     
                     try {
                 
