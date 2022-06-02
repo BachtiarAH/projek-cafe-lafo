@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d69f8423-9e0f-4f74-938c-34bdd413797b">
-	<property name="ireport.zoom" value="3.4522712143931047"/>
-	<property name="ireport.x" value="992"/>
-	<property name="ireport.y" value="592"/>
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="71"/>
+	<property name="ireport.y" value="1"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -13,7 +13,10 @@
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
-	<queryString language="SQL">
+	<parameter name="filter" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
 		<![CDATA[SELECT
      detail_suplai.`harga_beli` AS detail_suplai_harga_beli,
      detail_suplai.`qty` AS detail_suplai_qty,
@@ -48,21 +51,39 @@ FROM
      `menyuplai` menyuplai INNER JOIN `detail_suplai` detail_suplai ON menyuplai.`Kode_Menyuplai` = detail_suplai.`Kode_Menyuplai`
      INNER JOIN `barang` barang ON detail_suplai.`kode_Barang` = barang.`kode_Barang`
      INNER JOIN `suplier` suplier ON menyuplai.`kode_suplaier` = suplier.`kode_suplaier`
-     INNER JOIN `pegawai` pegawai ON menyuplai.`Id_Pegawai` = pegawai.`Id_Pegawai`]]>
+     INNER JOIN `pegawai` pegawai ON menyuplai.`Id_Pegawai` = pegawai.`Id_Pegawai`
+WHERE menyuplai.Tanggal_menyuplai LIKE $P{filter}
+     ORDER BY menyuplai.Tanggal_menyuplai]]>
 	</queryString>
 	<field name="detail_suplai_harga_beli" class="java.lang.Float"/>
 	<field name="detail_suplai_qty" class="java.lang.Float"/>
 	<field name="detail_suplai_Id_detail_suplai" class="java.lang.String"/>
 	<field name="detail_suplai_satuan" class="java.lang.String"/>
+	<field name="detail_suplai_Kode_Menyuplai" class="java.lang.String"/>
 	<field name="detail_suplai_kode_Barang" class="java.lang.String"/>
 	<field name="detail_suplai_stok" class="java.lang.Float"/>
 	<field name="detail_suplai_harga_beli_per_satuan" class="java.lang.Float"/>
 	<field name="menyuplai_Kode_Menyuplai" class="java.lang.String"/>
 	<field name="menyuplai_Tanggal_menyuplai" class="java.sql.Date"/>
+	<field name="menyuplai_kode_suplaier" class="java.lang.String"/>
+	<field name="menyuplai_Id_Pegawai" class="java.lang.String"/>
 	<field name="menyuplai_total" class="java.lang.Float"/>
+	<field name="barang_kode_Barang" class="java.lang.String"/>
 	<field name="barang_Nama_barang" class="java.lang.String"/>
 	<field name="barang_satuan" class="java.lang.String"/>
+	<field name="barang_stok" class="java.lang.Float"/>
+	<field name="suplier_kode_suplaier" class="java.lang.String"/>
+	<field name="suplier_No_Telp" class="java.lang.String"/>
+	<field name="suplier_Alamat" class="java.lang.String"/>
+	<field name="suplier_nama_suplier" class="java.lang.String"/>
+	<field name="pegawai_Id_Pegawai" class="java.lang.String"/>
 	<field name="pegawai_Nama_Pegawai" class="java.lang.String"/>
+	<field name="pegawai_gender" class="java.lang.String"/>
+	<field name="pegawai_Alamat" class="java.lang.String"/>
+	<field name="pegawai_No_Hp" class="java.lang.String"/>
+	<field name="pegawai_Tanggal_Terdaftar" class="java.sql.Date"/>
+	<field name="pegawai_status" class="java.lang.String"/>
+	<field name="pegawai_hak_akses" class="java.lang.String"/>
 	<variable name="detail_suplai_harga_beli_1" class="java.lang.Float" resetType="Group" resetGroup="menyuplai_Kode_Menyuplai" calculation="Sum">
 		<variableExpression><![CDATA[$F{detail_suplai_harga_beli}]]></variableExpression>
 	</variable>
@@ -145,21 +166,21 @@ FROM
 		<band height="136" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="164" height="126" uuid="3de8a5a4-48b1-454c-8408-ab1fca3de388"/>
-				<imageExpression><![CDATA["coffee.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["src/lafo/report/coffee.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="170" y="0" width="263" height="62" uuid="1d2aeb78-0025-4110-9742-4fcfb0e7333a"/>
+				<reportElement style="Title" x="170" y="0" width="298" height="62" uuid="1d2aeb78-0025-4110-9742-4fcfb0e7333a"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Coffee Title]]></text>
+				<text><![CDATA[CAFE LAFO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="219" y="62" width="196" height="22" uuid="823d4413-65da-4bfc-8527-1d65746f62e2"/>
+				<reportElement style="SubTitle" x="256" y="62" width="113" height="22" uuid="823d4413-65da-4bfc-8527-1d65746f62e2"/>
 				<textElement>
 					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Coffee SubTitle]]></text>
+				<text><![CDATA[Laporan Suplai]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="172" y="94" width="383" height="42" uuid="375f1ad9-8bae-4cd1-9ede-4513730562ed"/>
@@ -170,7 +191,7 @@ FROM
 			</staticText>
 			<image>
 				<reportElement x="433" y="-115" width="267" height="209" uuid="01cf3baa-93f2-4969-bf49-a61846aa24eb"/>
-				<imageExpression><![CDATA["coffee_stain.png"]]></imageExpression>
+				<imageExpression><![CDATA["src/lafo/report/coffee_stain.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

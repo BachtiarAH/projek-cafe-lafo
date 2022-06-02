@@ -40,7 +40,7 @@
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panel_ContenContainer" max="32767" attributes="0"/>
-                  <Component id="panel_Header" pref="1397" max="32767" attributes="0"/>
+                  <Component id="panel_Header" pref="1412" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -54,7 +54,7 @@
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panel_ContenContainer" max="32767" attributes="0"/>
-                  <Component id="panelNavigasiBar" pref="1006" max="32767" attributes="0"/>
+                  <Component id="panelNavigasiBar" pref="1017" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -103,7 +103,7 @@
                       </Group>
                       <Component id="LabelNamaToko" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="17" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -296,7 +296,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Navigasi" pref="1397" max="32767" attributes="0"/>
+                          <Component id="Navigasi" pref="1412" max="32767" attributes="0"/>
                           <Component id="ContainerConten" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -307,7 +307,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="Navigasi" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-                      <Component id="ContainerConten" pref="729" max="32767" attributes="0"/>
+                      <Component id="ContainerConten" pref="842" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1166,7 +1166,7 @@
                                   <Component id="jButtonUpdateSuplier" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jButton12" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="67" max="32767" attributes="0"/>
+                                  <EmptySpace pref="55" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1429,7 +1429,7 @@
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jTextField2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="169" max="32767" attributes="0"/>
+                                  <EmptySpace pref="165" max="32767" attributes="0"/>
                                   <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
@@ -1652,7 +1652,7 @@
                                       <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="tenggatDiskon_text" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="71" max="32767" attributes="0"/>
+                                      <EmptySpace pref="59" max="32767" attributes="0"/>
                                       <Component id="jButton8" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton9" min="-2" max="-2" attributes="0"/>
@@ -2213,9 +2213,9 @@
                                       <Component id="jMonthChooser1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jYearChooser1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                       <Component id="checkboxFilter" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
                                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -2249,7 +2249,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="886" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" pref="494" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" pref="484" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -2293,11 +2293,11 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jYearChooser1" min="-2" pref="24" max="-2" attributes="0"/>
                                   <Component id="jMonthChooser1" min="-2" pref="24" max="-2" attributes="0"/>
-                                  <Component id="checkboxFilter" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkboxFilter" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -2345,7 +2345,7 @@
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
+                          <EmptySpace pref="26" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2465,7 +2465,7 @@
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
+                          <EmptySpace pref="31" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2492,15 +2492,6 @@
             <Component class="com.toedter.calendar.JMonthChooser" name="jMonthChooser1">
             </Component>
             <Component class="com.toedter.calendar.JYearChooser" name="jYearChooser1">
-            </Component>
-            <Component class="java.awt.Checkbox" name="checkboxFilter">
-              <Properties>
-                <Property name="label" type="java.lang.String" value="use filter"/>
-              </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkboxFilterMouseClicked"/>
-                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="checkboxFilterPropertyChange"/>
-              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane5">
 
@@ -2571,6 +2562,15 @@
                 <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JCheckBox" name="checkboxFilter">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="use filter"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkboxFilterMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxFilterActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="Users">
@@ -2618,7 +2618,7 @@
                           <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="659" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="769" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -2755,7 +2755,7 @@
                               <Component id="jScrollPane3" pref="803" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="131" max="32767" attributes="0"/>
+                      <EmptySpace pref="139" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
