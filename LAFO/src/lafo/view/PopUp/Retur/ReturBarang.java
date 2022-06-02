@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.proses.DataBase.Koneksi;
 import lafo.proses.Utility;
+import lafo.view.MainJframe;
+import org.codehaus.groovy.runtime.DefaultGroovyMethods;
 
 /**
  *
@@ -84,7 +86,7 @@ public class ReturBarang extends javax.swing.JFrame {
     public String generateKoderetur(){
         boolean isDuplicate = true;
         String kode;
-        String nol;
+        String nol = "";
         int urutan = rn.nextInt() % 10000;
         Math.abs(urutan);
         if (urutan<10000) {
@@ -97,7 +99,7 @@ public class ReturBarang extends javax.swing.JFrame {
             nol = "000";
         }
         String tgl = Utility.GetTanggal();
-        kode = "RT"+tgl +urutan;
+        kode = "RT"+tgl +nol+urutan;
         
         while(isDuplicate){
             String sql = "SELECT * FROM `retur` WHERE retur.kode_Retur = '"+kode+"'";
@@ -106,15 +108,32 @@ public class ReturBarang extends javax.swing.JFrame {
             try {
                 if (!(rs.next())) {
                     isDuplicate = false;
-                }
+                }else{
                 urutan = rn.nextInt() % 10000;
                 Math.abs(urutan);
+                if (urutan<10000) {
+                    nol = "";
+                }else if(urutan<1000){
+                    nol = "0";
+                }else if (urutan<100) {
+                    nol = "00";
+                }else if(urutan<10){
+                    nol = "000";
+                }
                 kode = "RT"+tgl +urutan;
+                    
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(ReturBarang.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return kode;
+    }
+    
+    public void refreshTabelBarang(){
+        String sql = "SELECT * FROM `barang` WHERE barang.Nama_barang LIKE '%"+""+"%'";
+        String[] header = {"kode barang", "nama barang", "satuan","stok"};
+        DbOp.tabel(sql, header, MainJframe.jTableBarang);
     }
     
     /**
@@ -145,7 +164,7 @@ public class ReturBarang extends javax.swing.JFrame {
         jLabelStok = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanelMenyuplai.setBackground(new java.awt.Color(255, 255, 255));
         jPanelMenyuplai.setPreferredSize(new java.awt.Dimension(992, 636));
@@ -277,7 +296,7 @@ public class ReturBarang extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(220, 220, 220)
                                 .addComponent(jLabel7)
-                                .addGap(0, 24, Short.MAX_VALUE))
+                                .addGap(0, 30, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(77, 77, 77)
                                 .addComponent(jLabelStok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
@@ -295,7 +314,7 @@ public class ReturBarang extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 21, Short.MAX_VALUE))
+                        .addGap(0, 26, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -326,7 +345,7 @@ public class ReturBarang extends javax.swing.JFrame {
         jPanelMenyuplaiLayout.setHorizontalGroup(
             jPanelMenyuplaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenyuplaiLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(10, Short.MAX_VALUE)
                 .addGroup(jPanelMenyuplaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -388,13 +407,31 @@ public class ReturBarang extends javax.swing.JFrame {
         String qty = jTextJumlah.getText();
         String kodeBarang = jTextFieldKdBarang.getText();
         
+        float stok = Float.valueOf(jLabelStok.getText());
+        float jumlah = Float.valueOf(qty);
+        
+        
+        
         if ((!(qty.equalsIgnoreCase(""))&&(!(kodeBarang.equalsIgnoreCase(""))))) {
-            try {
+            if (DefaultGroovyMethods.isFloat(qty)) {
+                if (stok>jumlah) {
+                    
+                    try {
                 
-                submitRetur(kodeRetur, qty, kodeBarang);
-                JOptionPane.showMessageDialog(null, "berhasil meretur");
-            } catch (Exception e) {
-                System.out.println(e);
+                        submitRetur(kodeRetur, qty, kodeBarang);
+                        JOptionPane.showMessageDialog(null, "berhasil meretur");
+                        refreshTabelBarang();
+                        this.setVisible(false);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "jumlah melebihi stok");
+                    
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "field jumlah harus berupa angka");
+                
             }
                 
      }   
