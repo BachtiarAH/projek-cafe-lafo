@@ -2916,6 +2916,8 @@ public class MainJframe extends javax.swing.JFrame {
      
         }
         
+        
+        
     //</editor-fold>
         
     // jFrame Event <editor-fold defaultstate="collapsed" desc="Jframe Event">
@@ -3019,9 +3021,36 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
            // TODO add your handling code here:
+           int bulan = jMonthChooser1.getMonth() + 1;
+           int tahun = jYearChooser1.getYear();
+           String Nolbulan = "";
+           String filter ;
+           
+           if (bulan<10) {
+                Nolbulan = "0";
+           }else {
+               Nolbulan = "";
+           }
+           filter = tahun +"-"+Nolbulan+bulan;
+           
+           
            if (checkboxFilter.isSelected()) {
-            
-        }
+               if (modeLaporan.equalsIgnoreCase("transaksi")) {
+                   CetakLaporanTransaksi(filter);
+               }
+               
+               if(modeLaporan.equalsIgnoreCase("suplai")){
+                   CetakLaporanSuplai(filter);
+               }
+           }else{
+               if (modeLaporan.equalsIgnoreCase("transaksi")) {
+                   CetakLaporanTransaksi("");
+               }
+               
+               if(modeLaporan.equalsIgnoreCase("suplai")){
+                   CetakLaporanSuplai("");
+               }
+           }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextFieldBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBayarActionPerformed
@@ -3358,6 +3387,19 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void checkboxFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxFilterActionPerformed
         // TODO add your handling code here:
+        int bulan = jMonthChooser1.getMonth() + 1;
+           int tahun = jYearChooser1.getYear();
+           String Nolbulan = "";
+           String filter ;
+           
+           if (bulan<10) {
+                Nolbulan = "0";
+           }else {
+               Nolbulan = "";
+           }
+           filter = tahun +"-"+Nolbulan+bulan;
+           
+        
         if (checkboxFilter.isSelected()) {
             if (modeLaporan.equalsIgnoreCase("transaksi")) {
                 tampilLaporanTransaksiWithFilter();
@@ -3366,8 +3408,15 @@ public class MainJframe extends javax.swing.JFrame {
             if(modeLaporan.equalsIgnoreCase("suplai")) {
                 tampilLaporanSuplaiWithFilter();
             }
+            
+            DisplayPemasukan(filter);
+            DisplayPengeluaran(filter);
+            DisplayKeuntungan();
         }else{
             tampilLaporan();
+            DisplayPemasukan("");
+            DisplayPengeluaran("");
+            DisplayKeuntungan();
         }
     }//GEN-LAST:event_checkboxFilterActionPerformed
 
