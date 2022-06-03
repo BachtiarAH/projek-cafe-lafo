@@ -141,13 +141,13 @@ public class inputBarang extends javax.swing.JFrame {
         Object[] c = new Object[]{namaMenu,kodeMenu,QytMenu,harga,potongan,SubTotal};
         MainJframe.tbModTrans.addRow(c);
         
-        if (fungsitTransaksi.tbmodel.getRowCount()>=0) {
+        if (fungsitTransaksi.tbmodel.getRowCount()>0) {
             
-        for (int i = 0; i < MainJframe.tbModTrans.getRowCount(); i++) {
-            if (fungsitTransaksi.tbmodel.getValueAt(i, 1).toString().equalsIgnoreCase(mntp.getNama())) {
-                qtyNow = Integer.valueOf(fungsitTransaksi.tbmodel.getValueAt(i, 2).toString());
+        for (int i = MainJframe.tbModTrans.getRowCount(); i >0 ; i--) {
+            if (fungsitTransaksi.tbmodel.getValueAt(i-1, 1).toString().equalsIgnoreCase(mntp.getNama())) {
+                qtyNow = Integer.valueOf(fungsitTransaksi.tbmodel.getValueAt(i-1, 2).toString());
                 Tambahan = qtyNow + mntp.getJumlah();
-                fungsitTransaksi.tbmodel.setValueAt(Tambahan, i, 2);
+                fungsitTransaksi.tbmodel.setValueAt(Tambahan, i-1, 2);
                 sama = true;
                 break;
             }
