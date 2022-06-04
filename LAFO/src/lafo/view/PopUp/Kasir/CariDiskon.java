@@ -58,6 +58,13 @@ public class CariDiskon extends javax.swing.JFrame {
         dbop.tabel(sql, field, jTableDiskon);
     }
     
+    public void cariDiskon(String filter){
+        String sql = "SELECT `kode_diskon`, `nama`, `jumlah_diskon`, `tenggat_diskon` FROM `diskon` WHERE nama LIKE '%"+filter+"%'";
+        String[] field = {"kode diskon","nama diskon","jumlah diskon","tenggat diskon" };
+        
+        dbop.tabel(sql, field, jTableDiskon);
+    }
+    
 //    inputBarang InputBarang = new inputBarang();
     public void klikTabelBarang(){
 

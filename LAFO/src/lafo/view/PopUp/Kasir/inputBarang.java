@@ -6,6 +6,7 @@
 package lafo.view.PopUp.Kasir;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import lafo.entity.diskon;
@@ -137,17 +138,29 @@ public class inputBarang extends javax.swing.JFrame {
         boolean sama = false;
         int qtyNow = 0;
         int Tambahan = 0;
+        int jumlahTr = MainJframe.jTableTransaksi.getRowCount();
+        String kodeMenuCek;
         
         Object[] c = new Object[]{namaMenu,kodeMenu,QytMenu,harga,potongan,SubTotal};
-        MainJframe.tbModTrans.addRow(c);
         
-        if (fungsitTransaksi.tbmodel.getRowCount()>0) {
+        
+        if (jumlahTr >0) {
             
-        for (int i = MainJframe.tbModTrans.getRowCount(); i >0 ; i--) {
-            if (fungsitTransaksi.tbmodel.getValueAt(i-1, 1).toString().equalsIgnoreCase(mntp.getNama())) {
-                qtyNow = Integer.valueOf(fungsitTransaksi.tbmodel.getValueAt(i-1, 2).toString());
+        for (int i = 0; i < jumlahTr ; i++) {
+                kodeMenuCek = MainJframe.jTableTransaksi.getValueAt(i, 1).toString();
+                System.out.println("kode di tr : "+ kodeMenuCek);
+            if (kodeMenuCek.equalsIgnoreCase(mntp.getKode())) {
+                
+                System.out.println(kodeMenuCek+"="+mntp.getKode());
+                qtyNow = Integer.valueOf(MainJframe.jTableTransaksi.getValueAt(i, 2).toString());
                 Tambahan = qtyNow + mntp.getJumlah();
-                fungsitTransaksi.tbmodel.setValueAt(Tambahan, i-1, 2);
+                SubTotal = mntp.getHarga() * Tambahan;
+                
+                
+                MainJframe.jTableTransaksi.setValueAt(Tambahan, i, 2);
+                MainJframe.jTableTransaksi.setValueAt(SubTotal, i, 5);
+//                MainJframe.jTableTransaksi.removeRowSelectionInterval(i, i+1);
+                System.out.println("ganti lama");
                 sama = true;
                 break;
             }
@@ -157,8 +170,9 @@ public class inputBarang extends javax.swing.JFrame {
         }
         
         if (!sama) {
-            
-        tabelTr.setModel(MainJframe.tbModTrans);
+            System.out.println("tambah baru");
+            MainJframe.tbModTrans.addRow(c);
+//        tabelTr.setModel(MainJframe.tbModTrans);
         }
         this.setVisible(false);
         
@@ -208,7 +222,18 @@ public class inputBarang extends javax.swing.JFrame {
                 jTextFieldQtyInputMethodTextChanged(evt);
             }
         });
+        jTextFieldQty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldQtyActionPerformed(evt);
+            }
+        });
         jTextFieldQty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldQtyKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldQtyKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldQtyKeyReleased(evt);
             }
@@ -387,9 +412,34 @@ public class inputBarang extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        SubmitMenu();
-        clear();
+        if (jTextFieldQty.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "jumlah tidak boleh kosong");
+        }else{
+            SubmitMenu();
+            clear();
+            
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextFieldQtyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQtyKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextFieldQtyKeyPressed
+
+    private void jTextFieldQtyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQtyKeyTyped
+        char c = evt.getKeyChar();
+        
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }else{
+            
+        }
+    }//GEN-LAST:event_jTextFieldQtyKeyTyped
+
+    private void jTextFieldQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldQtyActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextFieldQtyActionPerformed
 
 
     /**

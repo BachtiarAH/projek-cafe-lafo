@@ -114,7 +114,7 @@ public class Kasir_enter extends javax.swing.JFrame {
 
     private void searchfiieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchfiieldKeyReleased
         // TODO add your handling code here:
-        cariDataBarang();
+        cariDataBarang(searchfiield.getText());
     }//GEN-LAST:event_searchfiieldKeyReleased
 
     Koneksi koneksiDBLafo = new Koneksi();
@@ -135,8 +135,8 @@ public class Kasir_enter extends javax.swing.JFrame {
         
     }
     
-    public void cariDataBarang(){
-        String sql = "SELECT * FROM `menu`";
+    public void cariDataBarang(String filter){
+        String sql = "SELECT * FROM `menu`  WHERE menu.Nama_Menu LIKE '%"+filter+"%'";
         String[] header = {"kode Barang","nama Barang","stok","satuan"};
         DBLafoOp.tabel(sql, header, jTable1);
 //        System.out.println(sql);
