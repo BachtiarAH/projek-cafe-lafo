@@ -74,7 +74,7 @@ public class MainJframe extends javax.swing.JFrame {
     public MainJframe() {
         initComponents();
         this.DisplayTabelBarang();
-        this.DisplayTabelSuplier();
+        this.DisplayTabelSuplier("");
         this.displayTabelDiskon();
         this.DisplaytabelUser();
         this.displayTabelDiskon();
@@ -139,10 +139,7 @@ public class MainJframe extends javax.swing.JFrame {
         labeliconTotalMenu = new javax.swing.JLabel();
         ContainerConten = new javax.swing.JPanel();
         DataSuplier = new javax.swing.JPanel();
-        labelShow1 = new javax.swing.JLabel();
-        fieldPencarian1 = new javax.swing.JTextField();
-        ComboBoxShowEntries1 = new javax.swing.JComboBox<>();
-        LabelEntryes1 = new javax.swing.JLabel();
+        fieldPencarianSuplier = new javax.swing.JTextField();
         ContainerTabelSuplai = new javax.swing.JScrollPane();
         jTableSuplier = new javax.swing.JTable();
         containerFormSuplaier = new javax.swing.JPanel();
@@ -157,6 +154,7 @@ public class MainJframe extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jButtonUpdateSuplier = new javax.swing.JButton();
         jButtonTambahSuplier = new javax.swing.JButton();
+        jButtonkodeSuplaiGenerator = new javax.swing.JButton();
         DataKategori = new javax.swing.JPanel();
         fieldPencarianKategori = new javax.swing.JTextField();
         jScrollPanelKategori = new javax.swing.JScrollPane();
@@ -817,31 +815,21 @@ public class MainJframe extends javax.swing.JFrame {
         ContainerConten.setPreferredSize(new java.awt.Dimension(1420, 731));
         ContainerConten.setLayout(new java.awt.CardLayout());
 
-        labelShow1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        labelShow1.setText("Show");
-
-        fieldPencarian1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        fieldPencarian1.setText("Cari Suplier");
-        fieldPencarian1.setPreferredSize(new java.awt.Dimension(485, 51));
-        fieldPencarian1.addActionListener(new java.awt.event.ActionListener() {
+        fieldPencarianSuplier.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        fieldPencarianSuplier.setPreferredSize(new java.awt.Dimension(485, 51));
+        fieldPencarianSuplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldPencarian1ActionPerformed(evt);
+                fieldPencarianSuplierActionPerformed(evt);
             }
         });
-
-        ComboBoxShowEntries1.setEditable(true);
-        ComboBoxShowEntries1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        ComboBoxShowEntries1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "5", "10", "15", "20" }));
-        ComboBoxShowEntries1.setBorder(null);
-        ComboBoxShowEntries1.setPreferredSize(new java.awt.Dimension(76, 50));
-        ComboBoxShowEntries1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBoxShowEntries1ActionPerformed(evt);
+        fieldPencarianSuplier.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fieldPencarianSuplierKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldPencarianSuplierKeyReleased(evt);
             }
         });
-
-        LabelEntryes1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        LabelEntryes1.setText("Entries");
 
         ContainerTabelSuplai.setPreferredSize(new java.awt.Dimension(841, 624));
 
@@ -868,8 +856,6 @@ public class MainJframe extends javax.swing.JFrame {
         labelTxtFldKdSupp.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         labelTxtFldKdSupp.setText("Kode Suplier");
 
-        jTextFieldKodeSuplier.setEditable(false);
-        jTextFieldKodeSuplier.setBackground(new java.awt.Color(153, 153, 153));
         jTextFieldKodeSuplier.setPreferredSize(new java.awt.Dimension(360, 46));
         jTextFieldKodeSuplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -936,6 +922,13 @@ public class MainJframe extends javax.swing.JFrame {
             }
         });
 
+        jButtonkodeSuplaiGenerator.setText("generate kode");
+        jButtonkodeSuplaiGenerator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonkodeSuplaiGeneratorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout containerFormSuplaierLayout = new javax.swing.GroupLayout(containerFormSuplaier);
         containerFormSuplaier.setLayout(containerFormSuplaierLayout);
         containerFormSuplaierLayout.setHorizontalGroup(
@@ -946,7 +939,10 @@ public class MainJframe extends javax.swing.JFrame {
                     .addGroup(containerFormSuplaierLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelTxtFldKdSupp)
+                            .addGroup(containerFormSuplaierLayout.createSequentialGroup()
+                                .addComponent(labelTxtFldKdSupp)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonkodeSuplaiGenerator))
                             .addComponent(labelTxtFldKdSupp1)
                             .addComponent(labelTxtFldKdSupp2)
                             .addComponent(labelTxtFldKdSupp3)
@@ -964,7 +960,9 @@ public class MainJframe extends javax.swing.JFrame {
             containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(containerFormSuplaierLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelTxtFldKdSupp)
+                .addGroup(containerFormSuplaierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTxtFldKdSupp)
+                    .addComponent(jButtonkodeSuplaiGenerator))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldKodeSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -985,7 +983,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jButtonUpdateSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DataSuplierLayout = new javax.swing.GroupLayout(DataSuplier);
@@ -996,16 +994,10 @@ public class MainJframe extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(DataSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataSuplierLayout.createSequentialGroup()
-                        .addComponent(fieldPencarian1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(labelShow1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboBoxShowEntries1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LabelEntryes1)
+                        .addComponent(fieldPencarianSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(DataSuplierLayout.createSequentialGroup()
-                        .addComponent(ContainerTabelSuplai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ContainerTabelSuplai, javax.swing.GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(containerFormSuplaier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1014,16 +1006,12 @@ public class MainJframe extends javax.swing.JFrame {
             DataSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DataSuplierLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(DataSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldPencarian1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelShow1)
-                    .addComponent(ComboBoxShowEntries1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelEntryes1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(fieldPencarianSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(DataSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ContainerTabelSuplai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(containerFormSuplaier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         ContainerConten.add(DataSuplier, "card3");
@@ -1796,11 +1784,11 @@ public class MainJframe extends javax.swing.JFrame {
                             .addComponent(jLabelPengeluaran, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelKeuntungan, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(154, 154, 154))))
-            .addGroup(LaporanLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LaporanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         LaporanLayout.setVerticalGroup(
@@ -2601,10 +2589,10 @@ public class MainJframe extends javax.swing.JFrame {
     
     
     //menampilkan data suplier ke tabel
-    private void DisplayTabelSuplier(){
+    private void DisplayTabelSuplier(String filter){
         
        
-        String sql = "SELECT `kode_suplaier`,`nama_suplier`, `No_Telp`, `Alamat` FROM `suplier` WHERE 1;";
+        String sql = "SELECT `kode_suplaier`,`nama_suplier`, `No_Telp`, `Alamat` FROM `suplier` WHERE suplier.nama_suplier LIKE '%"+filter+"%';;";
         String[] header = {"Kode Suplier", "Nama", "No telpon", "Alamat"};
         OperatorDbLafo.tabel(sql, header, jTableSuplier);
     }
@@ -2978,7 +2966,7 @@ public class MainJframe extends javax.swing.JFrame {
     private void cardTotalSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cardTotalSuplierMouseClicked
         // TODO add your handling code here:
         Utility.setSideBar(ContainerConten, DataSuplier);
-        DisplayTabelSuplier();
+        DisplayTabelSuplier("");
     }//GEN-LAST:event_cardTotalSuplierMouseClicked
 
     private void cardTotalKategoriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cardTotalKategoriMouseClicked
@@ -3035,10 +3023,6 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         ReturBarang.setVisible(true);
     }//GEN-LAST:event_ButtonReturActionPerformed
-
-    private void ComboBoxShowEntries1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxShowEntries1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxShowEntries1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
            // TODO add your handling code here:
@@ -3124,9 +3108,9 @@ public class MainJframe extends javax.swing.JFrame {
         Utility.setSideBar(ContainerConten, DataMenu);
     }//GEN-LAST:event_cardTotalMenuMouseClicked
 
-    private void fieldPencarian1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPencarian1ActionPerformed
+    private void fieldPencarianSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPencarianSuplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fieldPencarian1ActionPerformed
+    }//GEN-LAST:event_fieldPencarianSuplierActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -3165,8 +3149,8 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jTextFieldNamaSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNamaSuplierActionPerformed
         // TODO add your handling code here:
-        setKodeSuplier();
-        DisplayTabelSuplier();
+        
+        DisplayTabelSuplier("");
     }//GEN-LAST:event_jTextFieldNamaSuplierActionPerformed
 
     private void jButtonTambahSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahSuplierActionPerformed
@@ -3174,7 +3158,8 @@ public class MainJframe extends javax.swing.JFrame {
         if ((jTextFieldAlamatSuplier != null )&& (jTextFieldKodeSuplier != null) && (jTextFieldNamaSuplier != null)) {
             
             AddDataSuplier(jTextFieldKodeSuplier.getText(), jTextFieldNomerTelpSuplier.getText(), jTextFieldAlamatSuplier.getText(), jTextFieldNamaSuplier.getText());
-            DisplayTabelSuplier();
+            DisplayTabelSuplier("");
+            ClearFormSuplier();
         }
     }//GEN-LAST:event_jButtonTambahSuplierActionPerformed
 
@@ -3182,12 +3167,13 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.isEdit = false;
         
-        if (jTextFieldKodeSuplier.getText() != null) {
+        if (jTextFieldKodeSuplier.getText().equalsIgnoreCase("")) {
             updateSuplier();
         }else{
             JOptionPane.showMessageDialog(null, "kode barang tidak boleh kosong");
         }
             DisplayTabelBarang();
+            ClearFormSuplier();
     }//GEN-LAST:event_jButtonUpdateSuplierActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -3465,6 +3451,22 @@ public class MainJframe extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldBayarKeyTyped
 
+    private void fieldPencarianSuplierKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldPencarianSuplierKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_fieldPencarianSuplierKeyTyped
+
+    private void fieldPencarianSuplierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldPencarianSuplierKeyReleased
+        // TODO add your handling code here:
+        String filter = fieldPencarianSuplier.getText();
+        DisplayTabelSuplier(filter);
+    }//GEN-LAST:event_fieldPencarianSuplierKeyReleased
+
+    private void jButtonkodeSuplaiGeneratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonkodeSuplaiGeneratorActionPerformed
+        // TODO add your handling code here:
+        setKodeSuplier();
+    }//GEN-LAST:event_jButtonkodeSuplaiGeneratorActionPerformed
+
     
 //</editor-fold>
     /**
@@ -3512,7 +3514,6 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JButton ButtonRetur1;
     private javax.swing.JButton ButtornTambah;
     private javax.swing.JButton ButtornTambah1;
-    private javax.swing.JComboBox<String> ComboBoxShowEntries1;
     private javax.swing.JComboBox<String> ComboBoxShowEntries2;
     private javax.swing.JPanel ContainerConten;
     private javax.swing.JPanel ContainerLogoTotalBarang;
@@ -3537,7 +3538,6 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel LabelAngkaTotalKategori;
     private javax.swing.JLabel LabelAngkaTotalMenu;
     private javax.swing.JLabel LabelAngkaTotalSuplier;
-    private javax.swing.JLabel LabelEntryes1;
     private javax.swing.JLabel LabelEntryes2;
     private javax.swing.JLabel LabelNamaToko;
     private javax.swing.JPanel Laporan;
@@ -3555,10 +3555,10 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JScrollPane containerTabelBarang1;
     private javax.swing.JTable diskon_tabel;
     private javax.swing.JTextField fieldPencarian;
-    private javax.swing.JTextField fieldPencarian1;
     private javax.swing.JTextField fieldPencarian2;
     private javax.swing.JTextField fieldPencarianKategori;
     private javax.swing.JTextField fieldPencarianKategori1;
+    private javax.swing.JTextField fieldPencarianSuplier;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
@@ -3574,6 +3574,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSubmit;
     private javax.swing.JButton jButtonTambahSuplier;
     private javax.swing.JButton jButtonUpdateSuplier;
+    private javax.swing.JButton jButtonkodeSuplaiGenerator;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -3660,7 +3661,6 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JTextField jumlahDiskon_text;
     private javax.swing.JTextField kodeDiskon_text;
     private javax.swing.JLabel labelJam;
-    private javax.swing.JLabel labelShow1;
     private javax.swing.JLabel labelShow2;
     private javax.swing.JLabel labelTxtFldKdSupp;
     private javax.swing.JLabel labelTxtFldKdSupp1;
