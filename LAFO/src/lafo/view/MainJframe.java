@@ -2613,8 +2613,10 @@ public class MainJframe extends javax.swing.JFrame {
     
     //mengset kode suplier
     public void setKodeSuplier(){
+        String newKodeDiskon;
+        newKodeDiskon = "SUP" + Utility.GetTanggal();
          try {
-            String sql = "SELECT `kode_suplaier` FROM `suplier` WHERE 1 ORDER BY kode_suplaier DESC";
+            String sql = "SELECT `kode_suplaier` FROM `suplier` WHERE kode_suplaier LIKE '"+newKodeDiskon+"%' ORDER BY kode_suplaier DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
             if(result.next()) {
@@ -2628,7 +2630,7 @@ public class MainJframe extends javax.swing.JFrame {
                     nol = "";
                 }
                 
-                String newKodeDiskon = "SUP" + Utility.GetTanggal() + nol + angka;
+                newKodeDiskon = "SUP" + Utility.GetTanggal() + nol + angka;
                 jTextFieldKodeSuplier.setText(newKodeDiskon);
             }
          } catch (Exception e) {
@@ -3174,6 +3176,7 @@ public class MainJframe extends javax.swing.JFrame {
             updateSuplier();
             ClearFormSuplier();
             jButtonUpdateSuplier.setVisible(false);
+            jButtonkodeSuplaiGenerator.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(null, "form tidak boleh kosong");
         }
@@ -3203,6 +3206,7 @@ public class MainJframe extends javax.swing.JFrame {
         ClearFormSuplier();
         jButtonTambahSuplier.setVisible(true);
         jButtonUpdateSuplier.setVisible(false);
+        jButtonkodeSuplaiGenerator.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jTableSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSuplierMouseClicked
@@ -3210,6 +3214,7 @@ public class MainJframe extends javax.swing.JFrame {
         klikTabelSuplier();
         jButtonTambahSuplier.setVisible(false);
         jButtonUpdateSuplier.setVisible(true);
+        jButtonkodeSuplaiGenerator.setVisible(false);
         
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
