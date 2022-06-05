@@ -85,6 +85,7 @@ public class MainJframe extends javax.swing.JFrame {
         this.DisplayPemasukan("");
         this.DisplayPengeluaran("");
         this.DisplayKeuntungan();
+        this.jButtonUpdateSuplier.setVisible(false);
 //        this.setVisible(true);
 //        tabelBarang();
     }
@@ -910,7 +911,7 @@ public class MainJframe extends javax.swing.JFrame {
             }
         });
 
-        jButtonTambahSuplier.setBackground(new java.awt.Color(42, 48, 48));
+        jButtonTambahSuplier.setBackground(new java.awt.Color(241, 102, 52));
         jButtonTambahSuplier.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jButtonTambahSuplier.setForeground(new java.awt.Color(255, 255, 255));
         jButtonTambahSuplier.setText("Tambah");
@@ -3155,11 +3156,13 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jButtonTambahSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahSuplierActionPerformed
         // TODO add your handling code here:
-        if ((jTextFieldAlamatSuplier != null )&& (jTextFieldKodeSuplier != null) && (jTextFieldNamaSuplier != null)) {
+        if ((!jTextFieldAlamatSuplier.getText().isEmpty())&& (!jTextFieldKodeSuplier.getText().isEmpty()) && (!jTextFieldNamaSuplier.getText().isEmpty())) {
             
             AddDataSuplier(jTextFieldKodeSuplier.getText(), jTextFieldNomerTelpSuplier.getText(), jTextFieldAlamatSuplier.getText(), jTextFieldNamaSuplier.getText());
             DisplayTabelSuplier("");
             ClearFormSuplier();
+        }else{
+            JOptionPane.showMessageDialog(null, "form tidak boleh ada yang kosong");
         }
     }//GEN-LAST:event_jButtonTambahSuplierActionPerformed
 
@@ -3167,13 +3170,14 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.isEdit = false;
         
-        if (jTextFieldKodeSuplier.getText().equalsIgnoreCase("")) {
+        if ((!jTextFieldAlamatSuplier.getText().isEmpty())&& (!jTextFieldKodeSuplier.getText().isEmpty()) && (!jTextFieldNamaSuplier.getText().isEmpty())) {
             updateSuplier();
+            ClearFormSuplier();
+            jButtonUpdateSuplier.setVisible(false);
         }else{
-            JOptionPane.showMessageDialog(null, "kode barang tidak boleh kosong");
+            JOptionPane.showMessageDialog(null, "form tidak boleh kosong");
         }
             DisplayTabelBarang();
-            ClearFormSuplier();
     }//GEN-LAST:event_jButtonUpdateSuplierActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -3198,12 +3202,14 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         ClearFormSuplier();
         jButtonTambahSuplier.setVisible(true);
+        jButtonUpdateSuplier.setVisible(false);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jTableSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSuplierMouseClicked
         // TODO add your handling code here:
         klikTabelSuplier();
         jButtonTambahSuplier.setVisible(false);
+        jButtonUpdateSuplier.setVisible(true);
         
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
