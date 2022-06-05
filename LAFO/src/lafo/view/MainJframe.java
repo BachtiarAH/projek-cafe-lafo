@@ -198,7 +198,6 @@ public class MainJframe extends javax.swing.JFrame {
         fieldPencarian = new javax.swing.JTextField();
         ButtornTambah = new javax.swing.JButton();
         ButtonRetur = new javax.swing.JButton();
-        ButtonRetur1 = new javax.swing.JButton();
         containerTabelBarang = new javax.swing.JScrollPane();
         jTableBarang = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
@@ -857,6 +856,8 @@ public class MainJframe extends javax.swing.JFrame {
         labelTxtFldKdSupp.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         labelTxtFldKdSupp.setText("Kode Suplier");
 
+        jTextFieldKodeSuplier.setEditable(false);
+        jTextFieldKodeSuplier.setBackground(new java.awt.Color(204, 204, 204));
         jTextFieldKodeSuplier.setPreferredSize(new java.awt.Dimension(360, 46));
         jTextFieldKodeSuplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1490,16 +1491,6 @@ public class MainJframe extends javax.swing.JFrame {
             }
         });
 
-        ButtonRetur1.setBackground(new java.awt.Color(159, 162, 171));
-        ButtonRetur1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        ButtonRetur1.setText("Export");
-        ButtonRetur1.setPreferredSize(new java.awt.Dimension(105, 49));
-        ButtonRetur1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonRetur1ActionPerformed(evt);
-            }
-        });
-
         containerTabelBarang.setPreferredSize(new java.awt.Dimension(1375, 606));
 
         jTableBarang.setModel(new javax.swing.table.DefaultTableModel(
@@ -1543,9 +1534,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(229, 229, 229))
+                .addGap(361, 361, 361))
             .addGroup(DataBarangLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(containerTabelBarang, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
@@ -1559,7 +1548,6 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(fieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtornTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonRetur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonRetur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(containerTabelBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3017,10 +3005,6 @@ public class MainJframe extends javax.swing.JFrame {
         Utility.setSideBar(ContainerConten, DataSuplier);
     }//GEN-LAST:event_labeliconTotalKategoriMouseClicked
 
-    private void ButtonRetur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRetur1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonRetur1ActionPerformed
-
     ReturBarang ReturBarang = new ReturBarang();
     private void ButtonReturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonReturActionPerformed
         // TODO add your handling code here:
@@ -3522,7 +3506,6 @@ public class MainJframe extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonRetur;
-    private javax.swing.JButton ButtonRetur1;
     private javax.swing.JButton ButtornTambah;
     private javax.swing.JButton ButtornTambah1;
     private javax.swing.JComboBox<String> ComboBoxShowEntries2;

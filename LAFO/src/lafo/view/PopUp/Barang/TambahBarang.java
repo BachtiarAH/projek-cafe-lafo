@@ -118,9 +118,9 @@ public class TambahBarang extends javax.swing.JFrame {
         tempBarang.setSatuan(jComboBoxSatuan.getEditor().getItem().toString());
         
         String sql = "INSERT INTO `barang` "
-                + "(`kode_Barang`, `Nama_barang`, `satuan`) "
+                + "(`kode_Barang`, `Nama_barang`, `satuan`,`stok`) "
                 + "VALUES "
-                + "('"+tempBarang.getKode()+"', '"+tempBarang.getNama()+"', '"+tempBarang.getSatuan()+"')";
+                + "('"+tempBarang.getKode()+"', '"+tempBarang.getNama()+"', '"+tempBarang.getSatuan()+"',0)";
         
         DbOp.DatabaseExecutor(sql, true);
         String massageSucc = "Berhasil Menambahkan "+tempBarang.getNama();
@@ -171,6 +171,8 @@ public class TambahBarang extends javax.swing.JFrame {
 //        jTextFieldKodeBarang.setText(MainJframe.jTableBarang.getValueAt(jTableBarang.getSelectedRow(), 0).toString());
 //        jTextFieldNamaBarang.setText(MainJframe.jTableBarang.getValueAt(jTableBarang.getSelectedRow(), 1).toString());
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.

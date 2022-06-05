@@ -79,7 +79,7 @@ public class Utility extends javax.swing.JFrame{
     }
     
     public static void main(String[] args) {
-        System.out.println("DTR"+GetTanggal());
+        System.out.println("DTR"+GetTanggalFormatDb());
     }
    
 }
