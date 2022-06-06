@@ -8,6 +8,7 @@ package lafo.view.PopUp;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import javax.swing.JOptionPane;
 import lafo.proses.FileDBConfigHandler;
 import lafo.proses.Utility;
 
@@ -23,6 +24,8 @@ public class configDb extends javax.swing.JFrame {
      */
     public configDb() {
         initComponents();
+        this.isiTextField();
+        this.setLocationRelativeTo(null);
     }
 
    
@@ -49,7 +52,6 @@ public class configDb extends javax.swing.JFrame {
         jLabelDataBaseName = new javax.swing.JLabel();
         jTextFieldDatabaseName = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -95,13 +97,6 @@ public class configDb extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelConfigDbLayout = new javax.swing.GroupLayout(jPanelConfigDb);
         jPanelConfigDb.setLayout(jPanelConfigDbLayout);
         jPanelConfigDbLayout.setHorizontalGroup(
@@ -124,10 +119,6 @@ public class configDb extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addComponent(jLabelJudul)))
                 .addContainerGap(52, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConfigDbLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18))
         );
         jPanelConfigDbLayout.setVerticalGroup(
             jPanelConfigDbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,10 +141,9 @@ public class configDb extends javax.swing.JFrame {
                 .addComponent(jLabelDataBaseName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldDatabaseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2))
+                .addGap(43, 43, 43))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,15 +186,10 @@ public class configDb extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         dbConfig.tulisConfigurasi(jTextFieldIp.getText(), jTextFieldUser.getText(), jTextFieldPass.getText(), jTextFieldDatabaseName.getText());
-        
+        this.setVisible(false);
+        JOptionPane.showMessageDialog(null, "perlu restart aplikasi");
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        System.out.println(dbConfig.getUrl());
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     void isiTextField(){
         jTextFieldIp.setText(dbConfig.getIpServer());
@@ -246,7 +231,7 @@ public class configDb extends javax.swing.JFrame {
                 
                 configDb JFRAME = new configDb();
                 JFRAME.setVisible(true);
-                JFRAME.isiTextField();
+//                JFRAME.isiTextField();
 //                FileDBConfigHandler configDB = new FileDBConfigHandler("FileConfigure.txt");
 //                String ip = configDB.getIpServer();
 //                jTextFieldIp.setText(ip);
@@ -258,7 +243,6 @@ public class configDb extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel UserName;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabelDataBaseName;
     private javax.swing.JLabel jLabelIp;
     private javax.swing.JLabel jLabelJudul;
