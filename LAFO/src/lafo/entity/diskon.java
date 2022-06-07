@@ -5,6 +5,8 @@
  */
 package lafo.entity;
 
+import java.util.Date;
+
 /**
  *
  * @author RSI-08
