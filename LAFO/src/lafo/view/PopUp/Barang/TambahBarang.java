@@ -167,7 +167,7 @@ public class TambahBarang extends javax.swing.JFrame {
     public void setJform(JTable tabel){
         jTextFieldKodeBarang.setText(tabel.getValueAt(jTableBarang.getSelectedRow(), 0).toString());
         jTextFieldNamaBarang.setText(tabel.getValueAt(jTableBarang.getSelectedRow(), 1).toString());
-            jComboBoxSatuan.getEditor().setItem(tabel.getValueAt(tabel.getSelectedRow(), 3));
+            jComboBoxSatuan.getEditor().setItem(tabel.getValueAt(tabel.getSelectedRow(), 2));
 //        jTextFieldKodeBarang.setText(MainJframe.jTableBarang.getValueAt(jTableBarang.getSelectedRow(), 0).toString());
 //        jTextFieldNamaBarang.setText(MainJframe.jTableBarang.getValueAt(jTableBarang.getSelectedRow(), 1).toString());
     }
