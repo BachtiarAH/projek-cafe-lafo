@@ -7,6 +7,15 @@
             <file>file:/D:/KULIAH/Semester%202/tugas%20akhir/Lavo%20mahmud/LAFO/src/lafo/view/MainJframe.java</file>
             <file>file:/D:/KULIAH/Semester%202/tugas%20akhir/Lavo%20mahmud/LAFO/src/lafo/proses/DataBase/DataBaseDisplayer.java</file>
         </group>
+<<<<<<< Updated upstream
         <group/>
+=======
+        <group>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/Barang/PopUpTambahBarang.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/MainJframe.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/PopUpMenu/PopUpTambahMenu.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/proses/DataBase/Koneksi.java</file>
+        </group>
+>>>>>>> Stashed changes
     </open-files>
 </project-private>

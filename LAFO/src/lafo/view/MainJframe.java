@@ -20,6 +20,7 @@ import lafo.fungsi.fungsitTransaksi;
 import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
 import lafo.proses.DataBase.DataBaseOperator;
+<<<<<<< Updated upstream
 import lafo.view.PopUp.Barang.TambahBarang;
 import lafo.view.PopUp.Kasir.CariDiskon;
 import lafo.view.PopUp.Kasir.Kasir_enter;
@@ -27,6 +28,11 @@ import lafo.view.PopUp.ManajemenBarang.Retur.Retur;
 import lafo.PopUpMenu.PopUpTambahMenu;
 import lafo.view.PopUp.Menyuplai.Menyuplai;
 import lafo.view.PopUp.pegawai.TambhPegawai;
+=======
+import lafo.view.PopUp.Barang.PopUpTambahBarang;
+import lafo.view.PopUp.Kasir.Kasir_enter;
+import lafo.PopUpMenu.PopUpTambahMenu;
+>>>>>>> Stashed changes
 
 /**
  *
@@ -1538,11 +1544,14 @@ public class MainJframe extends javax.swing.JFrame {
                 ButtornTambah1ActionPerformed(evt);
             }
         });
+<<<<<<< Updated upstream
         ButtornTambah1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtornTambah1MouseClicked(evt);
             }
         });
+=======
+>>>>>>> Stashed changes
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -2174,8 +2183,13 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(panelNavigasiBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< Updated upstream
                     .addComponent(panel_ContenContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 1457, Short.MAX_VALUE)
                     .addComponent(panel_Header, javax.swing.GroupLayout.DEFAULT_SIZE, 1457, Short.MAX_VALUE)))
+=======
+                    .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 1420, Short.MAX_VALUE)
+                    .addComponent(panel_Header, javax.swing.GroupLayout.DEFAULT_SIZE, 1420, Short.MAX_VALUE)))
+>>>>>>> Stashed changes
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2760,6 +2774,7 @@ public class MainJframe extends javax.swing.JFrame {
         tm.setVisible(true);
     }//GEN-LAST:event_ButtornTambah1ActionPerformed
 
+<<<<<<< Updated upstream
 
 
     private void jTextFieldNamaSuplierKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNamaSuplierKeyTyped
@@ -2904,6 +2919,8 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldPencarianKategori1ActionPerformed
 
+=======
+>>>>>>> Stashed changes
     
 
     /**
