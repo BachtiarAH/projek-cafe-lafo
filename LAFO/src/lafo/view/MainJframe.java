@@ -2692,7 +2692,7 @@ public class MainJframe extends javax.swing.JFrame {
          try {
             String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-            
+//             System.out.println(result.getString("kode_diskon"));
             if(result.next()) {
                 System.out.println(result.next());
                 String kodeDiskon = result.getString("kode_diskon").substring(9);
