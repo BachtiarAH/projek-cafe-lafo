@@ -2593,14 +2593,15 @@ public class MainJframe extends javax.swing.JFrame {
     public void setKodeSuplier(){
         String newKodeDiskon;
         newKodeDiskon = "SUP" + Utility.GetTanggal();
+        String nol = "0";
+        String angka = "1";
          try {
             String sql = "SELECT `kode_suplaier` FROM `suplier` WHERE kode_suplaier LIKE '"+newKodeDiskon+"%' ORDER BY kode_suplaier DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
             
             if(result.next()) {
                 String kodeDiskon = result.getString("kode_suplaier").substring(9,11);
-                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
-                String nol = "";
+                angka = "" + (Integer.parseInt(kodeDiskon) + 1);
                 
                 if(angka.length() == 1) {
                     nol = "0";
@@ -2608,12 +2609,12 @@ public class MainJframe extends javax.swing.JFrame {
                     nol = "";
                 }
                 
-                newKodeDiskon = "SUP" + Utility.GetTanggal() + nol + angka;
-                jTextFieldKodeSuplier.setText(newKodeDiskon);
             }
          } catch (Exception e) {
              JOptionPane.showMessageDialog(null, e);
          }
+                newKodeDiskon = "SUP" + Utility.GetTanggal() + nol + angka;
+                jTextFieldKodeSuplier.setText(newKodeDiskon);
     }
     
     //membersihkan form pada frame suplier
