@@ -1288,13 +1288,10 @@ public class MainJframe extends javax.swing.JFrame {
                     .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addComponent(jLabel34))
-                    .addGroup(jPanelInsertKategori1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tambahDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tambahDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanelInsertKategori1Layout.setVerticalGroup(
             jPanelInsertKategori1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1322,7 +1319,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(tambahDiskon_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         jScrollPanelKategori1.setPreferredSize(new java.awt.Dimension(781, 559));
@@ -1353,15 +1350,17 @@ public class MainJframe extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fieldPencarianKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPanelKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelInsertKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(fieldPencarianKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(698, 698, 698))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPanelKategori1, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanelInsertKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2692,14 +2691,15 @@ public class MainJframe extends javax.swing.JFrame {
          try {
             String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
+            String angka,nol;
             
             if(result.next()) {
                 System.out.println(result.next());
                 String kodeDiskon = result.getString("kode_diskon").substring(9);
                 System.out.println(kodeDiskon);
-                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                angka = "" + (Integer.parseInt(kodeDiskon) + 1);
                 System.out.println(angka);
-                String nol = "";
+                 nol = "";
 
                 if(angka.length() == 1) {
                     nol = "000";
@@ -2711,9 +2711,13 @@ public class MainJframe extends javax.swing.JFrame {
                     nol = "";
                 }
 
+            }else{
+            angka = "1";
+            nol = "000";
+                
+            }
                 String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
                 kodeDiskon_text.setText(newKodeDiskon);
-            }
          } catch (Exception e) {
              System.out.println("kodeDiskon: " + e);
              JOptionPane.showMessageDialog(null, e);
@@ -2752,7 +2756,13 @@ public class MainJframe extends javax.swing.JFrame {
         
         clickDiskon.setKode(diskon_tabel.getValueAt(indexRowSelected, 0).toString());
         clickDiskon.setJumlahDiskon(diskon_tabel.getValueAt(indexRowSelected, 1).toString());
-        clickDiskon.setTenggatDiskon(diskon_tabel.getValueAt(indexRowSelected, 2).toString());
+        System.out.println(diskon_tabel.getValueAt(indexRowSelected, 2));
+        if (diskon_tabel.getValueAt(indexRowSelected, 2)==null) {
+            clickDiskon.setTenggatDiskon("");
+        }else{
+            
+            clickDiskon.setTenggatDiskon(diskon_tabel.getValueAt(indexRowSelected, 2).toString());
+        }
         clickDiskon.setNama(diskon_tabel.getValueAt(indexRowSelected, 3).toString());
         
         kodeDiskon_text.setText(clickDiskon.getKode());
@@ -3170,7 +3180,7 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jTextFieldNamaSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNamaSuplierActionPerformed
         // TODO add your handling code here:
-        DisplayTabelSuplier();
+        DisplayTabelSuplier("");
     }//GEN-LAST:event_jTextFieldNamaSuplierActionPerformed
 
     private void jButtonTambahSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahSuplierActionPerformed
