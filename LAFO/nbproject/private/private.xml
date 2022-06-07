@@ -8,6 +8,7 @@
             <file>file:/D:/KULIAH/Semester%202/tugas%20akhir/Lavo%20mahmud/LAFO/src/lafo/proses/DataBase/DataBaseDisplayer.java</file>
         </group>
         <group>
+<<<<<<< Updated upstream
             <file>file:/C:/Users/ASUS/OneDrive/Dokumen/GitHub/projek-cafe-lafo/LAFO/src/lafo/proses/Utility.java</file>
             <file>file:/C:/Users/ASUS/OneDrive/Dokumen/GitHub/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/Retur/ReturBarang.java</file>
             <file>file:/C:/Users/ASUS/OneDrive/Dokumen/GitHub/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/Barang/TambahBarang.java</file>
@@ -19,6 +20,18 @@
             <file>file:/C:/Users/ASUS/OneDrive/Dokumen/GitHub/projek-cafe-lafo/LAFO/src/lafo/proses/FileDBConfigHandler.java</file>
             <file>file:/C:/Users/ASUS/OneDrive/Dokumen/GitHub/projek-cafe-lafo/LAFO/src/lafo/proses/DataBase/Koneksi.java</file>
             <file>file:/C:/Users/ASUS/OneDrive/Dokumen/GitHub/projek-cafe-lafo/LAFO/confiDB.txt</file>
+=======
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/Barang/TambahSatuan.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/configDb.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/Kasir/inputBarang.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/MainJframe.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/pegawai/TambhPegawai.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/PopUpMenu/PopUpTambahMenu.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/Kasir/CariDiskon.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/entity/menu.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/ManajemenBarang/tambahStok/TambahStok.java</file>
+            <file>file:/C:/File%20Izul/Project%20Izul/projek-cafe-lafo/LAFO/src/lafo/view/PopUp/Kasir/SucTrans.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
