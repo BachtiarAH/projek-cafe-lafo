@@ -5,6 +5,8 @@
  */
 package lafo.view.PopUp.Menu;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Hp
@@ -18,6 +20,26 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
     public PopUpTambahMenu() {
         initComponents();
     }
+
+    public void TambahResep (){ 
+            
+            String kode = labelKodeBrg.getText();
+            String nama = labelNamaBrg.getText();
+            String qty = textFieldqty.getText();
+            String satuan = labelSatuan.getText();
+            
+            String[] data = {kode,nama,qty,satuan};
+            
+            DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+            
+            model.addRow(data);
+            
+}
+        public void  Hapusresep(){
+            DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+            
+            model.removeRow(jTable1.getSelectedRow());
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,7 +61,7 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         labelNamaBrg = new java.awt.Label();
         labelKodeBrg = new java.awt.Label();
-        textField5 = new java.awt.TextField();
+        textFieldqty = new java.awt.TextField();
         labelSatuan = new java.awt.Label();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -84,7 +106,7 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
         labelKodeBrg.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
         labelKodeBrg.setText("BRSU01");
 
-        textField5.setPreferredSize(new java.awt.Dimension(115, 43));
+        textFieldqty.setPreferredSize(new java.awt.Dimension(115, 43));
 
         labelSatuan.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
         labelSatuan.setText("/ Satuan\n");
@@ -168,7 +190,7 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelNamaBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
-                        .addComponent(textField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldqty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
                         .addComponent(labelSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -216,7 +238,7 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelNamaBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldqty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,6 +355,6 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
     private java.awt.TextField textField1;
     private java.awt.TextField textField2;
     private java.awt.TextField textField4;
-    private java.awt.TextField textField5;
+    private java.awt.TextField textFieldqty;
     // End of variables declaration//GEN-END:variables
 }
