@@ -92,7 +92,7 @@ String mode;
          tempmenu.setHarga(Float.valueOf(textFieldHarga.getText()) );
          
  String sql = "INSERT INTO `menu` "
-                + "(`kode_Menu`, `Nama_Menu`, `Hargai`, `Kategori`) "
+                + "(`kode_Menu`, `Nama_Menu`, `Harga`, `Kategori`) "
                 + "VALUES "
                 + "('"+tempmenu.getKode()+"', '"+tempmenu.getNama()+"', '"+tempmenu.getHarga()+"','"+tempmenu.getKategori()+"')";
  

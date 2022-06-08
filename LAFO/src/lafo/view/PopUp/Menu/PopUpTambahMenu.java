@@ -5,7 +5,16 @@
  */
 package lafo.view.PopUp.Menu;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import lafo.entity.menu;
+import lafo.proses.DataBase.DataBaseOperator;
+import lafo.proses.DataBase.Koneksi;
+import lafo.view.MainJframe;
 
 /**
  *
@@ -13,6 +22,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PopUpTambahMenu extends javax.swing.JFrame {
     InputBarang ib =new InputBarang();
+    Koneksi con = new Koneksi();
+    DataBaseOperator dbop = new DataBaseOperator(con);
+    menu tempmenu = new menu();
     /**
      * Creates new form PopUpTambahMenu
      */
@@ -35,12 +47,84 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
             model.addRow(data);
             
 }
-        public void  Hapusresep(){
+    
+    public void  Hapusresep(){
             DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
             
             model.removeRow(jTable1.getSelectedRow());
         }
 
+    public String generatekodemenu(){
+     int intindexkodemn;
+     String IndexKode;
+        String kode ;
+        String indexRs = "00";
+        
+         String nama=textFieldNamaMenu.getText();
+        String inisial = nama.substring(0, 2).toUpperCase();
+             
+        kode = "MN"+inisial;
+        String sql ="SELECT menu.kode_Menu FROM menu\n" +
+            "WHERE menu.kode_Menu LIKE '"+kode+"%'\n" +
+            "ORDER BY menu.kode_Menu DESC\n" +
+            "LIMIT 1;";
+        ResultSet rs = dbop.getResultSql(sql, true);
+        try {while (rs.next()) {                
+                
+                indexRs = rs.getString(1).substring(4,6);
+            }
+        
+            
+                intindexkodemn= Integer.valueOf(indexRs)+1;
+                
+                if (intindexkodemn < 10) {
+                    IndexKode = "0"+intindexkodemn;
+                }else{
+                    IndexKode = intindexkodemn+"";
+                }
+            
+    
+            
+            
+            kode = "MN"+inisial+IndexKode;
+            
+            System.out.println(kode);
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+
+//        jTextField_kodebarang.setText(inisial);
+        return kode;
+ }
+    
+    public void clear (){
+        textFieldKodeMenu.setText("");
+        textFieldNamaMenu.setText("");
+        textFieldHarga.setText("");
+        
+        
+    }
+    
+    public void tambahMenu(){
+     tempmenu.setKode(textFieldKodeMenu.getText());
+        tempmenu.setNama(textFieldNamaMenu.getText());
+       tempmenu.setKategori(jComboBoxKategori.getEditor().getItem().toString());
+         tempmenu.setHarga(Float.valueOf(textFieldHarga.getText()) );
+         
+ String sql = "INSERT INTO `menu` "
+                + "(`kode_Menu`, `Nama_Menu`, `Harga`, `Kategori`) "
+                + "VALUES "
+                + "('"+tempmenu.getKode()+"', '"+tempmenu.getNama()+"', '"+tempmenu.getHarga()+"','"+tempmenu.getKategori()+"')";
+ 
+        System.out.println("sql");
+        dbop.DatabaseExecutor(sql, true);
+        String massageSucc = "Berhasil Menambahkan "+tempmenu.getNama();
+        JOptionPane.showMessageDialog(this, massageSucc);
+ }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,13 +136,13 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         label1 = new java.awt.Label();
-        textField1 = new java.awt.TextField();
-        textField2 = new java.awt.TextField();
+        textFieldKodeMenu = new java.awt.TextField();
+        textFieldNamaMenu = new java.awt.TextField();
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
-        textField4 = new java.awt.TextField();
+        textFieldHarga = new java.awt.TextField();
         label4 = new java.awt.Label();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxKategori = new javax.swing.JComboBox<>();
         labelNamaBrg = new java.awt.Label();
         labelKodeBrg = new java.awt.Label();
         textFieldqty = new java.awt.TextField();
@@ -71,15 +155,16 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         label1.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
         label1.setText("Kode Menu");
 
-        textField1.setPreferredSize(new java.awt.Dimension(377, 51));
+        textFieldKodeMenu.setPreferredSize(new java.awt.Dimension(377, 51));
 
-        textField2.setPreferredSize(new java.awt.Dimension(377, 51));
+        textFieldNamaMenu.setPreferredSize(new java.awt.Dimension(377, 51));
 
         label2.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
         label2.setText("Nama Menu");
@@ -87,16 +172,16 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
         label3.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
         label3.setText("Kategori");
 
-        textField4.setPreferredSize(new java.awt.Dimension(377, 51));
+        textFieldHarga.setPreferredSize(new java.awt.Dimension(377, 51));
 
         label4.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
         label4.setText("Harga\n");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxKategori.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jComboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman" }));
+        jComboBoxKategori.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxKategoriActionPerformed(evt);
             }
         });
 
@@ -176,6 +261,13 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("generate kode");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -199,14 +291,17 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton7))
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textFieldHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxKategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textFieldNamaMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textFieldKodeMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -216,21 +311,23 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldKodeMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -267,9 +364,9 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBoxKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxKategoriActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBoxKategoriActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -287,16 +384,24 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        tambahMenu();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+clear();        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         ib.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        textFieldKodeMenu.setText(generatekodemenu());
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,7 +448,8 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBoxKategori;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -354,9 +460,9 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
     public static java.awt.Label labelKodeBrg;
     public static java.awt.Label labelNamaBrg;
     public static java.awt.Label labelSatuan;
-    private java.awt.TextField textField1;
-    private java.awt.TextField textField2;
-    private java.awt.TextField textField4;
+    private java.awt.TextField textFieldHarga;
+    private java.awt.TextField textFieldKodeMenu;
+    private java.awt.TextField textFieldNamaMenu;
     private java.awt.TextField textFieldqty;
     // End of variables declaration//GEN-END:variables
 }
