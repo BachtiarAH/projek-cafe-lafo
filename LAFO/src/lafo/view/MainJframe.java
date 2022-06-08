@@ -24,7 +24,7 @@ import lafo.proses.Utility;
 import lafo.proses.DataBase.Koneksi;
 import lafo.proses.DataBase.DataBaseOperator;
 
-import lafo.PopUpMenu.PopUpTambahMenu;
+import lafo.view.PopUp.Menu.PopUpTambahMenu;
 
 import lafo.view.PopUp.Barang.TambahBarang;
 import lafo.view.PopUp.Kasir.CariDiskon;
