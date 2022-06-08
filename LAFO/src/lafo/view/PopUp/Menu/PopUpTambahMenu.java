@@ -159,7 +159,17 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
         
     }
     
+    public void UpdateMenu(){
+        String kodeMenu = textFieldKodeMenu.getText();
+        String namaMEnu = textFieldNamaMenu.getText();
+        String kategori = jComboBoxKategori.getSelectedItem().toString();
+        String harga = textFieldHarga.getText();
+        String sql = "UPDATE `menu` SET `Nama_Menu`='"+namaMEnu+"',`Harga`='"+harga+"',`Kategori`='"+kategori+"' WHERE kode_Menu = '"+kodeMenu+"'";
+        dbop.DatabaseExecutor(sql, true);
+    }
+    
     public void UpdateResep(){
+        UpdateMenu();
         deletResep();
         insertResep();
         
