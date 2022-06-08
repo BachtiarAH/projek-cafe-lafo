@@ -1407,6 +1407,11 @@ public class MainJframe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTablemenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablemenuMouseClicked(evt);
+            }
+        });
         containerTabelBarang1.setViewportView(jTablemenu);
 
         jTextFieldCariMenu.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -1421,14 +1426,14 @@ public class MainJframe extends javax.swing.JFrame {
         ButtornTambah1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         ButtornTambah1.setText("Tambah");
         ButtornTambah1.setPreferredSize(new java.awt.Dimension(105, 49));
-        ButtornTambah1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtornTambah1ActionPerformed(evt);
-            }
-        });
         ButtornTambah1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtornTambah1MouseClicked(evt);
+            }
+        });
+        ButtornTambah1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtornTambah1ActionPerformed(evt);
             }
         });
 
@@ -3263,7 +3268,7 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void ButtornTambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambah1ActionPerformed
         // TODO add your handling code here:
-        
+        tm.setMode("tambah");
         tm.setVisible(true);
     }//GEN-LAST:event_ButtornTambah1ActionPerformed
 
@@ -3543,6 +3548,13 @@ public class MainJframe extends javax.swing.JFrame {
         setKodeDiskon();
     }//GEN-LAST:event_kodeDiskon_buttonActionPerformed
 
+    private void jTablemenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablemenuMouseClicked
+        // TODO add your handling code here:
+        tm.tulisDataKlik(jTablemenu.getValueAt(jTablemenu.getSelectedRow(), 0).toString());
+        tm.setVisible(true);
+        tm.setMode("edit");
+    }//GEN-LAST:event_jTablemenuMouseClicked
+
     
 //</editor-fold>
     /**
@@ -3720,7 +3732,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JTable jTableSuplier;
     public static javax.swing.JTable jTableTransaksi;
     private javax.swing.JTable jTableUser;
-    private javax.swing.JTable jTablemenu;
+    public static javax.swing.JTable jTablemenu;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField5;
