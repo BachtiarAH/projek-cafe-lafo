@@ -1,0 +1,501 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package lafo.view.PopUp.Retur;
+
+import java.math.MathContext;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import lafo.proses.DataBase.DataBaseOperator;
+import lafo.proses.DataBase.Koneksi;
+import lafo.proses.Utility;
+import lafo.view.MainJframe;
+import org.codehaus.groovy.runtime.DefaultGroovyMethods;
+
+/**
+ *
+ * @author RSI-08
+ */
+public class ReturBarang extends javax.swing.JFrame {
+    Koneksi konDbLafo = new Koneksi();
+    DataBaseOperator DbOp = new DataBaseOperator(konDbLafo);
+    DefaultTableModel Tbmodel = new DefaultTableModel();
+    Random rn = new Random();
+    /**
+     * Creates new form ReturBarang
+     */
+    public ReturBarang() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        displayBarang("");
+        
+    }
+
+    public void displayBarang(String cari){
+        String sql = "SELECT * FROM `barang` WHERE barang.Nama_barang LIKE '%"+cari+"%'";
+        String[] header = {"kode barang", "nama barang", "satuan","stok"};
+        DbOp.tabel(sql, header, jTableBrg);
+    }
+    
+    public void klikTabel(){
+        String kode = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 0).toString();
+        String NamaBarang = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 1).toString();
+        String satuan = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 2).toString();
+        String stok = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 3).toString();
+        
+        jTextFieldKdBarang.setText(kode);
+        jLabelNamaBarang.setText(NamaBarang);
+        jLabelStok.setText(stok);
+        jLabelSatuan.setText(satuan);
+    }
+    
+    public void submitKode(String kode){
+        
+        String sql = "SELECT `kode_Barang` as `kode`, `Nama_barang` as `nama`, `satuan`, `stok` FROM `barang` WHERE kode_Barang = '"+kode+"'";
+        ResultSet rs = DbOp.getResultSql(sql, true);
+        
+        try {
+            if (rs.next()) {
+                jLabelNamaBarang.setText(rs.getString("nama"));
+                jLabelSatuan.setText(rs.getString("satuan"));
+                jLabelStok.setText(rs.getString("stok"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReturBarang.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "kode tidak ditemukan");
+        }
+    }
+    
+    public void submitRetur(String kodeRetur,String qty,String kodeBarang){
+        String sql = "INSERT INTO `retur` "
+                + "(`kode_Retur`, `qty`, `kode_barang`) "
+                + "VALUES "
+                + "('"+kodeRetur+"', '"+qty+"', '"+kodeBarang+"')";
+        
+        DbOp.DatabaseExecutor(sql, true);
+        
+    }
+    
+    public String generateKoderetur(){
+        boolean isDuplicate = true;
+        String kode;
+        String nol = "";
+        int urutan = rn.nextInt() % 10000;
+        Math.abs(urutan);
+        if (urutan<10000) {
+            nol = "";
+        }else if(urutan<1000){
+            nol = "0";
+        }else if (urutan<100) {
+            nol = "00";
+        }else if(urutan<10){
+            nol = "000";
+        }
+        String tgl = Utility.GetTanggal();
+        kode = "RT"+tgl +nol+urutan;
+        
+        while(isDuplicate){
+            String sql = "SELECT * FROM `retur` WHERE retur.kode_Retur = '"+kode+"'";
+            ResultSet rs = DbOp.getResultSql(sql, true);
+            
+            try {
+                if (!(rs.next())) {
+                    isDuplicate = false;
+                }else{
+                urutan = rn.nextInt() % 10000;
+                Math.abs(urutan);
+                if (urutan<10000) {
+                    nol = "";
+                }else if(urutan<1000){
+                    nol = "0";
+                }else if (urutan<100) {
+                    nol = "00";
+                }else if(urutan<10){
+                    nol = "000";
+                }
+                kode = "RT"+tgl +urutan;
+                    
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ReturBarang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return kode;
+    }
+    
+    public void refreshTabelBarang(){
+        String sql = "SELECT * FROM `barang` WHERE barang.Nama_barang LIKE '%"+""+"%'";
+        String[] header = {"kode barang", "nama barang", "satuan","stok"};
+        DbOp.tabel(sql, header, MainJframe.jTableBarang);
+    }
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanelMenyuplai = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableBrg = new javax.swing.JTable();
+        jTextFieldCrBrg = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldKdBarang = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextJumlah = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jLabelSatuan = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabelNamaBarang = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabelStok = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanelMenyuplai.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelMenyuplai.setPreferredSize(new java.awt.Dimension(992, 636));
+
+        jPanel2.setBackground(new java.awt.Color(233, 235, 239));
+        jPanel2.setPreferredSize(new java.awt.Dimension(972, 292));
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(223, 205));
+
+        jTableBrg.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTableBrg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableBrgMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableBrg);
+
+        jTextFieldCrBrg.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldCrBrg.setPreferredSize(new java.awt.Dimension(223, 39));
+        jTextFieldCrBrg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCrBrgActionPerformed(evt);
+            }
+        });
+        jTextFieldCrBrg.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldCrBrgKeyReleased(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Kode Barang");
+
+        jTextFieldKdBarang.setMinimumSize(new java.awt.Dimension(201, 30));
+        jTextFieldKdBarang.setPreferredSize(new java.awt.Dimension(201, 30));
+        jTextFieldKdBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldKdBarangActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Jumlah retur");
+
+        jTextJumlah.setPreferredSize(new java.awt.Dimension(201, 30));
+        jTextJumlah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextJumlahActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("clear");
+        jButton2.setPreferredSize(new java.awt.Dimension(74, 33));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(241, 102, 52));
+        jButton5.setText("Retur");
+        jButton5.setPreferredSize(new java.awt.Dimension(74, 33));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jLabelSatuan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSatuan.setText("satuan");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Nama Barang");
+
+        jLabelNamaBarang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelNamaBarang.setText("---");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("stok");
+
+        jLabelStok.setText("0");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCrBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldKdBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelNamaBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jTextJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelSatuan)
+                                .addGap(8, 8, 8))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(220, 220, 220)
+                                .addComponent(jLabel7)
+                                .addGap(0, 30, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(jLabelStok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldCrBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldKdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 26, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabelNamaBarang))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabelStok))
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel7)
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jTextJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelSatuan))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 51)); // NOI18N
+        jLabel1.setText("Retur");
+
+        javax.swing.GroupLayout jPanelMenyuplaiLayout = new javax.swing.GroupLayout(jPanelMenyuplai);
+        jPanelMenyuplai.setLayout(jPanelMenyuplaiLayout);
+        jPanelMenyuplaiLayout.setHorizontalGroup(
+            jPanelMenyuplaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelMenyuplaiLayout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addGroup(jPanelMenyuplaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        jPanelMenyuplaiLayout.setVerticalGroup(
+            jPanelMenyuplaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelMenyuplaiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelMenyuplai, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelMenyuplai, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableBrgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBrgMouseClicked
+        // TODO add your handling code here:
+        klikTabel();
+        
+    }//GEN-LAST:event_jTableBrgMouseClicked
+
+    private void jTextFieldCrBrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCrBrgActionPerformed
+        // TODO add your handling code here:
+        String cari = jTextFieldCrBrg.getText();
+        
+    }//GEN-LAST:event_jTextFieldCrBrgActionPerformed
+
+    private void jTextFieldKdBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKdBarangActionPerformed
+        // TODO add your handling code here:
+        String kode = jTextFieldKdBarang.getText();
+        submitKode(kode);
+    }//GEN-LAST:event_jTextFieldKdBarangActionPerformed
+
+    private void jTextJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextJumlahActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextJumlahActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        String kodeRetur = generateKoderetur();
+        String qty = jTextJumlah.getText();
+        String kodeBarang = jTextFieldKdBarang.getText();
+        
+        float stok = Float.valueOf(jLabelStok.getText());
+        float jumlah = Float.valueOf(qty);
+        
+        
+        
+        if ((!(qty.equalsIgnoreCase(""))&&(!(kodeBarang.equalsIgnoreCase(""))))) {
+            if (DefaultGroovyMethods.isFloat(qty)) {
+                if (stok>=jumlah) {
+                    
+                    try {
+                
+                        submitRetur(kodeRetur, qty, kodeBarang);
+                        JOptionPane.showMessageDialog(null, "berhasil meretur");
+                        refreshTabelBarang();
+                        this.setVisible(false);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "jumlah melebihi stok");
+                    
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "field jumlah harus berupa angka");
+                
+            }
+                
+     }   
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextFieldCrBrgKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCrBrgKeyReleased
+        // TODO add your handling code here:
+        String cari = jTextFieldCrBrg.getText();
+        displayBarang(cari);
+    }//GEN-LAST:event_jTextFieldCrBrgKeyReleased
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ReturBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ReturBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ReturBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ReturBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ReturBarang().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelNamaBarang;
+    private javax.swing.JLabel jLabelSatuan;
+    private javax.swing.JLabel jLabelStok;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelMenyuplai;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableBrg;
+    private javax.swing.JTextField jTextFieldCrBrg;
+    private javax.swing.JTextField jTextFieldKdBarang;
+    private javax.swing.JTextField jTextJumlah;
+    // End of variables declaration//GEN-END:variables
+}

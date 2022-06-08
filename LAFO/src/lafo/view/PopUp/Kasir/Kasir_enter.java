@@ -5,6 +5,13 @@
  */
 package lafo.view.PopUp.Kasir;
 
+import lafo.entity.barang;
+import lafo.entity.diskon;
+import lafo.entity.menu;
+import lafo.proses.DataBase.DataBaseOperator;
+import lafo.proses.DataBase.Koneksi;
+import lafo.view.MainJframe;
+
 /**
  *
  * @author mahmu
@@ -16,6 +23,7 @@ public class Kasir_enter extends javax.swing.JFrame {
      */
     public Kasir_enter() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -41,6 +49,14 @@ public class Kasir_enter extends javax.swing.JFrame {
                 searchfiieldActionPerformed(evt);
             }
         });
+        searchfiield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchfiieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchfiieldKeyTyped(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -53,27 +69,30 @@ public class Kasir_enter extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(searchfiield, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(searchfiield, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(searchfiield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -83,15 +102,75 @@ public class Kasir_enter extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchfiieldActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        klikTabelBarang();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void searchfiieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchfiieldKeyTyped
+        // TODO add your handling code here:
+//        cariDataBarang();
+    }//GEN-LAST:event_searchfiieldKeyTyped
+
+    private void searchfiieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchfiieldKeyReleased
+        // TODO add your handling code here:
+        cariDataBarang(searchfiield.getText());
+    }//GEN-LAST:event_searchfiieldKeyReleased
+
+    Koneksi koneksiDBLafo = new Koneksi();
+    DataBaseOperator DBLafoOp = new DataBaseOperator(koneksiDBLafo);
+    MainJframe JframeUtama;
+    barang barangTerpilih = new barang();
+    menu mntp = new menu();
+    String mode;
+
+    public void setJframeUtama(MainJframe JframeUtama) {
+        this.JframeUtama = JframeUtama;
+    }
     
     private void tampilData(){
+        String sql = "SELECT * FROM `menu`";
+        String[] header = {"kode Menu","nama Menu","Harga","Kategori"};
+        DBLafoOp.tabel(sql, header, jTable1);
         
     }
     
-    public void Action(String text){
-        this.setVisible(true);
-        searchfiield.setText(text);
+    public void cariDataBarang(String filter){
+        String sql = "SELECT * FROM `menu`  WHERE menu.Nama_Menu LIKE '%"+filter+"%'";
+        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        DBLafoOp.tabel(sql, header, jTable1);
+//        System.out.println(sql);
     }
+    
+    inputBarang InputBarang = new inputBarang();
+    public void klikTabelBarang(){
+       
+        mntp.setKode(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        mntp.setNama(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+        mntp.setHarga(Float.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString()) );
+        mntp.setKategori(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
+        
+        InputBarang.setFrameUtama(JframeUtama);
+        InputBarang.setMntp(mntp);
+        
+        InputBarang.startRun();
+            
+        this.setVisible(false);
+        
+    }
+    
+    public void TampilDiskon(){
+        String sql = "SELECT `kode_diskon`, `nama`, `jumlah_diskon`, `tenggat_diskon` FROM `diskon` WHERE 1";
+        String[] field = {"kode diskon","nama diskon","jumlah diskon","tenggat diskon" };
+        
+        DBLafoOp.tabel(sql, field, jTable1);
+    }
+    
+    public void Action(){
+        this.setVisible(true);
+        this.tampilData();
+            
+    } 
     /**
      * @param args the command line arguments
      */
@@ -122,7 +201,12 @@ public class Kasir_enter extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Kasir_enter().setVisible(true);
+//                new Kasir_enter().setVisible(true);
+
+                Kasir_enter ini = new Kasir_enter();
+                ini.setVisible(true);
+                ini.tampilData();
+               
                 
             }
         });

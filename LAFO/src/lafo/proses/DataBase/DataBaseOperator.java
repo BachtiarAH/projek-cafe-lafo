@@ -5,6 +5,7 @@ package lafo.proses.DataBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,14 +25,36 @@ private String[] field;
     public void DatabaseExecutor(String sql, boolean CloseAfterExecute){
         try {
             koneksi.connecting();
-            PreparedStatement pst = koneksi.conn.prepareStatement(sqlTabel);
+            PreparedStatement pst = koneksi.conn.prepareStatement(sql);
+            pst.execute();
         }catch(SQLException SQLe){
             System.out.println("gagal eksekusi sql: "+SQLe);
+            System.out.println("sql: " + sql);
+            JOptionPane.showMessageDialog(null, SQLe);
         }finally{
             if (CloseAfterExecute) {
                 koneksi.connectionClose();
             }
         }
+    }
+    
+    public ResultSet getResultSql(String sql, boolean CloseAfterExecute){
+        ResultSet rs = null;
+        
+        try {
+            koneksi.connecting();
+            PreparedStatement pst = koneksi.conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+        }catch(SQLException SQLe){
+            System.out.println("gagal eksekusi sql: "+SQLe);
+            System.out.println("sql : "+sql );
+        }finally{
+            if (CloseAfterExecute) {
+                koneksi.connectionClose();
+            }
+        }
+        
+        return rs;
     }
     
     //fungsi untuk menampilkan data dari database ke jtabel 
