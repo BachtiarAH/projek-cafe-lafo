@@ -14,7 +14,6 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
     /**
      * Creates new form PopUpTambahMenu
      */
-    
     public PopUpTambahMenu() {
         initComponents();
     }
@@ -37,10 +36,10 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
         textField4 = new java.awt.TextField();
         label4 = new java.awt.Label();
         jComboBox1 = new javax.swing.JComboBox<>();
-        labelNamaBrg = new java.awt.Label();
-        labelKodeBrg = new java.awt.Label();
+        label5 = new java.awt.Label();
+        label6 = new java.awt.Label();
         textField5 = new java.awt.TextField();
-        labelSatuan = new java.awt.Label();
+        label7 = new java.awt.Label();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -50,7 +49,7 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         label1.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
         label1.setText("Kode Menu");
@@ -78,16 +77,16 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
             }
         });
 
-        labelNamaBrg.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
-        labelNamaBrg.setText("Nama Barang\n");
+        label5.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
+        label5.setText("Nama Barang\n");
 
-        labelKodeBrg.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
-        labelKodeBrg.setText("BRSU01");
+        label6.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
+        label6.setText("BRSU01");
 
         textField5.setPreferredSize(new java.awt.Dimension(115, 43));
 
-        labelSatuan.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
-        labelSatuan.setText("/ Satuan\n");
+        label7.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
+        label7.setText("/ Satuan\n");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icon/pluss icon.png"))); // NOI18N
         jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -146,7 +145,7 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icon/edit icon.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icon/pluss icon.png"))); // NOI18N
         jButton6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,15 +161,15 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
                 .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelKodeBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelNamaBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
                         .addComponent(textField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
-                        .addComponent(labelSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -212,12 +211,12 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelKodeBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelNamaBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -271,7 +270,6 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        ib.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
@@ -300,9 +298,6 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PopUpTambahMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -327,9 +322,9 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
     private java.awt.Label label2;
     private java.awt.Label label3;
     private java.awt.Label label4;
-    public static java.awt.Label labelKodeBrg;
-    public static java.awt.Label labelNamaBrg;
-    public static java.awt.Label labelSatuan;
+    public static java.awt.Label label5;
+    public static java.awt.Label label6;
+    public static java.awt.Label label7;
     private java.awt.TextField textField1;
     private java.awt.TextField textField2;
     private java.awt.TextField textField4;
