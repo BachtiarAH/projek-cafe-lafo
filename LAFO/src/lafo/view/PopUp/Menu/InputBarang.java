@@ -5,21 +5,40 @@
  */
 package lafo.view.PopUp.Menu;
 
+import lafo.entity.barang;
+import lafo.proses.DataBase.DataBaseOperator;
+import lafo.proses.DataBase.Koneksi;
+
 /**
  *
  * @author ASUS
  */
 public class InputBarang extends javax.swing.JFrame {
-
+    Koneksi connn = new Koneksi();
+    DataBaseOperator dbop = new DataBaseOperator(connn);
+//    barang brg = new barang();
     /**
      * Creates new form InputBarang
      */
     public InputBarang() {
         initComponents();
+        displayBarang("");
     }
     
     public void displayBarang(String cari){
-        String sql = "";
+        String sql = "SELECT `kode_Barang`, `Nama_barang`, `satuan` FROM `barang` WHERE nama_barang LIKE '%"+cari+"%'";
+        String[] header = {"kode","nama","satuan"};
+        dbop.tabel(sql, header, jTable1);
+    }
+    
+    public void klikBarang(){
+        String kode = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
+        String nama = jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
+        String satuan = jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString();
+        
+        PopUpTambahMenu.labelKodeBrg.setText(kode);
+        PopUpTambahMenu.labelNamaBrg.setText(nama);
+        PopUpTambahMenu.labelSatuan.setText(satuan);
     }
 
     /**
@@ -37,6 +56,12 @@ public class InputBarang extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -48,6 +73,11 @@ public class InputBarang extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -67,6 +97,16 @@ public class InputBarang extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+        displayBarang(jTextField1.getText());
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        klikBarang();
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
