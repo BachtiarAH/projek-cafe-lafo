@@ -2689,33 +2689,55 @@ public class MainJframe extends javax.swing.JFrame {
     dataDiskon clickDiskon = new dataDiskon("");
     
      public void setKodeDiskon() {
-         try {
-            String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
-            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-//             System.out.println(result.getString("kode_diskon"));
-            if(result.next()) {
-                System.out.println(result.next());
-                String kodeDiskon = result.getString("kode_diskon").substring(9);
-                System.out.println(kodeDiskon);
-                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
-                System.out.println(angka);
-                String nol = "";
+//         try {
+//            String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
+//            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
+////             System.out.println(result.getString("kode_diskon"));
+//            if(result.next()) {
+//                System.out.println(result.next());
+//                String kodeDiskon = result.getString("kode_diskon").substring(9);
+//                System.out.println(kodeDiskon);
+//                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+//                System.out.println(angka);
+//                String nol = "";
+//
+//                if(angka.length() == 1) {
+//                    nol = "000";
+//                } else if(angka.length() == 2) {
+//                    nol = "00";
+//                } else if(angka.length() == 3) {
+//                    nol = "0";
+//                } else {
+//                    nol = "";
+//                }
+//
+//                String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
+//                kodeDiskon_text.setText(newKodeDiskon);
+//            }
+//         } catch (Exception e) {
+//             System.out.println("kodeDiskon: " + e);
+//             JOptionPane.showMessageDialog(null, e);
+//         }
 
+        try {
+            String sql = "SELECT `kode_diskon` FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
+            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
+            
+            if(result.next()) {
+                String kodeDiskon = result.getString("kode_diskon").substring(9,11);
+                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                String nol = "";
+                
                 if(angka.length() == 1) {
-                    nol = "000";
-                } else if(angka.length() == 2) {
-                    nol = "00";
-                } else if(angka.length() == 3) {
                     nol = "0";
                 } else {
                     nol = "";
                 }
-
+                
                 String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
                 kodeDiskon_text.setText(newKodeDiskon);
             }
          } catch (Exception e) {
-             System.out.println("kodeDiskon: " + e);
              JOptionPane.showMessageDialog(null, e);
          }
      }
@@ -3084,6 +3106,7 @@ public class MainJframe extends javax.swing.JFrame {
     private void clear_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_buttonActionPerformed
         // TODO add your handling code here:
         clearFormDiskon();
+        tambahDiskon_button.setVisible(true);
     }//GEN-LAST:event_clear_buttonActionPerformed
 
 
@@ -3113,6 +3136,7 @@ public class MainJframe extends javax.swing.JFrame {
     private void diskon_tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diskon_tabelMouseClicked
         // TODO add your handling code here:
         klikTabelDiskon();
+        tambahDiskon_button.setVisible(false);
     }//GEN-LAST:event_diskon_tabelMouseClicked
 
     private void jTableBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBarangMouseClicked
