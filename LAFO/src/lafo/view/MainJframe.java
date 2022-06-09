@@ -2753,10 +2753,10 @@ public class MainJframe extends javax.swing.JFrame {
         String sql = "INSERT INTO `diskon` "
                 + "(`kode_diskon`, `jumlah_diskon`, `tenggat_diskon`, `nama`) "
                 + "VALUES "
-                + "('"+kodeDiskon+"',"
+                + "'"+kodeDiskon+"',"
                 + " '"+jumlahDiskon+"',"
                 + " '"+tenggatDiskon+"',"
-                + " '"+namaDiskon+"')";
+                + " '"+namaDiskon+"'";
         
         OperatorDbLafo.DatabaseExecutor(sql, true);
     }
