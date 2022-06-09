@@ -2689,55 +2689,29 @@ public class MainJframe extends javax.swing.JFrame {
     dataDiskon clickDiskon = new dataDiskon("");
     
      public void setKodeDiskon() {
-//         try {
-//            String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
-//            ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-////             System.out.println(result.getString("kode_diskon"));
-//            if(result.next()) {
-//                System.out.println(result.next());
-//                String kodeDiskon = result.getString("kode_diskon").substring(9);
-//                System.out.println(kodeDiskon);
-//                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
-//                System.out.println(angka);
-//                String nol = "";
-//
-//                if(angka.length() == 1) {
-//                    nol = "000";
-//                } else if(angka.length() == 2) {
-//                    nol = "00";
-//                } else if(angka.length() == 3) {
-//                    nol = "0";
-//                } else {
-//                    nol = "";
-//                }
-//
-//                String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
-//                kodeDiskon_text.setText(newKodeDiskon);
-//            }
-//         } catch (Exception e) {
-//             System.out.println("kodeDiskon: " + e);
-//             JOptionPane.showMessageDialog(null, e);
-//         }
-
-        try {
-            String sql = "SELECT `kode_diskon` FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
+         try {
+            String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-            
             if(result.next()) {
-                String kodeDiskon = result.getString("kode_diskon").substring(9,11);
+                String kodeDiskon = result.getString("kode_diskon").substring(9);
                 String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
                 String nol = "";
-                
+
                 if(angka.length() == 1) {
+                    nol = "000";
+                } else if(angka.length() == 2) {
+                    nol = "00";
+                } else if(angka.length() == 3) {
                     nol = "0";
                 } else {
                     nol = "";
                 }
-                
+
                 String newKodeDiskon = "DIS" + Utility.GetTanggal() + nol + angka;
                 kodeDiskon_text.setText(newKodeDiskon);
             }
          } catch (Exception e) {
+             System.out.println("kodeDiskon: " + e);
              JOptionPane.showMessageDialog(null, e);
          }
      }
@@ -2753,10 +2727,10 @@ public class MainJframe extends javax.swing.JFrame {
         String sql = "INSERT INTO `diskon` "
                 + "(`kode_diskon`, `jumlah_diskon`, `tenggat_diskon`, `nama`) "
                 + "VALUES "
-                + "'"+kodeDiskon+"',"
+                + "('"+kodeDiskon+"',"
                 + " '"+jumlahDiskon+"',"
                 + " '"+tenggatDiskon+"',"
-                + " '"+namaDiskon+"'";
+                + " '"+namaDiskon+"')";
         
         OperatorDbLafo.DatabaseExecutor(sql, true);
     }
