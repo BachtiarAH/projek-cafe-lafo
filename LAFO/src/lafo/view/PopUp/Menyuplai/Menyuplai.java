@@ -16,6 +16,7 @@ import lafo.entity.barang;
 import lafo.entity.user;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.proses.DataBase.Koneksi;
+import lafo.proses.Utility;
 import lafo.view.MainJframe;
 
 /**
@@ -39,22 +40,17 @@ public class Menyuplai extends javax.swing.JFrame {
         tampilSuplier("");
         tampilMenyuplai();
         this.setLocationRelativeTo(null);
+        jButtonUpdate.setVisible(false);
+        jButtonHapus.setVisible(false);
 //        pegawai.setKode(MainJframe.pgw.getKode());
         System.out.println(pegawai.getKode());
     }
 
     public void tampilBarang(String cari){
-        String sql = "SELECT "
-                + "barang.kode_Barang, "
-                + "barang.Nama_barang, "
-                + "SUM(detail_suplai.stok), "
-                + "barang.satuan "
-                + "FROM barang "
-                + "LEFT JOIN detail_suplai "
-                + "ON barang.kode_Barang = detail_suplai.kode_Barang "
+        String sql = "SELECT * FROM `barang` "
                  + "WHERE barang.nama_barang LIKE '%"+cari+"%' "
                 + "GROUP BY kode_Barang ";
-        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        String[] header = {"kode Barang","nama Barang","satuan","stok" };
         DbOp.tabel(sql, header, jTableBrg);
     }
     
@@ -76,7 +72,7 @@ public class Menyuplai extends javax.swing.JFrame {
     
     public void klikBarng(){
         String kodeBarang = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 0).toString();
-        String satuan = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 3).toString();
+        String satuan = jTableBrg.getValueAt(jTableBrg.getSelectedRow(), 2).toString();
         brang.setKode(kodeBarang);
         brang.setSatuan(satuan);
         jTextFieldKdBarang.setText(kodeBarang);
@@ -198,87 +194,70 @@ public class Menyuplai extends javax.swing.JFrame {
     }
     
     public String GenerateKodeMenyuplai(){
-        int index = 1;
-        String indexKode;
-        String indexString = "";
-        String bulan = "";
-        if (tgl.getMonthValue()<10) {
-            bulan = "0"+tgl.getMonthValue();
-        }else{
-            bulan = tgl.getMonthValue()+"";
-        }
-        String tahun = tgl.getYear()+"";
-
-        String kode = "MSP"+tgl.getDayOfMonth()+bulan+tahun.substring(2);
-        System.out.println("kode sebelum: "+kode);
-        String sql = "SELECT `Kode_Menyuplai` FROM `menyuplai`\n" +
-                        "ORDER by Kode_Menyuplai desc;";
-        
-        ResultSet rs = DbOp.getResultSql(sql, true);
-        
-        try {
-            if (rs.next()) {
-                indexKode = rs.getString("Kode_Menyuplai").substring(9, 13);
-                index = Integer.valueOf(indexKode)+1;
-                
-                System.out.println("index ditambah :"+index);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Menyuplai.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        if (index < 10) {
-            indexString = "000"+index;
-        }else if(index < 100){
-            indexString = "00"+index;
+        String newKodeDiskon;
+        String angka = "1";
+       String nol = "0";
+        newKodeDiskon = "MSP" + Utility.GetTanggal();
+         try {
+            String sql = "SELECT Kode_Menyuplai FROM `menyuplai` WHERE Kode_Menyuplai LIKE '"+newKodeDiskon+"%' GROUP BY Kode_Menyuplai DESC";
+            ResultSet result = DbOp.getResultSql(sql, true);
             
-        }else if(index < 1000){
-            indexString = "0"+index;
-        
-        }else{
-            indexString = index+"";
-        }
-        kode += indexString;
-        System.out.println("index"+index);
-        System.out.println(indexString);
-        System.out.println("kode sesudah "+kode);
-        return kode;
+            if(result.next()) {
+                String kodeDiskon = result.getString("Kode_Menyuplai").substring(9);
+                angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                nol = "";
+                
+                if(angka.length() == 1) {
+                    nol = "0";
+                } else {
+                    nol = "";
+                }
+                
+//                jTextFieldKodeSuplier.setText(newKodeDiskon);
+            }
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
+                newKodeDiskon = "MSP" + Utility.GetTanggal() + nol + angka;
+                return newKodeDiskon;
     }
     
      public String GenerateDetailSuplai(){
-        int index = 1;
-        String indexString = "";
-        String bulan = "";
-        if (tgl.getMonthValue()<10) {
-            bulan = "0"+tgl.getMonthValue();
-        }else{
-            bulan = tgl.getMonthValue()+"";
-        }
-        String tahun = tgl.getYear()+"";
-
-        String kode = "DSUP"+tgl.getDayOfMonth()+bulan+tahun.substring(2);
-        String sql = "SELECT detail_suplai.Id_detail_suplai FROM `detail_suplai` \n" +
-            "WHERE detail_suplai.Id_detail_suplai LIKE '"+kode+"%'\n" +
-            "ORDER by detail_suplai.Id_detail_suplai DESC";
-        
-        ResultSet rs = DbOp.getResultSql(sql, true);
-        
-        try {
-            while (rs.next()) {
-                index++;
+       String newKodeDiskon;
+       String angka = "1";
+       String nol = "00";
+       boolean sama = false;
+        newKodeDiskon = "DSUP" + Utility.GetTanggal();
+         try {
+            String sql = "SELECT detail_suplai.Id_detail_suplai as kode FROM `detail_suplai` WHERE Id_detail_suplai LIKE '"+newKodeDiskon+"%' ORDER BY kode DESC";
+            ResultSet result = DbOp.getResultSql(sql, true);
+            
+            if(result.next()) {
+                String kodeDiskon = result.getString("kode").substring(10);
+                angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                nol = "";
+                
+                if(angka.length() == 1) {
+                    nol = "00";
+                } 
+                else if(angka.length() == 2) {
+                    nol = "0";
+                }
+                else {
+                    nol = "";
+                }
+                
+                sama = true;
+                
+//                jTextFieldKodeSuplier.setText(newKodeDiskon);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Menyuplai.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        if (index < 10) {
-            indexString = "0"+index;
-        }else{
-            indexString = index+"";
-        }
-        
-        kode += indexString;
-        return kode;
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+         }
+         
+            
+                newKodeDiskon = "DSUP" + Utility.GetTanggal() + nol + angka;
+                return newKodeDiskon;
     }
     
     String antrianSuplier;
@@ -294,7 +273,7 @@ public class Menyuplai extends javax.swing.JFrame {
                 + "(`Kode_Menyuplai`, `Tanggal_menyuplai`, `kode_suplaier`, `Id_Pegawai`, `total`) "
                 + "VALUES ('"
                 + ""+kodeMenyuplai+"','"
-                + ""+getTanggal()+"','"
+                + ""+Utility.GetTanggalFormatDb()+"','"
                 + ""+antrianSuplier+"','"
                 + ""+pegawai.getKode()+"','"
                 + "0')";
@@ -303,7 +282,19 @@ public class Menyuplai extends javax.swing.JFrame {
             
     }
     
-  
+     public void updateValue(){
+        String kodeBarang = jTextFieldKdBarang.getText();
+        String kodeSuplier = jTextFieldKdSuplier.getText();
+        String hargaBeli = jTextFieldHargaBeli.getText();
+        String Jumlah = jTextJumlah.getText();
+        String SubTotal =  jLabelSubTotal.getText();
+        
+        jTableMenyuplai.setValueAt(kodeBarang, jTableMenyuplai.getSelectedRow(), 0);
+        jTableMenyuplai.setValueAt(kodeSuplier, jTableMenyuplai.getSelectedRow(), 1);
+        jTableMenyuplai.setValueAt(hargaBeli, jTableMenyuplai.getSelectedRow(), 2);
+        jTableMenyuplai.setValueAt(Jumlah, jTableMenyuplai.getSelectedRow(), 3);
+        jTableMenyuplai.setValueAt(SubTotal, jTableMenyuplai.getSelectedRow(), 5);
+    }
     
     public void detailSup(){
         String detailSup = "INSERT INTO `detail_suplai`"
@@ -344,22 +335,44 @@ public class Menyuplai extends javax.swing.JFrame {
     }
     
     public void refreshBarang(){
-        String sql = "SELECT "
-                + "barang.kode_Barang, "
-                + "barang.Nama_barang, "
-                + "SUM(detail_suplai.stok), "
-                + "barang.satuan "
-                + "FROM barang "
-                + "LEFT JOIN detail_suplai "
-                + "ON barang.kode_Barang = detail_suplai.kode_Barang "
-                 + "WHERE barang.nama_barang LIKE '%"+""+"%' "
-                + "GROUP BY kode_Barang ";
-        String[] header = {"kode Barang","nama Barang","stok","satuan"};
+        String sql = "SELECT * FROM `barang` "
+                + "GROUP BY kode_Barang";
+        String[] header = {"kode Barang","nama Barang","satuan","stok"};;
         DbOp.tabel(sql, header, MainJframe.jTableBarang);
     }
     
+    public void submitKode(String kode){
+        
+        String sql = "SELECT `kode_Barang` as `kode`, `Nama_barang` as `nama`, `satuan`, `stok` FROM `barang` WHERE kode_Barang = '"+kode+"'";
+        ResultSet rs = DbOp.getResultSql(sql, true);
+        
+        try {
+            if (rs.next()) {
+//                jLabelNamaBarang.setText(rs.getString("nama"));
+                jLabelSatuan.setText(rs.getString("satuan"));
+//                jLabelStok.setText(rs.getString("stok"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Menyuplai.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "kode tidak ditemukan");
+        }
+    }
     
+    public void bersihkan(){
+        DefaultTableModel model = (DefaultTableModel) jTableMenyuplai.getModel();
+        
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+        }
+    }
     
+    public void clearForm(){
+        jTextFieldKdBarang.setText("");
+        jTextFieldKdSuplier.setText("");
+        jTextJumlah.setText("");
+        jLabelSubTotal.setText("0");
+        jTextFieldHargaBeli.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -385,12 +398,12 @@ public class Menyuplai extends javax.swing.JFrame {
         jTextJumlah = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableSuplier = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        jButtonHapus = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabelSubTotal = new javax.swing.JLabel();
         jLabelSatuan = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonUpdate = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabelSatuan1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -417,6 +430,11 @@ public class Menyuplai extends javax.swing.JFrame {
         jTextSuplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextSuplierActionPerformed(evt);
+            }
+        });
+        jTextSuplier.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextSuplierKeyReleased(evt);
             }
         });
 
@@ -446,6 +464,11 @@ public class Menyuplai extends javax.swing.JFrame {
         jTextFieldCrBrg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCrBrgActionPerformed(evt);
+            }
+        });
+        jTextFieldCrBrg.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldCrBrgKeyReleased(evt);
             }
         });
 
@@ -489,6 +512,11 @@ public class Menyuplai extends javax.swing.JFrame {
                 jTextJumlahActionPerformed(evt);
             }
         });
+        jTextJumlah.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextJumlahKeyReleased(evt);
+            }
+        });
 
         jScrollPane3.setPreferredSize(new java.awt.Dimension(341, 205));
 
@@ -510,11 +538,11 @@ public class Menyuplai extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTableSuplier);
 
-        jButton2.setText("Hapus");
-        jButton2.setPreferredSize(new java.awt.Dimension(74, 33));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonHapus.setText("Hapus");
+        jButtonHapus.setPreferredSize(new java.awt.Dimension(74, 33));
+        jButtonHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonHapusActionPerformed(evt);
             }
         });
 
@@ -536,12 +564,12 @@ public class Menyuplai extends javax.swing.JFrame {
         jLabelSatuan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelSatuan.setText("satuan");
 
-        jButton1.setBackground(new java.awt.Color(255, 153, 0));
-        jButton1.setText("Update");
-        jButton1.setPreferredSize(new java.awt.Dimension(74, 33));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUpdate.setBackground(new java.awt.Color(255, 153, 0));
+        jButtonUpdate.setText("Update");
+        jButtonUpdate.setPreferredSize(new java.awt.Dimension(74, 33));
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonUpdateActionPerformed(evt);
             }
         });
 
@@ -576,9 +604,9 @@ public class Menyuplai extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextFieldKdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -651,11 +679,11 @@ public class Menyuplai extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jLabelSubTotal))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -666,6 +694,11 @@ public class Menyuplai extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setPreferredSize(new java.awt.Dimension(586, 183));
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
 
         jTableMenyuplai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -704,6 +737,11 @@ public class Menyuplai extends javax.swing.JFrame {
 
         jButton3.setText("Bersihkan");
         jButton3.setPreferredSize(new java.awt.Dimension(74, 33));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(241, 102, 52));
         jButton6.setText("Submit");
@@ -753,7 +791,7 @@ public class Menyuplai extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelMenyuplaiLayout = new javax.swing.GroupLayout(jPanelMenyuplai);
@@ -765,7 +803,7 @@ public class Menyuplai extends javax.swing.JFrame {
                 .addGroup(jPanelMenyuplaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 960, Short.MAX_VALUE)))
         );
         jPanelMenyuplaiLayout.setVerticalGroup(
             jPanelMenyuplaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -799,8 +837,7 @@ public class Menyuplai extends javax.swing.JFrame {
 
     private void jTextFieldCrBrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCrBrgActionPerformed
         // TODO add your handling code here:
-        String cari = jTextFieldCrBrg.getText();
-        tampilBarang(cari);
+        
     }//GEN-LAST:event_jTextFieldCrBrgActionPerformed
 
     private void jTextFieldKdSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKdSuplierActionPerformed
@@ -814,27 +851,33 @@ public class Menyuplai extends javax.swing.JFrame {
 
     private void jTextSuplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSuplierActionPerformed
            // TODO add your handling code here:
-           String cari = jTextSuplier.getText();
-           tampilSuplier(cari);
+           
     }//GEN-LAST:event_jTextSuplierActionPerformed
 
     private void jTextFieldKdBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKdBarangActionPerformed
         // TODO add your handling code here:
+        submitKode(jTextFieldKdBarang.getText());
+        jButtonUpdate.setVisible(false);
+        jButtonHapus.setVisible(false);
     }//GEN-LAST:event_jTextFieldKdBarangActionPerformed
 
     private void jTextJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextJumlahActionPerformed
         // TODO add your handling code here:
-        UpdateSubtotal();
+        
     }//GEN-LAST:event_jTextJumlahActionPerformed
 
     private void jTableBrgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBrgMouseClicked
         // TODO add your handling code here:
         klikBarng();
+        jButtonUpdate.setVisible(false);
+        jButtonHapus.setVisible(false);
     }//GEN-LAST:event_jTableBrgMouseClicked
 
     private void jTableSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSuplierMouseClicked
         // TODO add your handling code here:
         klikSuplier();
+        jButtonUpdate.setVisible(false);
+        jButtonHapus.setVisible(false);
     }//GEN-LAST:event_jTableSuplierMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -842,24 +885,34 @@ public class Menyuplai extends javax.swing.JFrame {
         submitBarng();
         UpdateJumlahBrg();
         UpdateGrandTotal();
+        clearForm();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTableMenyuplaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMenyuplaiMouseClicked
         // TODO add your handling code here:
         klikTbMenyup();
+        jButtonUpdate.setVisible(true);
+        jButtonHapus.setVisible(true);
     }//GEN-LAST:event_jTableMenyuplaiMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHapusActionPerformed
         // TODO add your handling code here:
         hapusSubmitedBrg();
         UpdateJumlahBrg();
         UpdateGrandTotal();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        clearForm();
+        jButtonUpdate.setVisible(false);
+        jButtonHapus.setVisible(false);
+    }//GEN-LAST:event_jButtonHapusActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
         // TODO add your handling code here:
 //        updateKlikedMenyuplai();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        updateValue();
+        clearForm();
+        jButtonUpdate.setVisible(false);
+        jButtonHapus.setVisible(false);
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jTableMenyuplaiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableMenyuplaiPropertyChange
         // TODO add your handling code here:
@@ -876,6 +929,34 @@ public class Menyuplai extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jTextFieldCrBrgKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCrBrgKeyReleased
+        // TODO add your handling code here:
+        String cari = jTextFieldCrBrg.getText();
+        tampilBarang(cari);
+    }//GEN-LAST:event_jTextFieldCrBrgKeyReleased
+
+    private void jTextSuplierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextSuplierKeyReleased
+        // TODO add your handling code here:
+        String cari = jTextSuplier.getText();
+           tampilSuplier(cari);
+    }//GEN-LAST:event_jTextSuplierKeyReleased
+
+    private void jTextJumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextJumlahKeyReleased
+        // TODO add your handling code here:
+        UpdateSubtotal();
+    }//GEN-LAST:event_jTextJumlahKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        bersihkan();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jScrollPane2MouseClicked
+
+    
     /**
      * @param args the command line arguments
      */
@@ -912,11 +993,11 @@ public class Menyuplai extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButtonHapus;
+    private javax.swing.JButton jButtonUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

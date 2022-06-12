@@ -6,6 +6,7 @@
 package lafo.view.PopUp.Kasir;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import lafo.entity.diskon;
@@ -116,8 +117,13 @@ public class inputBarang extends javax.swing.JFrame {
         jLabelTDis.setText(diss.getJumlahDiskon()+"");
     }
     
-    public void UpdateGrandTotal(){
-        
+    public void clear(){
+        jLabelNama.setText("?");
+        jLabelHarga.setText("RP. 0");
+        jTextFieldQty.setText("");
+        jLabelNamaDiskon.setText("HARGANORMAL");
+        jLabelTDis.setText("RP. 0");
+        jLabelSubTotal.setText("RP. 0");
     }
     
     private void SubmitMenu(){     
@@ -129,13 +135,45 @@ public class inputBarang extends javax.swing.JFrame {
         float harga = mntp.getHarga();
         float potongan = diss.getJumlahDiskon();
         float SubTotal = QytMenu * harga - potongan;
+        boolean sama = false;
+        int qtyNow = 0;
+        int Tambahan = 0;
+        int jumlahTr = MainJframe.jTableTransaksi.getRowCount();
+        String kodeMenuCek;
         
-        String[] isi = {namaMenu+"",kodeMenu+"",QytMenu+"",harga+"",potongan+"",SubTotal+""};
         Object[] c = new Object[]{namaMenu,kodeMenu,QytMenu,harga,potongan,SubTotal};
-        DefaultTableModel tbMod = new DefaultTableModel();
-        MainJframe.tbModTrans.addRow(c);
-//        MainJframe.mntemp.setKode(mntp.getKode());
-        tabelTr.setModel(MainJframe.tbModTrans);
+        
+        
+        if (jumlahTr >0) {
+            
+        for (int i = 0; i < jumlahTr ; i++) {
+                kodeMenuCek = MainJframe.jTableTransaksi.getValueAt(i, 1).toString();
+                System.out.println("kode di tr : "+ kodeMenuCek);
+            if (kodeMenuCek.equalsIgnoreCase(mntp.getKode())) {
+                
+                System.out.println(kodeMenuCek+"="+mntp.getKode());
+                qtyNow = Integer.valueOf(MainJframe.jTableTransaksi.getValueAt(i, 2).toString());
+                Tambahan = qtyNow + mntp.getJumlah();
+                SubTotal = mntp.getHarga() * Tambahan;
+                
+                
+                MainJframe.jTableTransaksi.setValueAt(Tambahan, i, 2);
+                MainJframe.jTableTransaksi.setValueAt(SubTotal, i, 5);
+//                MainJframe.jTableTransaksi.removeRowSelectionInterval(i, i+1);
+                System.out.println("ganti lama");
+                sama = true;
+                break;
+            }
+            
+            sama = false;
+        }
+        }
+        
+        if (!sama) {
+            System.out.println("tambah baru");
+            MainJframe.tbModTrans.addRow(c);
+//        tabelTr.setModel(MainJframe.tbModTrans);
+        }
         this.setVisible(false);
         
         MainJframe.UpdateTotal();
@@ -169,7 +207,7 @@ public class inputBarang extends javax.swing.JFrame {
         jLabelNamaDiskon = new javax.swing.JLabel();
         jLabelTDis = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setSize(new java.awt.Dimension(592, 623));
 
@@ -184,7 +222,18 @@ public class inputBarang extends javax.swing.JFrame {
                 jTextFieldQtyInputMethodTextChanged(evt);
             }
         });
+        jTextFieldQty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldQtyActionPerformed(evt);
+            }
+        });
         jTextFieldQty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldQtyKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldQtyKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldQtyKeyReleased(evt);
             }
@@ -206,13 +255,13 @@ public class inputBarang extends javax.swing.JFrame {
         jLabel1.setText("Nama Barang");
 
         jLabelNama.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabelNama.setText("24-inci 144Hz monitor komputer LCD");
+        jLabelNama.setText("?");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Masukkan Quantity");
 
         jLabelHarga.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabelHarga.setText("Rp. 300.000");
+        jLabelHarga.setText("Rp. 0");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Harga");
@@ -224,10 +273,10 @@ public class inputBarang extends javax.swing.JFrame {
         jLabel7.setText("Sub Total");
 
         jLabelSubTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabelSubTotal.setText("Rp. 300.000");
+        jLabelSubTotal.setText("Rp. 0");
 
         jLabelDiskon.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabelDiskon.setText("KODE DISKON");
+        jLabelDiskon.setText("HARGANORMAL");
         jLabelDiskon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelDiskonMouseClicked(evt);
@@ -363,8 +412,34 @@ public class inputBarang extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        SubmitMenu();
+        if (jTextFieldQty.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "jumlah tidak boleh kosong");
+        }else{
+            SubmitMenu();
+            clear();
+            
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextFieldQtyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQtyKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextFieldQtyKeyPressed
+
+    private void jTextFieldQtyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQtyKeyTyped
+        char c = evt.getKeyChar();
+        
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }else{
+            
+        }
+    }//GEN-LAST:event_jTextFieldQtyKeyTyped
+
+    private void jTextFieldQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldQtyActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextFieldQtyActionPerformed
 
 
     /**

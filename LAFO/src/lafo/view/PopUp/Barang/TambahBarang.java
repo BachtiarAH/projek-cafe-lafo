@@ -28,6 +28,7 @@ public class TambahBarang extends javax.swing.JFrame {
     public TambahBarang(String mode) {
         initComponents();
         this.mode = mode;
+        this.setLocationRelativeTo(null);
         setComboBox();
         
     }
@@ -112,9 +113,9 @@ public class TambahBarang extends javax.swing.JFrame {
         tempBarang.setSatuan(jComboBoxSatuan.getEditor().getItem().toString());
         
         String sql = "INSERT INTO `barang` "
-                + "(`kode_Barang`, `Nama_barang`, `satuan`) "
+                + "(`kode_Barang`, `Nama_barang`, `satuan`,`stok`) "
                 + "VALUES "
-                + "('"+tempBarang.getKode()+"', '"+tempBarang.getNama()+"', '"+tempBarang.getSatuan()+"')";
+                + "('"+tempBarang.getKode()+"', '"+tempBarang.getNama()+"', '"+tempBarang.getSatuan()+"',0)";
         
         DbOp.DatabaseExecutor(sql, true);
         String massageSucc = "Berhasil Menambahkan "+tempBarang.getNama();
@@ -160,10 +161,12 @@ public class TambahBarang extends javax.swing.JFrame {
     public void setJform(JTable tabel){
         jTextFieldKodeBarang.setText(tabel.getValueAt(jTableBarang.getSelectedRow(), 0).toString());
         jTextFieldNamaBarang.setText(tabel.getValueAt(jTableBarang.getSelectedRow(), 1).toString());
-            jComboBoxSatuan.getEditor().setItem(tabel.getValueAt(tabel.getSelectedRow(), 3));
+            jComboBoxSatuan.getEditor().setItem(tabel.getValueAt(tabel.getSelectedRow(), 2));
 //        jTextFieldKodeBarang.setText(MainJframe.jTableBarang.getValueAt(jTableBarang.getSelectedRow(), 0).toString());
 //        jTextFieldNamaBarang.setText(MainJframe.jTableBarang.getValueAt(jTableBarang.getSelectedRow(), 1).toString());
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,10 +183,11 @@ public class TambahBarang extends javax.swing.JFrame {
         jTextFieldNamaBarang = new javax.swing.JTextField();
         jTextFieldKodeBarang = new javax.swing.JTextField();
         label3 = new java.awt.Label();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonSubmitBArang = new javax.swing.JButton();
+        jButtonUpdateBarang = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jComboBoxSatuan = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -218,25 +222,25 @@ public class TambahBarang extends javax.swing.JFrame {
         label3.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         label3.setText("Satuan\n");
 
-        jButton1.setBackground(new java.awt.Color(241, 102, 52));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("SUBMIT");
-        jButton1.setPreferredSize(new java.awt.Dimension(478, 46));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSubmitBArang.setBackground(new java.awt.Color(241, 102, 52));
+        jButtonSubmitBArang.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButtonSubmitBArang.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSubmitBArang.setText("SUBMIT");
+        jButtonSubmitBArang.setPreferredSize(new java.awt.Dimension(478, 46));
+        jButtonSubmitBArang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonSubmitBArangActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(241, 102, 52));
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("UPDATE");
-        jButton2.setPreferredSize(new java.awt.Dimension(478, 46));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUpdateBarang.setBackground(new java.awt.Color(241, 102, 52));
+        jButtonUpdateBarang.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButtonUpdateBarang.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonUpdateBarang.setText("UPDATE");
+        jButtonUpdateBarang.setPreferredSize(new java.awt.Dimension(478, 46));
+        jButtonUpdateBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonUpdateBarangActionPerformed(evt);
             }
         });
 
@@ -260,6 +264,15 @@ public class TambahBarang extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(241, 102, 52));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("generate code");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -268,21 +281,26 @@ public class TambahBarang extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldKodeBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4))
                     .addComponent(jTextFieldNamaBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSubmitBArang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonUpdateBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxSatuan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBoxSatuan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldKodeBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -294,9 +312,9 @@ public class TambahBarang extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(87, 87, 87)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonSubmitBArang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonUpdateBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
@@ -322,7 +340,7 @@ public class TambahBarang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNamaBarangActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonSubmitBArangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitBArangActionPerformed
         // TODO add your handling code here:
         if (!(jTextFieldKodeBarang.getText().equalsIgnoreCase("") && jTextFieldNamaBarang.getText().equalsIgnoreCase(""))) {
         tambahBarang();
@@ -331,14 +349,15 @@ public class TambahBarang extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "kode barang dan nama barang tidak boleh kososng!");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonSubmitBArangActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonUpdateBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateBarangActionPerformed
         // TODO add your handling code here:
+        
         updateBarang();
         RefreshTabelBarang();
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonUpdateBarangActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -347,11 +366,18 @@ public class TambahBarang extends javax.swing.JFrame {
 
     private void jTextFieldNamaBarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNamaBarangKeyReleased
         // TODO add your handling code here:
-        if ((jTextFieldNamaBarang.getText().length() == 2)) {
+       
+    }//GEN-LAST:event_jTextFieldNamaBarangKeyReleased
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if ((jTextFieldNamaBarang.getText().length() >= 2)) {
             
         jTextFieldKodeBarang.setText(generateKodeBarang());
+        }else{
+            JOptionPane.showMessageDialog(null, "membutuhkan nama barang setidaknya 2 karakter");
         }
-    }//GEN-LAST:event_jTextFieldNamaBarangKeyReleased
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextFieldKodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKodeBarangActionPerformed
         // TODO add your handling code here:
@@ -397,9 +423,10 @@ public class TambahBarang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    public javax.swing.JButton jButtonSubmitBArang;
+    public javax.swing.JButton jButtonUpdateBarang;
     private javax.swing.JComboBox<String> jComboBoxSatuan;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldKodeBarang;

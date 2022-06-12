@@ -6,7 +6,6 @@
 package lafo.entity;
 
 import java.util.Date;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  *
