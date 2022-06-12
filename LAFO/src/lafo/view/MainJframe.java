@@ -235,7 +235,7 @@ public class MainJframe extends javax.swing.JFrame {
         txtnama1 = new javax.swing.JTextField();
         txtpassword1 = new javax.swing.JTextField();
         txthp1 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        txtusername1 = new javax.swing.JTextField();
         cmbgender1 = new javax.swing.JComboBox<>();
         cmbakses1 = new javax.swing.JComboBox<>();
         txtalamat1 = new javax.swing.JTextField();
@@ -253,6 +253,7 @@ public class MainJframe extends javax.swing.JFrame {
         cmbstatus = new javax.swing.JComboBox<>();
         jLabel57 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
+        jLabel58 = new javax.swing.JLabel();
         transaksi = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableTransaksi = new javax.swing.JTable();
@@ -1976,11 +1977,10 @@ public class MainJframe extends javax.swing.JFrame {
             }
         });
 
-        jTextField8.setText("jTextField1");
-        jTextField8.setPreferredSize(new java.awt.Dimension(690, 55));
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        txtusername1.setPreferredSize(new java.awt.Dimension(690, 55));
+        txtusername1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                txtusername1ActionPerformed(evt);
             }
         });
 
@@ -2060,49 +2060,56 @@ public class MainJframe extends javax.swing.JFrame {
 
         jButton7.setText("generate kode");
 
+        jLabel58.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel58.setText("Username");
+
         javax.swing.GroupLayout nonadminLayout = new javax.swing.GroupLayout(nonadmin);
         nonadmin.setLayout(nonadminLayout);
         nonadminLayout.setHorizontalGroup(
             nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nonadminLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel50)
-                    .addComponent(cmbgender1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txthp1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel51)
-                    .addComponent(txtpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtkode1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(nonadminLayout.createSequentialGroup()
-                        .addComponent(jLabel49)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7))
-                    .addComponent(jLabel53))
-                .addGap(61, 61, 61)
                 .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel54)
-                            .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtalamat1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtnama1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel52)
-                            .addComponent(jLabel56)
-                            .addComponent(cmbakses1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel55))
-                        .addGroup(nonadminLayout.createSequentialGroup()
-                            .addComponent(tgldaftar1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(224, 224, 224)
-                            .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel57)
-                                .addComponent(cmbstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel58)
                     .addGroup(nonadminLayout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(btnhapus1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnsimpan1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(56, 56, 56))
+                        .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel50)
+                                .addComponent(cmbgender1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txthp1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel51)
+                                .addComponent(txtpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtkode1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(nonadminLayout.createSequentialGroup()
+                                    .addComponent(jLabel49)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton7))
+                                .addComponent(jLabel53))
+                            .addComponent(txtusername1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61)
+                        .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel54)
+                                    .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtalamat1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtnama1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel52)
+                                    .addComponent(jLabel56)
+                                    .addComponent(cmbakses1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel55))
+                                .addGroup(nonadminLayout.createSequentialGroup()
+                                    .addComponent(tgldaftar1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(224, 224, 224)
+                                    .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel57)
+                                        .addComponent(cmbstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(nonadminLayout.createSequentialGroup()
+                                .addGap(182, 182, 182)
+                                .addComponent(btnhapus1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnsimpan1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         nonadminLayout.setVerticalGroup(
             nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2127,21 +2134,18 @@ public class MainJframe extends javax.swing.JFrame {
                 .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(nonadminLayout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(jLabel51))
+                        .addComponent(jLabel56)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nonadminLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel56)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel51)
+                        .addGap(18, 18, 18)))
                 .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txthp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbakses1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
                 .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(nonadminLayout.createSequentialGroup()
-                        .addComponent(jLabel53)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(nonadminLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
                         .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel55)
                             .addComponent(jLabel57))
@@ -2149,14 +2153,23 @@ public class MainJframe extends javax.swing.JFrame {
                         .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbstatus, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                             .addComponent(tgldaftar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(23, 23, 23)))
-                .addGap(24, 24, 24)
-                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnhapus1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnsimpan1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(588, 588, 588)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, nonadminLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel53)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nonadminLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnhapus1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnsimpan1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(nonadminLayout.createSequentialGroup()
+                        .addComponent(jLabel58)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtusername1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         Users.add(nonadmin, "card4");
@@ -3082,6 +3095,7 @@ public class MainJframe extends javax.swing.JFrame {
         tambahPegawai.tgldaftar.setDate(date);
         tambahPegawai.cmbakses.setSelectedItem(hakAkses);
         tambahPegawai.txtpassword.setText(password);
+        tambahPegawai.txtpassword1.setText(username);
         
         tambahPegawai.setVisible(true);
     }
@@ -3094,7 +3108,13 @@ public class MainJframe extends javax.swing.JFrame {
                     + "`status`='"+cmbstatus.getSelectedItem()+"',"
                     + "`hak_akses`='"+cmbakses1.getSelectedItem()+"'"
                     + " WHERE Id_Pegawai ='"+txtkode1.getText()+"'");
+            String sqll = ("UPDATE `akun` SET "
+                    + "`Username`='"+txtusername1.getText()+"',"
+                    + "`password`='"+txtpassword1.getText()+"'"
+                    + " WHERE Id_Pegawai ='"+txtkode1.getText()+"'");
+            
             OperatorDbLafo.DatabaseExecutor(sql, true);
+            OperatorDbLafo.DatabaseExecutor(sqll, true);
             
         }catch (Exception e){   
         }
@@ -3894,9 +3914,9 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txthp1ActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void txtusername1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusername1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_txtusername1ActionPerformed
 
     private void cmbgender1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbgender1ActionPerformed
 
@@ -3917,6 +3937,8 @@ public class MainJframe extends javax.swing.JFrame {
     private void btnsimpan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpan1ActionPerformed
 
         editpegawai();
+        JOptionPane.showMessageDialog(null, "berhasil mengedit");
+        tambahPegawai.setMode("edit");
     }//GEN-LAST:event_btnsimpan1ActionPerformed
 
     private void btnhapus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapus1ActionPerformed
@@ -3936,11 +3958,14 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        tambahPegawai.setMode("tambah");
         tambahPegawai.setVisible(true);
+        
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jTableUser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUser1MouseClicked
         // TODO add your handling code here:
+        tambahPegawai.setMode("edit");
         klikPegawai();
     }//GEN-LAST:event_jTableUser1MouseClicked
 
@@ -4094,6 +4119,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
@@ -4135,12 +4161,11 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JTable jTableLaporan;
     private javax.swing.JTable jTableSuplier;
     public static javax.swing.JTable jTableTransaksi;
-    private javax.swing.JTable jTableUser1;
+    public static javax.swing.JTable jTableUser1;
     public static javax.swing.JTable jTablemenu;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextFieldAlamatSuplier;
     public static javax.swing.JTextField jTextFieldBayar;
     private javax.swing.JTextField jTextFieldCariMenu;
@@ -4176,6 +4201,7 @@ public class MainJframe extends javax.swing.JFrame {
     public javax.swing.JTextField txtkode1;
     public javax.swing.JTextField txtnama1;
     public javax.swing.JTextField txtpassword1;
+    public javax.swing.JTextField txtusername1;
     // End of variables declaration//GEN-END:variables
 
 

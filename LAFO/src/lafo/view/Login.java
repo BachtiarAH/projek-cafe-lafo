@@ -98,6 +98,7 @@ public class Login extends javax.swing.JFrame {
             mainFrame.cmbstatus.setSelectedItem(rs.getString("status").toUpperCase());
             mainFrame.cmbakses1.setSelectedItem(rs.getString("hak_akses"));
             mainFrame.txtpassword1.setText(password);
+            mainFrame.txtusername1.setText(username);
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(sql );

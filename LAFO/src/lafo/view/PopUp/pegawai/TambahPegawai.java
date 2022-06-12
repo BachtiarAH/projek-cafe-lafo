@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import lafo.entity.user;
 import lafo.proses.DataBase.DataBaseOperator;
 import lafo.proses.DataBase.Koneksi;
+import lafo.view.MainJframe;
+import static lafo.view.MainJframe.jTableUser1;
 
 
 public class TambahPegawai extends javax.swing.JFrame {
@@ -24,6 +26,16 @@ public class TambahPegawai extends javax.swing.JFrame {
         cmbakses();
 //        coba();
     }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+    
+    
     
     public String generateCode(){
         int index = 1;
@@ -93,7 +105,29 @@ public class TambahPegawai extends javax.swing.JFrame {
             Logger.getLogger(TambahPegawai.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         }
-    }    
+    } 
+    
+    public void editpegawai(){
+        try {
+            String sql = ("UPDATE `pegawai` SET "
+                    + "`Nama_Pegawai`='"+txtnama.getText()+"',"
+                    + "`Alamat`='"+txtalamat.getText()+"',"
+                    + "`No_Hp`='"+txthp.getText()+"',"
+                    + "`status`='"+cmbstatus.getSelectedItem()+"',"
+                    + "`hak_akses`='"+cmbakses.getSelectedItem()+"'"
+                    + " WHERE Id_Pegawai ='"+txtkode.getText()+"'");
+            String sqll = ("UPDATE `akun` SET "
+                    + "`Username`='"+txtpassword1.getText()+"',"
+                    + "`password`='"+txtpassword1.getText()+"'"
+                    + " WHERE Id_Pegawai ='"+txtkode.getText()+"'");
+            
+            DbOp.DatabaseExecutor(sql, true);
+            DbOp.DatabaseExecutor(sqll, true);
+            
+        }catch (Exception e){   
+        }
+    }
+    
     public void cmbakses(){
         String sql = "SELECT pegawai.hak_akses FROM `pegawai`;";
         ResultSet rs = DbOp.getResultSql(sql, true);
@@ -144,11 +178,17 @@ public class TambahPegawai extends javax.swing.JFrame {
                 + "('"+tempPegawai.getKode()+"', '"+tempPegawai.getNama()+"', '"+tempPegawai.getKelamin()+"','"+tempPegawai.getAlamat()+"','"+tempPegawai.getNoHp()+"'"
                 + ",'"+TanggalGabung+"','"+tempPegawai.getStatus()+"','"+tempPegawai.getHakAkses()+"')"; 
           
-          System.out.println(sql);
-//        DbOp.DatabaseExecutor(sql, true);
+       
+        DbOp.DatabaseExecutor(sql, true);
 //        String massageSucc = "Berhasil Menambahkan "+tempPegawai.getNama();
 //        JOptionPane.showMessageDialog(this, massageSucc);
     }
+        
+        public void tambahAkun(){
+             String sqll = "INSERT INTO `akun`(`Username`, `password`, `Id_Pegawai`) VALUES "
+                + "('"+txtpassword1.getText()+"','"+txtpassword.getText()+"','"+txtkode.getText()+"')"; 
+             DbOp.DatabaseExecutor(sqll, true);
+        }
         
        public void bersihkanform(){
            txtkode.setText("");
@@ -159,6 +199,11 @@ public class TambahPegawai extends javax.swing.JFrame {
            
        }
 
+       public void refresh(){
+           String sql= "SELECT * FROM `pegawai`";
+        String[] header = {"ID","Nama","Gender","Alamt","No Hp","Status","gabung","hak akses"};
+        DbOp.tabel(sql, header, jTableUser1);
+       }
 
         
         
@@ -198,8 +243,10 @@ public class TambahPegawai extends javax.swing.JFrame {
         cmbstatus = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        txtpassword1 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -322,6 +369,16 @@ public class TambahPegawai extends javax.swing.JFrame {
             }
         });
 
+        txtpassword1.setPreferredSize(new java.awt.Dimension(690, 55));
+        txtpassword1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpassword1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel7.setText("Username");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -329,6 +386,11 @@ public class TambahPegawai extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(69, 69, 69))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,13 +400,10 @@ public class TambahPegawai extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtkode, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(61, 61, 61))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(69, 69, 69)))
+                            .addComponent(jLabel5)
+                            .addComponent(txtpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(61, 61, 61)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,12 +463,10 @@ public class TambahPegawai extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txthp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbakses, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(49, 49, 49)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -418,12 +475,18 @@ public class TambahPegawai extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbstatus, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                             .addComponent(tgldaftar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(23, 23, 23)))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnsimpan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(588, 588, 588)
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnsimpan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(588, 588, 588))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(625, 625, 625)))
                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -489,7 +552,18 @@ bersihkanform();
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
-    Tambahpegawai();
+        if (mode.equalsIgnoreCase("tambah")) {
+        Tambahpegawai();
+        tambahAkun();
+            
+        }
+        if(mode.equalsIgnoreCase("edit")){
+            editpegawai();
+        }
+        
+        refresh();
+        
+        this.setVisible(false);
     }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void cmbstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbstatusActionPerformed
@@ -498,11 +572,19 @@ bersihkanform();
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        try {
+            
         String kode = generateCode();
         txtkode.setText(kode);
-        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "tolong pilih tanggal masuk terlebih dahulu");
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtpassword1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassword1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpassword1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -553,6 +635,7 @@ bersihkanform();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public javax.swing.JPanel jPanel2;
@@ -563,5 +646,6 @@ bersihkanform();
     public javax.swing.JTextField txtkode;
     public javax.swing.JTextField txtnama;
     public javax.swing.JTextField txtpassword;
+    public javax.swing.JTextField txtpassword1;
     // End of variables declaration//GEN-END:variables
 }
