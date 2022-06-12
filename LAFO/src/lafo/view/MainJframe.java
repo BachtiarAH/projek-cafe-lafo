@@ -230,7 +230,7 @@ public class MainJframe extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableUser1 = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
+        nonadmin = new javax.swing.JPanel();
         txtkode1 = new javax.swing.JTextField();
         txtnama1 = new javax.swing.JTextField();
         txtpassword1 = new javax.swing.JTextField();
@@ -1944,9 +1944,9 @@ public class MainJframe extends javax.swing.JFrame {
 
         Users.add(forAdmin, "card6");
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel6.setPreferredSize(new java.awt.Dimension(1352, 753));
+        nonadmin.setBackground(new java.awt.Color(255, 255, 255));
+        nonadmin.setForeground(new java.awt.Color(255, 255, 255));
+        nonadmin.setPreferredSize(new java.awt.Dimension(1352, 753));
 
         txtkode1.setPreferredSize(new java.awt.Dimension(690, 55));
         txtkode1.addActionListener(new java.awt.event.ActionListener() {
@@ -2060,13 +2060,13 @@ public class MainJframe extends javax.swing.JFrame {
 
         jButton7.setText("generate kode");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout nonadminLayout = new javax.swing.GroupLayout(nonadmin);
+        nonadmin.setLayout(nonadminLayout);
+        nonadminLayout.setHorizontalGroup(
+            nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nonadminLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel50)
                     .addComponent(cmbgender1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2074,84 +2074,84 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(jLabel51)
                     .addComponent(txtpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtkode1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGroup(nonadminLayout.createSequentialGroup()
                         .addComponent(jLabel49)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton7))
                     .addComponent(jLabel53))
                 .addGap(61, 61, 61)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel54)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtalamat1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtnama1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel52)
                             .addComponent(jLabel56)
                             .addComponent(cmbakses1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel55))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(nonadminLayout.createSequentialGroup()
                             .addComponent(tgldaftar1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(224, 224, 224)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel57)
                                 .addComponent(cmbstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGroup(nonadminLayout.createSequentialGroup()
                         .addGap(182, 182, 182)
                         .addComponent(btnhapus1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnsimpan1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(56, 56, 56))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        nonadminLayout.setVerticalGroup(
+            nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nonadminLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel49)
                     .addComponent(jLabel54)
                     .addComponent(jButton7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtkode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtnama1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel50)
                     .addComponent(jLabel52))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbgender1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtalamat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nonadminLayout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(jLabel51))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nonadminLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel56)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txthp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbakses1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(nonadminLayout.createSequentialGroup()
                         .addComponent(jLabel53)
                         .addGap(18, 18, 18)
                         .addComponent(txtpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(nonadminLayout.createSequentialGroup()
+                        .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel55)
                             .addComponent(jLabel57))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbstatus, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                             .addComponent(tgldaftar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(23, 23, 23)))
                 .addGap(24, 24, 24)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnhapus1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnsimpan1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(588, 588, 588)
@@ -2159,7 +2159,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Users.add(jPanel6, "card4");
+        Users.add(nonadmin, "card4");
 
         panel_ContenContainer.add(Users, "card5");
 
@@ -2525,7 +2525,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(panelNavigasiBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_ContenContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 1491, Short.MAX_VALUE)
+                    .addComponent(panel_ContenContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 1491, Short.MAX_VALUE)
                     .addComponent(panel_Header, javax.swing.GroupLayout.DEFAULT_SIZE, 1491, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -3085,6 +3085,20 @@ public class MainJframe extends javax.swing.JFrame {
         
         tambahPegawai.setVisible(true);
     }
+    public void editpegawai(){
+        try {
+            String sql = ("UPDATE `pegawai` SET "
+                    + "`Nama_Pegawai`='"+txtnama1.getText()+"',"
+                    + "`Alamat`='"+txtalamat1.getText()+"',"
+                    + "`No_Hp`='"+txthp1.getText()+"',"
+                    + "`status`='"+cmbstatus.getSelectedItem()+"',"
+                    + "`hak_akses`='"+cmbakses1.getSelectedItem()+"'"
+                    + " WHERE Id_Pegawai ='"+txtkode1.getText()+"'");
+            OperatorDbLafo.DatabaseExecutor(sql, true);
+            
+        }catch (Exception e){   
+        }
+    }
     
     public void pegawaiMasuk(){
         String password = "";
@@ -3323,7 +3337,7 @@ public class MainJframe extends javax.swing.JFrame {
         if (pgw.getHakAkses().equalsIgnoreCase("admin")) {
             Utility.setSideBar(Users, forAdmin);
         }else{
-            Utility.setSideBar(Users, jPanel6);
+            Utility.setSideBar(Users, nonadmin);
         }
         Utility.setSideBar(panel_ContenContainer, Users);
                 
@@ -3901,7 +3915,8 @@ public class MainJframe extends javax.swing.JFrame {
     }//GEN-LAST:event_txtalamat1ActionPerformed
 
     private void btnsimpan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpan1ActionPerformed
-        Tambahpegawai();
+
+        editpegawai();
     }//GEN-LAST:event_btnsimpan1ActionPerformed
 
     private void btnhapus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapus1ActionPerformed
@@ -4104,7 +4119,6 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanelInsertKategori;
     private javax.swing.JPanel jPanelInsertKategori1;
     private javax.swing.JPanel jPanelTotalTransaksi;
@@ -4149,6 +4163,7 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JLabel labeliconTotalMenu;
     private javax.swing.JLabel labeliconTotalSuplier;
     private javax.swing.JTextField namaDiskon_text;
+    private javax.swing.JPanel nonadmin;
     private javax.swing.JPanel panelNavigasiBar;
     private javax.swing.JPanel panel_ContenContainer;
     private javax.swing.JPanel panel_Header;
