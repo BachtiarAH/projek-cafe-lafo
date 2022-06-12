@@ -21,7 +21,8 @@ public class user extends data{
     String Kelamin;
     String Alamt;
     String TanggalGabung;
-     String password;
+    String password;
+    String username;
    
 
 
@@ -105,5 +106,12 @@ public class user extends data{
 
     public String getHakAkses() {
         return hakakses;
-    }   
+    }
+        public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }  
 }

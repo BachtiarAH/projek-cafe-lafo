@@ -12,24 +12,19 @@ import lafo.proses.DataBase.Koneksi;
 import lafo.view.MainJframe;
 import static lafo.view.MainJframe.jTableBarang;
 
-/**
- *
- * @author Hp
- */
+
 public class TambahBarang extends javax.swing.JFrame {
 
     Koneksi konDbLaf = new Koneksi();
     DataBaseOperator DbOp = new DataBaseOperator(konDbLaf);
     barang tempBarang = new barang();
     String mode;
-    /**
-     * Creates new form TambahBarang
-     */
+    
+    
     public TambahBarang(String mode) {
         initComponents();
         this.mode = mode;
-        setComboBox();
-        
+        setComboBox();        
     }
     
     public void setComboBox(){
@@ -46,12 +41,9 @@ public class TambahBarang extends javax.swing.JFrame {
             System.out.println(ex);
         }
         if (mode.equalsIgnoreCase("edit")) {
-//            setJform();
-            
+//            setJform();      
         }
-    }
-    
-    
+    }    
     //membuat kode barang
     public String generateKodeBarang(){
         //deklarasi variabel
@@ -64,7 +56,6 @@ public class TambahBarang extends javax.swing.JFrame {
         String nama=jTextFieldNamaBarang.getText();
         String inisial = nama.substring(0, 2).toUpperCase();
         
-        
         //membuat kodesuplier
    
         kode = "BR"+inisial;
@@ -73,10 +64,8 @@ public class TambahBarang extends javax.swing.JFrame {
             "ORDER BY barang.kode_Barang DESC\n" +
             "LIMIT 1;";
         ResultSet rs = DbOp.getResultSql(sql, true);
-        try {
-            
-                while (rs.next()) {                
-                
+        try {            
+                while (rs.next()) {                               
                 indexRs = rs.getString(1).substring(4,6);
             }
         
@@ -88,10 +77,7 @@ public class TambahBarang extends javax.swing.JFrame {
                 }else{
                     IndexKode = intIndexKode+"";
                 }
-            
-    
-            
-            
+         
             kode = "BR"+inisial+IndexKode;
             
             System.out.println(kode);
