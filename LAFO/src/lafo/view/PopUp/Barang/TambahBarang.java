@@ -135,8 +135,7 @@ public class TambahBarang extends javax.swing.JFrame {
         System.out.println(sql);
         DbOp.DatabaseExecutor(sql, true);
         String massageSucc = "Berhasil Memperbarui "+tempBarang.getNama();
-        JOptionPane.showMessageDialog(this, massageSucc);
-        
+        JOptionPane.showMessageDialog(this, massageSucc);       
     }
     
     public void clearForm(){

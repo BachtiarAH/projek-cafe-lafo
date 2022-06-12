@@ -5,20 +5,24 @@
  */
 package lafo.entity;
 
+import java.util.Date;
+
 /**
  *
  * @author user
  */
 public class user extends data{
     String noHp;
-    String gender;
+    String Gender;
     String Alamat;
     String tanggalDaftar;
     String Status;
-    String hakAkses;
+    String hakakses;
     String Kelamin;
     String Alamt;
     String TanggalGabung;
+     String password;
+   
 
 
     
@@ -39,11 +43,11 @@ public class user extends data{
         this.noHp = noHp;
     }
 
-    public String getAlamt() {
+    public String getAlamat() {
         return Alamt;
     }
 
-    public void setAlamt(String Alamt) {
+    public void setAlamat(String Alamt) {
         this.Alamt = Alamt;
     }
 
@@ -64,18 +68,18 @@ public class user extends data{
     }
 
     public String getGender() {
-        return gender;
+        return Gender;
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        this.Gender = Gender;
     }
 
-    public String getAlamat() {
+    public String getAlamt() {
         return Alamat;
     }
 
-    public void setAlamat(String Alamat) {
+    public void setAlamt(String Alamat) {
         this.Alamat = Alamat;
     }
 
@@ -87,23 +91,19 @@ public class user extends data{
         this.tanggalDaftar = tanggalDaftar;
     }
 
-    
-    
-    public void setHakAkses(String hakAkses) {
-        this.hakAkses = hakAkses;
-    }
-
-    public String getHakAkses() {
-        return hakAkses;
-    }
-
-    public void setPassword(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPassword() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return password;
+    }
+    
+    public void setHakAkses(String hakakses) {
+        this.hakakses = hakakses;
     }
 
-    
+    public String getHakAkses() {
+        return hakakses;
+    }   
 }
