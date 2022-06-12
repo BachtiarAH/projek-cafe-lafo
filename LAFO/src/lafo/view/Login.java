@@ -81,7 +81,7 @@ public class Login extends javax.swing.JFrame {
             mainFrame.pgw.setTanggalDaftar(pegawai.getTanggalDaftar());
             
              String password = rs.getString("password");
-            String username = "";
+            String username = rs.getString("username");
         
         
             Date date = new Date(Integer.valueOf( rs.getString("Tanggal_Terdaftar").substring(0, 4)), Integer.valueOf( rs.getString("Tanggal_Terdaftar").substring(5, 7)), Integer.valueOf( rs.getString("Tanggal_Terdaftar").substring(8)));
