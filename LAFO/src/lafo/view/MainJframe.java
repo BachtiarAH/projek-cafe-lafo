@@ -2962,15 +2962,10 @@ public class MainJframe extends javax.swing.JFrame {
          try {
             String sql = "SELECT diskon.kode_diskon FROM `diskon` WHERE kode_diskon LIKE 'DIS%' ORDER BY kode_diskon DESC";
             ResultSet result = OperatorDbLafo.getResultSql(sql, true);
-            String angka,nol;
-            
             if(result.next()) {
-                System.out.println(result.next());
                 String kodeDiskon = result.getString("kode_diskon").substring(9);
-                System.out.println(kodeDiskon);
-                angka = "" + (Integer.parseInt(kodeDiskon) + 1);
-                System.out.println(angka);
-                 nol = "";
+                String angka = "" + (Integer.parseInt(kodeDiskon) + 1);
+                String nol = "";
 
                 if(angka.length() == 1) {
                     nol = "000";
@@ -3671,6 +3666,7 @@ public class MainJframe extends javax.swing.JFrame {
     private void clear_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_buttonActionPerformed
         // TODO add your handling code here:
         clearFormDiskon();
+        tambahDiskon_button.setVisible(true);
     }//GEN-LAST:event_clear_buttonActionPerformed
 
 
@@ -3701,6 +3697,7 @@ public class MainJframe extends javax.swing.JFrame {
     private void diskon_tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diskon_tabelMouseClicked
         // TODO add your handling code here:
         klikTabelDiskon();
+        tambahDiskon_button.setVisible(false);
     }//GEN-LAST:event_diskon_tabelMouseClicked
 
     private void jTableBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBarangMouseClicked
