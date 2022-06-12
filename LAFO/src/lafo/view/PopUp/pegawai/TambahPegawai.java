@@ -2,6 +2,7 @@ package lafo.view.PopUp.pegawai;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,6 +22,15 @@ public class TambahPegawai extends javax.swing.JFrame {
         initComponents();
         cmbgender();
         cmbakses();
+//        coba();
+    }
+    
+    public void coba(){
+        Date date = new Date(2022, 5-1, 1);
+        
+        tgldaftar.setDate(date);
+//        tgldaftar.getDate().setMonth(12);
+//        tgldaftar.getDate().setYear(2022);
     }
     
     public void cmbgender(){
@@ -456,9 +466,9 @@ bersihkanform();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnhapus;
     private javax.swing.JButton btnsimpan;
-    private javax.swing.JComboBox<String> cmbakses;
-    private javax.swing.JComboBox<String> cmbgender;
-    private javax.swing.JComboBox<String> cmbstatus;
+    public javax.swing.JComboBox<String> cmbakses;
+    public javax.swing.JComboBox<String> cmbgender;
+    public javax.swing.JComboBox<String> cmbstatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -468,13 +478,13 @@ bersihkanform();
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
+    public javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField6;
-    private com.toedter.calendar.JDateChooser tgldaftar;
-    private javax.swing.JTextField txtalamat;
-    private javax.swing.JTextField txthp;
-    private javax.swing.JTextField txtkode;
-    private javax.swing.JTextField txtnama;
-    private javax.swing.JTextField txtpassword;
+    public com.toedter.calendar.JDateChooser tgldaftar;
+    public javax.swing.JTextField txtalamat;
+    public javax.swing.JTextField txthp;
+    public javax.swing.JTextField txtkode;
+    public javax.swing.JTextField txtnama;
+    public javax.swing.JTextField txtpassword;
     // End of variables declaration//GEN-END:variables
 }

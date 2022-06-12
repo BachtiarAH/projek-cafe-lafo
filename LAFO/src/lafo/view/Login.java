@@ -7,6 +7,7 @@ package lafo.view;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -56,15 +57,15 @@ public class Login extends javax.swing.JFrame {
     
     
     public void setPegawai(){
-        String sql = "SELECT `Id_Pegawai`, `Nama_Pegawai`, `gender`, `Alamat`, `No_Hp`, `Tanggal_Terdaftar`, `status`, `hak_akses` "
-                + "FROM `pegawai` WHERE pegawai.Id_Pegawai = '"+pegawai.getKode()+"'";
+        String sql = "SELECT pegawai.Id_Pegawai, `Nama_Pegawai`, `gender`, `Alamat`, `No_Hp`, `Tanggal_Terdaftar`, `status`, `hak_akses` ,akun.Username,akun.password FROM `pegawai` JOIN akun ON akun.Id_Pegawai = pegawai.Id_Pegawai "
+                + " WHERE pegawai.Id_Pegawai = '"+pegawai.getKode()+"'";
         
         ResultSet rs = DbOp.getResultSql(sql, true);
         try {
             rs.next();
             pegawai.setNama(rs.getString(2));
             pegawai.setGender(rs.getString(3));
-            pegawai.setAlamat(rs.getString(4));
+            pegawai.setAlamat(rs.getString("alamat"));
             pegawai.setNoHp(rs.getString(5));
             pegawai.setTanggalDaftar(rs.getString(6));
             pegawai.setStatus(rs.getString(7));
@@ -78,6 +79,25 @@ public class Login extends javax.swing.JFrame {
             mainFrame.pgw.setNoHp(pegawai.getNoHp());
             mainFrame.pgw.setStatus(pegawai.getStatus());
             mainFrame.pgw.setTanggalDaftar(pegawai.getTanggalDaftar());
+            
+             String password = rs.getString("password");
+            String username = "";
+        
+        
+            Date date = new Date(Integer.valueOf( rs.getString("Tanggal_Terdaftar").substring(0, 4)), Integer.valueOf( rs.getString("Tanggal_Terdaftar").substring(5, 7)), Integer.valueOf( rs.getString("Tanggal_Terdaftar").substring(8)));
+        
+       
+            
+            mainFrame.txtkode1.setText(pegawai.getKode());
+            mainFrame.txtnama1.setText(pegawai.getNama());
+            mainFrame.cmbgender1.setSelectedItem(rs.getString("gender"));
+            mainFrame.txtalamat1.setText(pegawai.getAlamat());
+            mainFrame.txthp1.setText(pegawai.getNoHp());
+//            System.out.println("KONTOL"+rs.getString("status"));
+            mainFrame.tgldaftar1.setDate(date);
+            mainFrame.cmbstatus.setSelectedItem(rs.getString("status").toUpperCase());
+            mainFrame.cmbakses1.setSelectedItem(rs.getString("hak_akses"));
+            mainFrame.txtpassword1.setText(password);
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(sql );
