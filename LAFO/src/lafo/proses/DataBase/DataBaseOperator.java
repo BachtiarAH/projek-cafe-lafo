@@ -29,6 +29,7 @@ private String[] field;
             pst.execute();
         }catch(SQLException SQLe){
             System.out.println("gagal eksekusi sql: "+SQLe);
+            System.out.println("sql: " + sql);
             JOptionPane.showMessageDialog(null, SQLe);
         }finally{
             if (CloseAfterExecute) {
@@ -46,6 +47,7 @@ private String[] field;
             rs = pst.executeQuery();
         }catch(SQLException SQLe){
             System.out.println("gagal eksekusi sql: "+SQLe);
+            System.out.println("sql : "+sql );
         }finally{
             if (CloseAfterExecute) {
                 koneksi.connectionClose();

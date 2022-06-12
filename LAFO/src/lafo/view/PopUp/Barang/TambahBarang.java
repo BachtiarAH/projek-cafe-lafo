@@ -255,6 +255,11 @@ public class TambahBarang extends javax.swing.JFrame {
         jComboBoxSatuan.setEditable(true);
         jComboBoxSatuan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jComboBoxSatuan.setPreferredSize(new java.awt.Dimension(56, 48));
+        jComboBoxSatuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSatuanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -352,6 +357,10 @@ public class TambahBarang extends javax.swing.JFrame {
     private void jTextFieldKodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKodeBarangActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldKodeBarangActionPerformed
+
+    private void jComboBoxSatuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSatuanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxSatuanActionPerformed
 
     /**
      * @param args the command line arguments
