@@ -532,14 +532,6 @@ public class TambahPegawai extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtalamatActionPerformed
 
-    private void cmbaksesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbaksesActionPerformed
-
-    }//GEN-LAST:event_cmbaksesActionPerformed
-
-    private void cmbaksesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbaksesKeyReleased
-  
-    }//GEN-LAST:event_cmbaksesKeyReleased
-
     private void cmbgenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbgenderActionPerformed
 
     }//GEN-LAST:event_cmbgenderActionPerformed
@@ -565,10 +557,6 @@ bersihkanform();
         this.setVisible(false);
     }//GEN-LAST:event_btnsimpanActionPerformed
 
-    private void cmbstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbstatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbstatusActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
@@ -585,6 +573,18 @@ bersihkanform();
     private void txtpassword1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassword1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpassword1ActionPerformed
+
+    private void cmbstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbstatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbstatusActionPerformed
+
+    private void cmbaksesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbaksesKeyReleased
+
+    }//GEN-LAST:event_cmbaksesKeyReleased
+
+    private void cmbaksesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbaksesActionPerformed
+
+    }//GEN-LAST:event_cmbaksesActionPerformed
 
     /**
      * @param args the command line arguments

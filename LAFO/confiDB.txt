@@ -1,4 +1,4 @@
 localhost
 root
 
-db_lafo
+db_lafo2

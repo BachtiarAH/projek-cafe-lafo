@@ -95,8 +95,10 @@ public class Login extends javax.swing.JFrame {
             mainFrame.txthp1.setText(pegawai.getNoHp());
 //            System.out.println("KONTOL"+rs.getString("status"));
             mainFrame.tgldaftar1.setDate(date);
-            mainFrame.cmbstatus.setSelectedItem(rs.getString("status").toUpperCase());
-            mainFrame.cmbakses1.setSelectedItem(rs.getString("hak_akses"));
+//            mainFrame.cmbstatus.removeItemAt(0);
+            mainFrame.cmbstatus.addItem(rs.getString("status").toUpperCase());
+            mainFrame.cmbstatus.setSelectedItem(0);
+            mainFrame.cmbakses1.setSelectedItem("PEGAWAI");
             mainFrame.txtpassword1.setText(password);
             mainFrame.txtpassword2.setText(username);
         } catch (SQLException ex) {
