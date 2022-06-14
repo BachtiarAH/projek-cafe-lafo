@@ -260,7 +260,7 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
         jButtonEditKode = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         label1.setFont(new java.awt.Font("Dialog", 0, 23)); // NOI18N
         label1.setText("Kode Menu");

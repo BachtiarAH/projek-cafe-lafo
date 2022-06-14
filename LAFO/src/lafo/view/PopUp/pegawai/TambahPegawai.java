@@ -292,7 +292,7 @@ public class TambahPegawai extends javax.swing.JFrame {
             }
         });
 
-        cmbakses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AKTIF", "TIDAK AKTIF" }));
+        cmbakses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Pegawai" }));
         cmbakses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbaksesActionPerformed(evt);
