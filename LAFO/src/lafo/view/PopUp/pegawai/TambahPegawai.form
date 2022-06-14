@@ -266,8 +266,11 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbgender">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {  })" type="code"/>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="L"/>
+                <StringItem index="1" value="P"/>
+              </StringArray>
             </Property>
           </Properties>
           <Events>
@@ -280,8 +283,11 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbakses">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {  })" type="code"/>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="AKTIF"/>
+                <StringItem index="1" value="TIDAK AKTIF"/>
+              </StringArray>
             </Property>
           </Properties>
           <Events>

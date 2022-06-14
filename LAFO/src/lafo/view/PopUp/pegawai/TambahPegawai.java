@@ -20,10 +20,18 @@ public class TambahPegawai extends javax.swing.JFrame {
 
     public TambahPegawai() {
         initComponents();
-        cmbgender();
-        cmbakses();
 //        coba();
     }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+    
+    
     
     public String generateCode(){
         int index = 1;
@@ -108,7 +116,7 @@ public class TambahPegawai extends javax.swing.JFrame {
     
     
     
-        public void Tambahpegawai(){
+    public void Tambahpegawai(){
         tempPegawai.setKode(txtkode.getText());
         tempPegawai.setNama(txtnama.getText());
         tempPegawai.setKelamin(cmbgender.getSelectedItem().toString());
@@ -148,6 +156,40 @@ public class TambahPegawai extends javax.swing.JFrame {
         DbOp.DatabaseExecutor(sql, true);
         String massageSucc = "Berhasil Menambahkan "+tempPegawai.getNama();
         JOptionPane.showMessageDialog(this, massageSucc);
+    }
+        
+    public void tambahAkun(){
+        String kode = txtkode.getText();
+        String username = txtpassword1.getText();
+        String password = txtpassword.getText();
+        
+        String sql = "INSERT INTO `akun` (`Username`, `password`, `Id_Pegawai`) "
+                + "VALUES ('"+username+"', '"+password+"', '"+kode+"')";
+        
+        DbOp.DatabaseExecutor(sql, true);
+    }
+    
+        public void editpegawai(){
+        try {
+            String sql = ("UPDATE `pegawai` SET "
+                    + "`Nama_Pegawai`='"+txtnama.getText()+"',"
+                    + "`Alamat`='"+txtalamat.getText()+"',"
+                    + "`No_Hp`='"+txthp.getText()+"',"
+                    + "`status`='"+cmbstatus.getSelectedItem()+"',"
+                    + "`hak_akses`='"+cmbakses.getSelectedItem()+"'"
+                    + " WHERE Id_Pegawai ='"+txtkode.getText()+"'");
+            DbOp.DatabaseExecutor(sql, true);
+            
+        }catch (Exception e){   
+        }
+    }
+    
+    public void editAkun(){
+        String username = txtpassword1.getText();
+        String password = txtpassword.getText();
+        String kode = txtkode.getText();
+        String sql = "UPDATE `akun` SET `Username`='"+username+"',`password`='"+password+"' WHERE Id_Pegawai = '"+kode+"'";
+        DbOp.DatabaseExecutor(sql, true);
     }
         
        public void bersihkanform(){
@@ -243,14 +285,14 @@ public class TambahPegawai extends javax.swing.JFrame {
             }
         });
 
-        cmbgender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
+        cmbgender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "L", "P" }));
         cmbgender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbgenderActionPerformed(evt);
             }
         });
 
-        cmbakses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
+        cmbakses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AKTIF", "TIDAK AKTIF" }));
         cmbakses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbaksesActionPerformed(evt);
@@ -507,7 +549,20 @@ bersihkanform();
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
-    Tambahpegawai();
+    
+    
+        if (mode.equalsIgnoreCase("tambah")) {
+            Tambahpegawai();
+            tambahAkun();
+        }
+        
+        if (mode.equalsIgnoreCase("edit")) {
+            editAkun();
+            editpegawai();
+        }
+        JOptionPane.showMessageDialog(null, "data telah disimpan");
+        bersihkanform();
+        this.setVisible(false);
     }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void cmbstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbstatusActionPerformed
@@ -516,8 +571,13 @@ bersihkanform();
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        try {
         String kode = generateCode();
         txtkode.setText(kode);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "mohon masukan tanggal terlebih dahulu");
+        }
         
         
     }//GEN-LAST:event_jButton1ActionPerformed

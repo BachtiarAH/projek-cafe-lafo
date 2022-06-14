@@ -247,7 +247,6 @@ public class MainJframe extends javax.swing.JFrame {
         jLabel56 = new javax.swing.JLabel();
         tgldaftar1 = new com.toedter.calendar.JDateChooser();
         btnsimpan1 = new javax.swing.JButton();
-        btnhapus1 = new javax.swing.JButton();
         cmbstatus = new javax.swing.JComboBox<>();
         jLabel57 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
@@ -837,7 +836,7 @@ public class MainJframe extends javax.swing.JFrame {
         jTextFieldNomerTelpSuplier.setPreferredSize(new java.awt.Dimension(360, 48));
 
         labelTxtFldKdSupp3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        labelTxtFldKdSupp3.setText("Nomor Suplier");
+        labelTxtFldKdSupp3.setText("Nomor HP Suplier");
 
         jButton12.setBackground(new java.awt.Color(146, 147, 147));
         jButton12.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -2007,13 +2006,6 @@ public class MainJframe extends javax.swing.JFrame {
             }
         });
 
-        btnhapus1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icon/Frame 27.png"))); // NOI18N
-        btnhapus1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnhapus1ActionPerformed(evt);
-            }
-        });
-
         cmbstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AKTIF", "TIDAK AKTIF" }));
         cmbstatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2076,9 +2068,7 @@ public class MainJframe extends javax.swing.JFrame {
                                 .addComponent(jLabel57)
                                 .addComponent(cmbstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(nonadminLayout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(btnhapus1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(400, 400, 400)
                         .addComponent(btnsimpan1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(56, 56, 56))
         );
@@ -2133,9 +2123,7 @@ public class MainJframe extends javax.swing.JFrame {
                             .addComponent(tgldaftar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(23, 23, 23)))
                 .addGap(24, 24, 24)
-                .addGroup(nonadminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnhapus1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnsimpan1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnsimpan1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(588, 588, 588)
                 .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -3079,6 +3067,14 @@ public class MainJframe extends javax.swing.JFrame {
         }
     }
     
+    public void editAkun(){
+        String username = txtpassword2.getText();
+        String password = txtpassword1.getText();
+        String kode = txtkode1.getText();
+        String sql = "UPDATE `akun` SET `Username`='"+username+"',`password`='"+password+"' WHERE Id_Pegawai = '"+kode+"'";
+        OperatorDbLafo.DatabaseExecutor(sql, true);
+    }
+    
     public void pegawaiMasuk(){
         String password = "";
         String username = "";
@@ -3110,6 +3106,9 @@ public class MainJframe extends javax.swing.JFrame {
         cmbakses1.setSelectedItem(pgw.getHakAkses());
         txtpassword1.setText(password);
     }
+    
+    
+    
     //</editor-fold>
     
     //data barang  <editor-fold defaultstate="collapsed" desc="Fungsi Menu">
@@ -3923,11 +3922,9 @@ public class MainJframe extends javax.swing.JFrame {
     private void btnsimpan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpan1ActionPerformed
 
         editpegawai();
+        editAkun();
+        JOptionPane.showMessageDialog(null, "data sudah disimpan");
     }//GEN-LAST:event_btnsimpan1ActionPerformed
-
-    private void btnhapus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapus1ActionPerformed
-//        bersihkanform();
-    }//GEN-LAST:event_btnhapus1ActionPerformed
 
     private void cmbstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbstatusActionPerformed
         // TODO add your handling code here:
@@ -3942,22 +3939,18 @@ public class MainJframe extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        tambahPegawai.setMode("tambah");
         tambahPegawai.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jTableUser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUser1MouseClicked
         // TODO add your handling code here:
+        tambahPegawai.setMode("edit");
         klikPegawai();
     }//GEN-LAST:event_jTableUser1MouseClicked
 
     private void jPanelTotalTransaksi2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTotalTransaksi2MouseClicked
         // TODO add your handling code here:
-        jTableDetailLaporan.setVisible(false);
-        modeLaporan = "menu";
-        if (checkboxFilter.isSelected()) {
-            tampilLaporanMenuWithFilter();
-        }
-        diplayMenuTerlaris("");
     }//GEN-LAST:event_jPanelTotalTransaksi2MouseClicked
 
     private void txtpassword2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassword2ActionPerformed
@@ -4035,7 +4028,6 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JPanel ManajemenData;
     private javax.swing.JPanel Navigasi;
     private javax.swing.JPanel Users;
-    private javax.swing.JButton btnhapus1;
     private javax.swing.JButton btnsimpan1;
     private javax.swing.JPanel cardTotalBarang;
     private javax.swing.JPanel cardTotalDiscount;
