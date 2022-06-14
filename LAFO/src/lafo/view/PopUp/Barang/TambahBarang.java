@@ -166,6 +166,8 @@ public class TambahBarang extends javax.swing.JFrame {
 //        jTextFieldNamaBarang.setText(MainJframe.jTableBarang.getValueAt(jTableBarang.getSelectedRow(), 1).toString());
     }
     
+    
+    
    
 
     /**
@@ -342,7 +344,7 @@ public class TambahBarang extends javax.swing.JFrame {
 
     private void jButtonSubmitBArangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitBArangActionPerformed
         // TODO add your handling code here:
-        if (!(jTextFieldKodeBarang.getText().equalsIgnoreCase("") && jTextFieldNamaBarang.getText().equalsIgnoreCase(""))) {
+        if ((!jTextFieldKodeBarang.getText().isEmpty() && !jTextFieldNamaBarang.getText().equalsIgnoreCase(""))) {
         tambahBarang();
         RefreshTabelBarang();
         this.setVisible(false);
@@ -429,7 +431,7 @@ public class TambahBarang extends javax.swing.JFrame {
     public javax.swing.JButton jButtonUpdateBarang;
     private javax.swing.JComboBox<String> jComboBoxSatuan;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextFieldKodeBarang;
+    public javax.swing.JTextField jTextFieldKodeBarang;
     private javax.swing.JTextField jTextFieldNamaBarang;
     private java.awt.Label label1;
     private java.awt.Label label2;
