@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jun 2022 pada 14.44
+-- Waktu pembuatan: 14 Jun 2022 pada 16.35
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.12
 
@@ -26,6 +26,8 @@ DELIMITER $$
 -- Prosedur
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `countResep` (IN `kodeMenu` CHAR(5), OUT `jumlah` INT)  SELECT COUNT(resep.kode_Barang) INTO jumlah FROM resep WHERE resep.kode_Menu = `kodeMenu`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSumTotalSuplai` (IN `kode` CHAR(13), OUT `jumlah` FLOAT)  SELECT SUM(detail_suplai.harga_beli) INTO jumlah FROM detail_suplai WHERE detail_suplai.Kode_Menyuplai = kode$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_Jum_diskon` (IN `kodeDiskon` CHAR(13), OUT `jumlahDiskon` FLOAT)  SELECT diskon.jumlah_diskon INTO jumlahDiskon FROM diskon WHERE diskon.kode_diskon = kodeDiskon$$
 
@@ -124,11 +126,11 @@ INSERT INTO `barang` (`kode_Barang`, `Nama_barang`, `satuan`, `stok`) VALUES
 ('8991002105584', 'KOPI KAPAL API', 'buah', 3),
 ('BRAL01', 'alpukat', 'buah', 10),
 ('BRAP01', 'apel', 'buah', 9),
-('BRG002', 'Kopi bubuk', 'gram', -46),
+('BRG002', 'Kopi bubuk', 'gram', 4),
 ('BRG003', 'MILO', 'buah', 2),
 ('BRGU01', 'gula pasir', 'gram', 12),
 ('BRJE01', 'jeruk', 'buah', 50),
-('BRKO01', 'kopi luak', 'buah', 4),
+('BRKO01', 'kopi luak', 'gram', 4),
 ('BRLU02', 'kopi luak', 'buah', 4),
 ('BRNE01', 'Nesscafe', 'buah', 3),
 ('BRSU01', 'susu uht', 'liter', 4),
@@ -168,6 +170,7 @@ INSERT INTO `detail_suplai` (`harga_beli`, `qty`, `Id_detail_suplai`, `satuan`, 
 (40000, 4, 'DSUP140622002', 'buah', 'MSP14062202', 'BRGU01', 4, 10000),
 (200000, 40, 'DSUP140622003', 'buah', 'MSP14062203', 'BRGU01', 40, 5000),
 (10000, 10, 'DSUP140622004', 'buah', 'MSP14062204', 'BRAP01', 10, 1000),
+(300000, 50, 'DSUP140622005', 'gram', 'MSP14062205', 'BRG002', 50, 6000),
 (18000, 12, 'DSUP23052201', 'buah', 'MSP2305220001', 'BRGU01', 12, 1500),
 (45000, 30, 'DSUP23052202', 'buah', 'MSP2305220001', 'BRNE01', 30, 1500),
 (12000, 12, 'DSUP23052203', 'buah', 'MSP2305220002', 'BRLU02', 12, 1000),
@@ -192,6 +195,17 @@ INSERT INTO `detail_suplai` (`harga_beli`, `qty`, `Id_detail_suplai`, `satuan`, 
 --
 DELIMITER $$
 CREATE TRIGGER `tambahStokBarang` AFTER INSERT ON `detail_suplai` FOR EACH ROW UPDATE barang SET barang.stok = barang.stok + new.stok WHERE barang.kode_Barang = new.kode_Barang
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateTotalSuplai` AFTER INSERT ON `detail_suplai` FOR EACH ROW BEGIN
+
+DECLARE `total` FLOAT;
+ CALL `getSumTotalSuplai`(new.Kode_Menyuplai, `total`);
+ 
+ UPDATE menyuplai SET menyuplai.total = `total` WHERE menyuplai.Kode_Menyuplai = new.Kode_Menyuplai;
+
+END
 $$
 DELIMITER ;
 
@@ -343,6 +357,7 @@ INSERT INTO `menyuplai` (`Kode_Menyuplai`, `Tanggal_menyuplai`, `kode_suplaier`,
 ('MSP14062202', '2022-06-14', 'SUP12062201', 'ADM12062201', 0),
 ('MSP14062203', '2022-06-14', 'SUP15052201', 'ADM12062201', 0),
 ('MSP14062204', '2022-06-14', 'SUP05052201', 'ADM12062201', 0),
+('MSP14062205', '2022-06-14', 'SUP05052202', 'ADM12062201', 300000),
 ('MSP2305220001', '2022-05-23', 'SUP05052202', 'ADM05052201', 0),
 ('MSP2305220002', '2022-05-23', 'SUP15052201', 'ADM05052201', 0),
 ('MSP2405220003', '2022-05-24', 'SUP15052202', 'ADM05052201', 0),
