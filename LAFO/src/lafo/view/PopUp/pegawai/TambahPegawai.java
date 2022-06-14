@@ -551,14 +551,15 @@ bersihkanform();
         if (mode.equalsIgnoreCase("edit")) {
             editAkun();
             editpegawai();
+            JOptionPane.showMessageDialog(null, "data telah disimpan");
         }
-        JOptionPane.showMessageDialog(null, "data telah disimpan");
         bersihkanform();
         this.setVisible(false);
     }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         try {
         String kode = generateCode();
         txtkode.setText(kode);

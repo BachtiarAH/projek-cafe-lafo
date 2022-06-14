@@ -202,7 +202,7 @@ public class MainJframe extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLaporan = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
+        jButtonExport = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jPanelTotalTransaksi1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -1277,8 +1277,12 @@ public class MainJframe extends javax.swing.JFrame {
         jScrollPanelKategori1.setViewportView(diskon_tabel);
 
         fieldPencarianKategori1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        fieldPencarianKategori1.setText("Cari Discount");
         fieldPencarianKategori1.setPreferredSize(new java.awt.Dimension(485, 51));
+        fieldPencarianKategori1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldPencarianKategori1KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1376,7 +1380,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(containerTabelBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(433, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1597,13 +1601,13 @@ public class MainJframe extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableLaporan);
 
-        jButton5.setBackground(new java.awt.Color(241, 102, 52));
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton5.setText("Export");
-        jButton5.setPreferredSize(new java.awt.Dimension(174, 47));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButtonExport.setBackground(new java.awt.Color(241, 102, 52));
+        jButtonExport.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jButtonExport.setText("Export");
+        jButtonExport.setPreferredSize(new java.awt.Dimension(174, 47));
+        jButtonExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButtonExportActionPerformed(evt);
             }
         });
 
@@ -1754,7 +1758,7 @@ public class MainJframe extends javax.swing.JFrame {
                             .addGroup(LaporanLayout.createSequentialGroup()
                                 .addComponent(checkboxFilter)
                                 .addGap(34, 34, 34)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(LaporanLayout.createSequentialGroup()
                                 .addComponent(jPanelTotalTransaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(34, 34, 34)
@@ -1773,10 +1777,10 @@ public class MainJframe extends javax.swing.JFrame {
                             .addComponent(jLabelPengeluaran, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelKeuntungan, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(154, 154, 154))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LaporanLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(LaporanLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPanedetail, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1810,7 +1814,7 @@ public class MainJframe extends javax.swing.JFrame {
                 .addGroup(LaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LaporanLayout.createSequentialGroup()
                         .addGap(88, 88, 88)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LaporanLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1835,8 +1839,12 @@ public class MainJframe extends javax.swing.JFrame {
         jLabel43.setText("Daftar Pegawai");
 
         jTextField6.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jTextField6.setText("Cari");
         jTextField6.setPreferredSize(new java.awt.Dimension(676, 54));
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField6KeyReleased(evt);
+            }
+        });
 
         jButton10.setBackground(new java.awt.Color(241, 102, 52));
         jButton10.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -1904,7 +1912,7 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(463, Short.MAX_VALUE))
+                .addContainerGap(562, Short.MAX_VALUE))
         );
 
         Users.add(forAdmin, "card6");
@@ -2788,13 +2796,6 @@ public class MainJframe extends javax.swing.JFrame {
      
      
     
-    //fungsi pada DataUser
-    private  void DisplaytabelUser(){
-        String sql= "SELECT * FROM `pegawai`";
-        String[] header = {"ID","Nama","Gender","Alamt","No Hp","Status","gabung","hak akses"};
-        OperatorDbLafo.tabel(sql, header, jTableUser1);
-        
-    }
     
     //fungsi pada Data Barang
     public void DisplayTabelBarang(){
@@ -2854,6 +2855,7 @@ public class MainJframe extends javax.swing.JFrame {
                 if(angka.length() == 1) {
                     nol = "0";
                 } else {
+
                     nol = "";
                 }
                 
@@ -2942,8 +2944,11 @@ public class MainJframe extends javax.swing.JFrame {
          }
      }
      
-     public void cariDiskon(){
+     public void cariDiskon(String cari){
+         String sql = "SELECT * FROM `diskon` WHERE diskon.nama LIKE '%"+cari+"%'";
+         String[] kolom = {"kode_diskon", "jumlah_diskon", "tenggat_diskon", "nama"};
          
+         OperatorDbLafo.tabel(sql, kolom, diskon_tabel);
      }
      
      public void displayTabelDiskon() {
@@ -3009,7 +3014,21 @@ public class MainJframe extends javax.swing.JFrame {
     //</editor-fold>
     
     // jFrame Event <editor-fold defaultstate="collapsed" desc="Fungsi Data Pegawai">
+     
+        //fungsi pada DataUser
+    private  void DisplaytabelUser(){
+        String sql= "SELECT * FROM `pegawai`";
+        String[] header = {"ID","Nama","Gender","Alamt","No Hp","Status","gabung","hak akses"};
+        OperatorDbLafo.tabel(sql, header, jTableUser1);
         
+    }
+    
+    public void cariUser(String cari){
+        String sql = "SELECT * FROM `pegawai` WHERE pegawai.Nama_Pegawai LIKE '%"+cari+"%'";
+        String[] header = {"ID","Nama","Gender","Alamt","No Hp","Status","gabung","hak akses"};
+        OperatorDbLafo.tabel(sql, header, jTableUser1);
+    }
+    
     public void klikPegawai(){
         String kodePgw = jTableUser1.getValueAt(jTableUser1.getSelectedRow(), 0).toString();
         String NamaPgw = jTableUser1.getValueAt(jTableUser1.getSelectedRow(), 1).toString();
@@ -3401,7 +3420,7 @@ public class MainJframe extends javax.swing.JFrame {
         ReturBarang.setVisible(true);
     }//GEN-LAST:event_ButtonReturActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButtonExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportActionPerformed
            // TODO add your handling code here:
            int bulan = jMonthChooser1.getMonth() + 1;
            int tahun = jYearChooser1.getYear();
@@ -3433,7 +3452,7 @@ public class MainJframe extends javax.swing.JFrame {
                    CetakLaporanSuplai("");
                }
            }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButtonExportActionPerformed
 
     private void jTextFieldBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBayarActionPerformed
         // TODO add your handling code here:
@@ -3598,6 +3617,7 @@ public class MainJframe extends javax.swing.JFrame {
     private void ButtornTambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtornTambah1ActionPerformed
         // TODO add your handling code here:
         tm.setMode("tambah");
+       
         tm.setVisible(true);
     }//GEN-LAST:event_ButtornTambah1ActionPerformed
 
@@ -3752,6 +3772,7 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         modeLaporan = "transaksi";
         jScrollPanedetail.setVisible(true);
+        jButtonExport.setVisible(true);
         if (checkboxFilter.isSelected()) {
             tampilLaporanTransaksiWithFilter();
         }
@@ -3762,6 +3783,7 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         tampilLaporan();
         jScrollPanedetail.setVisible(true);
+        jButtonExport.setVisible(true);
         modeLaporan = "suplai";
     }//GEN-LAST:event_jPanelTotalTransaksi1MouseClicked
 
@@ -3947,6 +3969,7 @@ public class MainJframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         modeLaporan = "menu";
         jScrollPanedetail.setVisible(false);
+        jButtonExport.setVisible(false);
         tampilLaporan();
     }//GEN-LAST:event_jPanelTotalTransaksi2MouseClicked
 
@@ -3957,6 +3980,18 @@ public class MainJframe extends javax.swing.JFrame {
     private void cmbstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbstatusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbstatusActionPerformed
+
+    private void fieldPencarianKategori1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldPencarianKategori1KeyReleased
+        // TODO add your handling code here:
+        String cari = fieldPencarianKategori1.getText();
+        cariDiskon(cari);
+    }//GEN-LAST:event_fieldPencarianKategori1KeyReleased
+
+    private void jTextField6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyReleased
+        // TODO add your handling code here:
+        String cari = jTextField6.getText();
+        cariUser(cari);
+    }//GEN-LAST:event_jTextField6KeyReleased
 
     
 //</editor-fold>
@@ -4053,11 +4088,11 @@ public class MainJframe extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonClear;
+    private javax.swing.JButton jButtonExport;
     private javax.swing.JButton jButtonInsertDiskon;
     private javax.swing.JButton jButtonSubmit;
     private javax.swing.JButton jButtonTambahSuplier;

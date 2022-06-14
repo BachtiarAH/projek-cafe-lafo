@@ -552,6 +552,7 @@ public class PopUpTambahMenu extends javax.swing.JFrame {
 
     private void jButtonEditKodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditKodeActionPerformed
         // TODO add your handling code here:
+        ib.displayBarang("");
         ib.setVisible(true);
     }//GEN-LAST:event_jButtonEditKodeActionPerformed
 
