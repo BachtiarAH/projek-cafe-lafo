@@ -151,9 +151,10 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icon/logog cafe lafo rondok genah.png"))); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(80, 137));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel3.setText("Username");
 
-        jTextFieldUsername.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextFieldUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldUsername.setPreferredSize(new java.awt.Dimension(380, 41));
         jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,11 +162,13 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel4.setText("Password");
 
         ButtonLogin.setBackground(new java.awt.Color(241, 102, 52));
-        ButtonLogin.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        ButtonLogin.setText("login");
+        ButtonLogin.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        ButtonLogin.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonLogin.setText("Masuk");
         ButtonLogin.setPreferredSize(new java.awt.Dimension(380, 41));
         ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,6 +176,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jPasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldActionPerformed(evt);
