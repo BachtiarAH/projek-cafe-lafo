@@ -3057,11 +3057,17 @@ public class MainJframe extends javax.swing.JFrame {
     
     //fungsi data diskon <editor-fold defaultstate="collapsed" desc="Fungsi Laporan">
     
+    public void setVisibleDatePicker(boolean set){
+        jMonthChooser1.setVisible(set);
+        jYearChooser1.setVisible(set);
+        checkboxFilter.setVisible(set);
+    }
+    
     public void displayBarangKritis(){
         String sql = "SELECT barang.Nama_barang, barang.stok FROM barang WHERE barang.stok <=5 ";
         String[] header = {"nama barang", "stok"};
         OperatorDbLafo.tabel(sql, header, jTableLaporan);
-        checkboxFilter.setVisible(false);
+        
     }
     
     public void diplayMenuTerlaris(String filter){
@@ -3699,6 +3705,7 @@ public class MainJframe extends javax.swing.JFrame {
             tampilLaporanTransaksiWithFilter();
         }
         tampilLaporan();
+        setVisible(true);
     }//GEN-LAST:event_jPanelTotalTransaksiMouseClicked
 
     private void jPanelTotalTransaksi1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTotalTransaksi1MouseClicked
@@ -3707,6 +3714,7 @@ public class MainJframe extends javax.swing.JFrame {
         jScrollPanedetail.setVisible(true);
         jButtonExport.setVisible(true);
         modeLaporan = "suplai";
+        setVisibleDatePicker(true);
     }//GEN-LAST:event_jPanelTotalTransaksi1MouseClicked
 
     private void jTableLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLaporanMouseClicked
@@ -3893,6 +3901,7 @@ public class MainJframe extends javax.swing.JFrame {
         jScrollPanedetail.setVisible(false);
         jButtonExport.setVisible(false);
         tampilLaporan();
+        setVisibleDatePicker(true);
     }//GEN-LAST:event_jPanelTotalTransaksi2MouseClicked
 
     private void txtpassword2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassword2ActionPerformed
@@ -3925,6 +3934,7 @@ public class MainJframe extends javax.swing.JFrame {
         tampilLaporan();
         jScrollPanedetail.setVisible(false);
         jButtonExport.setVisible(false);
+        setVisibleDatePicker(false);
     }//GEN-LAST:event_jPanelTotalTransaksi3MouseClicked
 
     
