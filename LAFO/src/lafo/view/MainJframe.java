@@ -1712,6 +1712,7 @@ public class MainJframe extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel24.setText("Total Keuntungan");
 
+<<<<<<< Updated upstream
         jLabelKeuntungan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabelKeuntungan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelKeuntungan.setText("0");
@@ -1754,6 +1755,10 @@ public class MainJframe extends javax.swing.JFrame {
                     .addComponent(jLabel24))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+=======
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel8.setText("TABEL CONTENT ");
+>>>>>>> Stashed changes
 
         javax.swing.GroupLayout LaporanLayout = new javax.swing.GroupLayout(Laporan);
         Laporan.setLayout(LaporanLayout);
